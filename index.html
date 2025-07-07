@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego con Inventario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .estado {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .pregunta {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .opcion {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .opcion:hover {
+      background: #0b7dda;
+    }
+
+    .reiniciar {
+      margin-top: 20px;
+      padding: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .reiniciar:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="estado" class="estado"></div>
+  <div id="juego"></div>
+
+  <script>
+
+    function cargarJuego() {
+  const guardado = localStorage.getItem("miJuegoGuardado");
+  if (guardado) {
+    const estado = JSON.parse(guardado);
+    vidas = estado.vidas;
+    puntos = estado.puntos;
+    inventario = estado.inventario;
+    escenaActual = estado.escenaActual;
+    mostrarEscena(escenaActual);
+    return true;
+  }
+  return false;
+}
+
+
+    let vidas = 3;
+    let puntos = 0;
+    let inventario = [];
+
+    const preguntas = {
+      inicio: {
+        texto: "Estás en una sala con dos puertas. ¿Cuál eliges?",
+        opciones: [
+          { texto: "Puerta roja", destino: "puertaRoja" },
+          { texto: "Puerta azul", destino: "puertaAzul" }
+        ]
+      },
+      puertaRoja: {
+        texto: "Encuentras un dragón dormido. ¿Qué haces?",
+        opciones: [
+          { texto: "Pasar sin hacer ruido", destino: "suerte", puntos: 10 },
+          { texto: "Atacar al dragón", destino: "finalMalo", restarVida: 1 }
+        ]
+      },
+      puertaAzul: {
+        texto: "Encuentras un cofre cerrado. ¿Qué haces?",
+        opciones: [
+          { texto: "Abrir el cofre", destino: "tesoro", puntos: 20, obtener: "llave dorada" },
+          { texto: "Ignorarlo y seguir", destino: "pasilloOscuro" },
+          { texto: "Intentar abrir la puerta secreta", destino: "entradaSalaSecreta" }
+        ]
+      },
+      suerte: {
+        texto: "Pasaste sin hacer ruido. ¡Estás a salvo!",
+        opciones: [
+          { texto: "Volver al inicio", destino: "inicio" }
+        ]
+      },
+      finalMalo: {
+        texto: "El dragón se despierta y te ataca. Pierdes una vida.",
+        opciones: [
+          { texto: "Volver al inicio", destino: "inicio" }
+        ]
+      },
+      tesoro: {
+        texto: "¡Encontraste oro y una llave dorada!",
+        opciones: [
+          { texto: "Volver al inicio", destino: "inicio" }
+        ]
+      },
+      pasilloOscuro: {
+        texto: "Te perdiste en un pasillo sin salida... -1 vida.",
+        opciones: [
+          { texto: "Regresar", destino: "inicio", restarVida: 1 }
+        ]
+      },
+      entradaSalaSecreta: {
+        texto: "Intentás abrir una puerta misteriosa...",
+        opciones: [] // será controlado por lógica
+      },
+      salaSecreta: {
+        texto: "¡La puerta se abre! Encontraste una sala llena de tesoros ocultos. +50 puntos.",
+        opciones: [
+          { texto: "Volver al inicio", destino: "inicio" }
+        ],
+        puntos: 50
+      },
+      gameOver: {
+        texto: "¡Game Over! Te quedaste sin vidas.",
+        opciones: []
+      }
+    };
+
+    const juego = document.getElementById("juego");
+    const estado = document.getElementById("estado");
+
+    function mostrarEstado() {
+      estado.textContent = `❤️ Vidas: ${vidas} | ⭐ Puntos: ${puntos} | 🎒 Inventario: ${inventario.join(", ") || "Vacío"}`;
+    }
+
+    function mostrarEscena(id) {
+  escenaActual = id;
+  guardarJuego();
+        if (vidas <= 0) {
+        juego.innerHTML = `<div class="pregunta">${preguntas["gameOver"].texto}</div>
+        <button class="reiniciar" onclick="reiniciarJuego()">Reiniciar</button>`;
+        mostrarEstado();
+        return;
+      }
+
+      // Verificamos la escena especial
+      if (id === "entradaSalaSecreta") {
+        if (inventario.includes("llave dorada")) {
+          puntos += preguntas["salaSecreta"].puntos || 0;
+          id = "salaSecreta";
+        } else {
+          juego.innerHTML = `<div class="pregunta">La puerta está cerrada. Necesitás una llave dorada para entrar.</div>
+          <button class="opcion" onclick="mostrarEscena('inicio')">Volver</button>`;if (!cargarJuego()) {
+  mostrarEscena("inicio");
+}
+
+          mostrarEstado();
+          return;
+        }
+      }
+
+      const escena = preguntas[id];
+      juego.innerHTML = `<div class="pregunta">${escena.texto}</div>`;
+
+      escena.opciones.forEach(opcion => {
+        const btn = document.createElement("button");
+        btn.className = "opcion";
+        btn.textContent = opcion.texto;
+
+        btn.onclick = () => {
+          if (opcion.puntos) puntos += opcion.puntos;
+          if (opcion.restarVida) vidas -= opcion.restarVida;
+          if (opcion.obtener && !inventario.includes(opcion.obtener)) {
+            inventario.push(opcion.obtener);
+          }
+          mostrarEscena(opcion.destino);
+        };
+
+        juego.appendChild(btn);
+      });
+
+      mostrarEstado();
+    }
+
+    function reiniciarJuego() {
+      vidas = 3;
+      puntos = 0;
+      inventario = [];
+      mostrarEscena("inicio");
+    }
+
+    mostrarEscena("inicio");
+
+    function guardarJuego() {
+  const estado = {
+    vidas,
+    puntos,
+    inventario,
+    escenaActual
+  };
+  localStorage.setItem("miJuegoGuardado", JSON.stringify(estado));
+}
+
+  </script>
+
+</body>
+</html>
