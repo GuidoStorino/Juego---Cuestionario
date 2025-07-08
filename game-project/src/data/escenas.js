@@ -1,4 +1,9 @@
+import { bosque } from "./bosque";
+import { casino } from "./casino";
+
 export const escenas = {
+    ...bosque,
+    ...casino,
   inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -29,9 +34,9 @@ export const escenas = {
     texto: "¿A dónde querés ir?",
     opciones: [
       { texto: "Playa", destino: "fin_playa", puntos: 10 },
-      { texto: "Casino", destino: "fin_casino", puntos: -10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
       { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
-      { texto: "Bosque", destino: "fin_bosque", puntos: 5 }
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
     ]
   },
   fin_boliche: { texto: "¡Noche agitada en el boliche!", opciones: [] },
