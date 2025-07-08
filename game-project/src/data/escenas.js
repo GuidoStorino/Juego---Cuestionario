@@ -1,0 +1,45 @@
+export const escenas = {
+  inicio: {
+    texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
+    opciones: [
+      { texto: "BUENOS AIRES", destino: "norte_objetos" },
+      { texto: "LA PLATA", destino: "sur_objetos" }
+    ]
+  },
+  norte_objetos: {
+    texto: "Aparece una caja frente a nosotros. Elegí uno:",
+    objetos: ["Linterna", "Mapa", "Cuerda"],
+    siguiente: "norte_destino"
+  },
+  sur_objetos: {
+    texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
+    objetos: ["Sombrilla", "Naipes", "Brújula"],
+    siguiente: "sur_destino"
+  },
+  norte_destino: {
+    texto: "¿A dónde querés ir?",
+    opciones: [
+      { texto: "Boliche", destino: "fin_boliche", puntos: -5 },
+      { texto: "Bar", destino: "fin_bar", puntos: 5 },
+      { texto: "Librería", destino: "fin_libreria", puntos: 10 },
+      { texto: "Teatro", destino: "fin_teatro", puntos: 5 }
+    ]
+  },
+  sur_destino: {
+    texto: "¿A dónde querés ir?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "fin_casino", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque", destino: "fin_bosque", puntos: 5 }
+    ]
+  },
+  fin_boliche: { texto: "¡Noche agitada en el boliche!", opciones: [] },
+  fin_bar: { texto: "Tranquilo momento en el bar.", opciones: [] },
+  fin_libreria: { texto: "Te perdés entre libros maravillosos.", opciones: [] },
+  fin_teatro: { texto: "Una obra te emociona hasta las lágrimas.", opciones: [] },
+  fin_playa: { texto: "Tomás sol y descansás en la arena.", opciones: [] },
+  fin_casino: { texto: "Perdés todo en la ruleta... Ups.", opciones: [] },
+  fin_bowling: { texto: "¡Pleno strike y diversión asegurada!", opciones: [] },
+  fin_bosque: { texto: "Te perdés, pero descubrís un lago secreto.", opciones: [] }
+};
