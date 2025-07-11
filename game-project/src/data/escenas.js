@@ -1,10 +1,11 @@
 import { bosque } from "./bosque";
 import { casino } from "./casino";
 
+
 export const escenas = {
     ...bosque,
     ...casino,
-  inicio: {
+    inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
       { texto: "BUENOS AIRES", destino: "norte_objetos" },
@@ -13,12 +14,21 @@ export const escenas = {
   },
   norte_objetos: {
     texto: "Aparece una caja frente a nosotros. Elegí uno:",
-    objetos: ["Linterna", "Mapa", "Cuerda"],
+    objetos: [
+      { nombre: "Linterna" }, 
+      { nombre: "Mapa"},
+      {nombre: "Cuerda"}
+    ],      
+
     siguiente: "norte_destino"
   },
   sur_objetos: {
     texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
-    objetos: ["Sombrilla", "Naipes", "Brújula"],
+    objetos: [ 
+          { nombre: "Linterna" }, 
+      { nombre: "Mapa"},
+      {nombre: "Cuerda"}
+    ],
     siguiente: "sur_destino"
   },
   norte_destino: {
@@ -31,7 +41,7 @@ export const escenas = {
     ]
   },
   sur_destino: {
-    texto: "¿A dónde querés ir?",
+    texto: "Llegamos al hotel. Luego de un pequeño descanso del viaje, estamos listos para salir. ¿A dónde te gustaría ir?",
     opciones: [
       { texto: "Playa", destino: "fin_playa", puntos: 10 },
       { texto: "Casino", destino: "casino_intro", puntos: -10 },
@@ -39,6 +49,35 @@ export const escenas = {
       { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
     ]
   },
+
+casino_intro: {
+  texto: "Estás en el casino. ¿Querés probar suerte en la ruleta?",
+  tipo: "casino",  // <<< esta línea es clave para que Escena.jsx muestre la ruleta
+  siguiente: "calle",
+  opciones: [
+      { texto: "Salir del casino", destino: "calle", puntos: 8000 }]
+},
+
+  sur_destino: {
+    texto: "Caminando por la calle, ¿a dónde irías?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+    ]
+  },
+
+  calle: {
+    texto: "Caminando por la calle, ¿a dónde irías?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+    ]
+  },
+
   fin_boliche: { texto: "¡Noche agitada en el boliche!", opciones: [] },
   fin_bar: { texto: "Tranquilo momento en el bar.", opciones: [] },
   fin_libreria: { texto: "Te perdés entre libros maravillosos.", opciones: [] },
