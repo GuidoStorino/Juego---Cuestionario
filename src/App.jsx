@@ -118,15 +118,17 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0) => {
       <Estado puntos={puntos} dinero={dinero} />
       <Inventario inventario={inventario} />
       <Escena
-        escena={{ ...escenas[escena], volver: historial.length > 0 ? volver : null, inventario }}
+  escena={{
+    ...escenas[escena],
+    volver: historial.length > 0 ? volver : null,
+    inventario: inventario // ✅ Agregamos el inventario a la escena
+  }}
+  avanzar={avanzar}
+  elegirObjeto={elegirObjeto}
+  actualizarEscena={actualizarEscena}
+  guardarRespuesta={guardarRespuestaTexto}
+/>
 
-        avanzar={avanzar}
-        elegirObjeto={elegirObjeto}
-        actualizarEscena={actualizarEscena}
-        guardarRespuesta={guardarRespuestaTexto}
-
-
-      />
       <button onClick={reiniciarJuego} style={{ marginTop: 20 }}>Reiniciar juego</button>
     </div>
   );

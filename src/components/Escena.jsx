@@ -2,10 +2,8 @@
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 
-
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
-
 
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
@@ -21,12 +19,11 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     }
   };
 
-if (escena.tipo === "casino") {
-  return <EscenaCasino escena={escena} avanzar={avanzar} />;
-}
+  if (escena.tipo === "casino") {
+    return <EscenaCasino escena={escena} avanzar={avanzar} />;
+  }
 
-
-    if (escena.final) {
+  if (escena.final) {
     return (
       <div className="final-escena" style={{ textAlign: "center", padding: 20, animation: "fadeIn 2s" }}>
         <h2>¡Final del recorrido!</h2>
@@ -35,70 +32,55 @@ if (escena.tipo === "casino") {
     );
   }
 
-  
-
-
-
   return (
     <div>
       <p>{escena.texto}</p>
 
-      {escena.opciones && escena.opciones.map((op, i) => (
+      {escena.opciones && escena.opciones.map((op, i) => {
+        const requiere = op.requiere;
+        const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
+        if (!tieneRequisito) return null;
+
+        return (
+          <button
+            key={i}
+            onClick={() => {
+              if (op.objeto) {
+                elegirObjeto(op.objeto);
+              }
+              avanzar(op.destino, op.puntos || 0, op.dinero || 0);
+            }}
+            style={{
+              display: "block",
+              margin: "8px 0",
+              border: "none",
+              background: "none",
+              padding: 0,
+              cursor: "pointer"
+            }}
+          >
+            {op.imagen ? (
+              <img
+                src={op.imagen}
+                alt={op.texto}
+                style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
+              />
+            ) : (
+              op.texto
+            )}
+          </button>
+        );
+      })}
+
+      {escena.objetos && escena.objetos.map((obj, i) => (
         <button
           key={i}
-          onClick={() => {
-  if (op.objeto) {
-    elegirObjeto(op.objeto);
-  }
-  avanzar(op.destino, op.puntos || 0, op.dinero || 0);
-}}
-
-          style={{ display: "block", margin: "8px 0", border: "none", background: "none", padding: 0, cursor: "pointer" }}
+          onClick={() => elegirObjeto(obj.nombre)}
+          style={{ display: "block", margin: "8px 0" }}
         >
-          {op.imagen ? (
-            <img
-              src={op.imagen}
-              alt={op.texto}
-              style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-            />
-          ) : (
-            op.texto
-          )}
+          Tomar {obj.nombre}
         </button>
       ))}
-
-{escena.opciones && escena.opciones.map((op, i) => {
-  const requiere = op.requiere;
-  const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
-
-  if (!tieneRequisito) return null; // oculta el botón si no tiene el objeto necesario
-
-  return (
-    <button
-      key={i}
-      onClick={() => avanzar(op.destino, op.puntos || 0, op.dinero || 0)}
-      style={{
-        display: "block",
-        margin: "8px 0",
-        border: "none",
-        background: "none",
-        padding: 0,
-        cursor: "pointer"
-      }}
-    >
-      {op.imagen ? (
-        <img
-          src={op.imagen}
-          alt={op.texto}
-          style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-        />
-      ) : (
-        op.texto
-      )}
-    </button>
-  );
-})}
-
 
       {escena.objetosComprar && escena.objetosComprar.map((obj, i) => (
         <button
@@ -130,7 +112,6 @@ if (escena.tipo === "casino") {
       )}
     </div>
   );
-
 }
 
 export default Escena;

@@ -49,12 +49,13 @@ function EscenaCasino({ escena, avanzar }) {
         />
         <button onClick={manejarApuesta} style={{ marginTop: 8 }}>Apostar</button>
 
-        {resultadoRuleta && (
-          <div style={{ marginTop: 16 }}>
-            <Ruleta numeroGanador={resultadoRuleta} girando={girando} />
-            {!girando && <p>La ruleta cayó en: {resultadoRuleta}</p>}
-          </div>
-        )}
+{resultadoRuleta !== null && (
+  <div style={{ marginTop: 16 }}>
+    <Ruleta numeroGanador={resultadoRuleta} girando={girando} />
+    {!girando && <p>La ruleta cayó en: {resultadoRuleta}</p>}
+  </div>
+)}
+
       </div>
 
 
@@ -67,5 +68,7 @@ function EscenaCasino({ escena, avanzar }) {
     </div>
   );
 }
+
+
 
 export default EscenaCasino;

@@ -5,8 +5,8 @@ function Ruleta({ numeroGanador, girando }) {
 
   useEffect(() => {
     if (girando) {
-      let totalGiros = 360 * 4 + (numeroGanador - 1) * 72; // 5 secciones = 360/5=72 grados
-      let duracion = 3000; // 3 segundos
+      const totalGiros = 360 * 4 + (numeroGanador - 1) * 72; // 5 secciones = 360/5 = 72 grados
+      const duracion = 3000;
       let inicio = null;
 
       function animar(timestamp) {
@@ -19,6 +19,7 @@ function Ruleta({ numeroGanador, girando }) {
           requestAnimationFrame(animar);
         }
       }
+
       requestAnimationFrame(animar);
     } else {
       setAngulo((numeroGanador - 1) * 72);
@@ -33,7 +34,10 @@ function Ruleta({ numeroGanador, girando }) {
         width="200"
         height="200"
         viewBox="0 0 200 200"
-        style={{ transform: `rotate(${angulo}deg)`, transition: girando ? "none" : "transform 0.5s ease-out" }}
+        style={{
+          transform: `rotate(${angulo}deg)`,
+          transition: girando ? "none" : "transform 0.5s ease-out"
+        }}
       >
         {secciones.map((num, i) => {
           const startAngle = i * 72;
@@ -63,7 +67,8 @@ function Ruleta({ numeroGanador, girando }) {
           );
         })}
       </svg>
-      {/* Indicador fijo */}
+
+      {/* Indicador */}
       <div
         style={{
           position: "absolute",
@@ -74,7 +79,7 @@ function Ruleta({ numeroGanador, girando }) {
           height: 0,
           borderLeft: "10px solid transparent",
           borderRight: "10px solid transparent",
-          borderBottom: "20px solid black",
+          borderBottom: "20px solid black"
         }}
       />
     </div>
