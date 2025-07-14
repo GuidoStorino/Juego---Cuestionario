@@ -1,5 +1,5 @@
 // src/App.jsx
-import "./styles.css"
+import "./App.css"
 import { useState, useEffect } from "react";
 import { escenas } from "./data/escenas";
 import Escena from "./components/Escena";
@@ -118,7 +118,8 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0) => {
       <Estado puntos={puntos} dinero={dinero} />
       <Inventario inventario={inventario} />
       <Escena
-        escena={{ ...escenas[escena], volver: historial.length > 0 ? volver : null }}
+        escena={{ ...escenas[escena], volver: historial.length > 0 ? volver : null, inventario }}
+
         avanzar={avanzar}
         elegirObjeto={elegirObjeto}
         actualizarEscena={actualizarEscena}

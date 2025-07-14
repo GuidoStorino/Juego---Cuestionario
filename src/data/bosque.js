@@ -13,7 +13,7 @@ export const bosque = {
   sendero_tierra: {
     texto: "Las hojas doradas comienzan a caer como una lluvia incesante. ¿Qué hacés?",
     opciones: [
-    { texto: "Seguir por el sendero. En algún momento pararán.", destino: "bosque_secreto"}, 
+    { texto: "Seguir por el sendero. En algún momento pararán.", destino: "atula_estatua"}, 
     {texto: "Salirte del camino", destino: "cabana_bosque" }]
   },
 
@@ -43,13 +43,20 @@ export const bosque = {
 
   
 
-  bosque_secreto: {
-    texto: "Llegás a una cabaña escondida en la niebla.",
+  atula_estatua: {
+    texto: "Una estatua oscura y de aspecto femenino se ve a unos pasos. A sus pies yace una inscripción. Preferís que la inscripción diga:",
     opciones: [
-      { texto: "Entrar en la cabaña", destino: "fin_cabana" },
-      { texto: "Rodearla y seguir", destino: "fin_bosque" }
+      { texto: "Has encontrado la estatua de Atula. La contemplación de su figura y la lectura de este escrito la hará cobrar vida. Tu destino está marcado.", objeto: "espada", destino: "atula_vida" },
+      { texto: "Has encontrado la estatua de Atula. Bienaventurada seas. Tu fe en ella te ayudará a seguir por este bosque", destino: "pasos_bosque" }
+   ]
+  },
+  atula_vida: {
+    texto: "La inmovilidad de la estatua se convierte en una mujer enorme y de aspecto macabro. Inmediatamente te mira con ojos fijos y furiosos. De a poco, levanta una mano para atacarte con alguna magia. ¿Qué hacés en esta situación?",
+    opciones: [
+      {texto: "espada", destino: "espada", requiere: "espada"}
     ]
   },
+
   cabana_bosque: {
     texto: "Te agitaste y perdiste.",
     opciones: [

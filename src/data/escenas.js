@@ -24,10 +24,12 @@ export const escenas = {
   },
   sur_objetos: {
     texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
-    objetos: [ 
-          { nombre: "Linterna" }, 
-      { nombre: "Mapa"},
-      {nombre: "Cuerda"}
+    opciones: [
+    {texto: "Mapa", objeto: "mapa",
+      texto: "cuerda", objeto: "cuerda",
+      texto: "reloj", objeto: "reloj"
+
+    }
     ],
     siguiente: "sur_destino"
   },
