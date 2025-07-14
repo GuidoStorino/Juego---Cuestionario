@@ -1,0 +1,89 @@
+import { bosque } from "./bosque";
+import { casino } from "./casino";
+
+
+export const escenas = {
+    ...bosque,
+    ...casino,
+    inicio: {
+    texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
+    opciones: [
+      { texto: "BUENOS AIRES", destino: "norte_objetos" },
+      { texto: "LA PLATA", destino: "sur_objetos" }
+    ]
+  },
+  norte_objetos: {
+    texto: "Aparece una caja frente a nosotros. Elegí uno:",
+    objetos: [
+      { nombre: "Linterna" }, 
+      { nombre: "Mapa"},
+      {nombre: "Cuerda"}
+    ],      
+
+    siguiente: "norte_destino"
+  },
+  sur_objetos: {
+    texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
+    objetos: [ 
+          { nombre: "Linterna" }, 
+      { nombre: "Mapa"},
+      {nombre: "Cuerda"}
+    ],
+    siguiente: "sur_destino"
+  },
+  norte_destino: {
+    texto: "¿A dónde querés ir?",
+    opciones: [
+      { texto: "Boliche", destino: "fin_boliche", puntos: -5 },
+      { texto: "Bar", destino: "fin_bar", puntos: 5 },
+      { texto: "Librería", destino: "fin_libreria", puntos: 10 },
+      { texto: "Teatro", destino: "fin_teatro", puntos: 5 }
+    ]
+  },
+  sur_destino: {
+    texto: "Llegamos al hotel. Luego de un pequeño descanso del viaje, estamos listos para salir. ¿A dónde te gustaría ir?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+    ]
+  },
+
+casino_intro: {
+  texto: "Estás en el casino. ¿Querés probar suerte en la ruleta?",
+  tipo: "casino",  // <<< esta línea es clave para que Escena.jsx muestre la ruleta
+  siguiente: "calle",
+  opciones: [
+      { texto: "Salir del casino", destino: "calle", puntos: 8000 }]
+},
+
+  sur_destino: {
+    texto: "Caminando por la calle, ¿a dónde irías?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+    ]
+  },
+
+  calle: {
+    texto: "Caminando por la calle, ¿a dónde irías?",
+    opciones: [
+      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Casino", destino: "casino_intro", puntos: -10 },
+      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+    ]
+  },
+
+  fin_boliche: { texto: "¡Noche agitada en el boliche!", opciones: [], final: true },
+  fin_bar: { texto: "Tranquilo momento en el bar.", opciones: [], final: true },
+  fin_libreria: { texto: "Te perdés entre libros maravillosos.", opciones: [], final: true },
+  fin_teatro: { texto: "Una obra te emociona hasta las lágrimas.", opciones: [] },
+  fin_playa: { texto: "Tomás sol y descansás en la arena.", opciones: [] },
+  fin_casino: { texto: "Perdés todo en la ruleta... Ups.", opciones: [] },
+  fin_bowling: { texto: "¡Pleno strike y diversión asegurada!", opciones: [] },
+  fin_bosque: { texto: "Te perdés, pero descubrís un lago secreto.", opciones: [] }
+};
