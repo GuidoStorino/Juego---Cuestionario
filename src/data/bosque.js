@@ -63,7 +63,9 @@ arturo: {
     texto: "ganaste"
   },
 
-
+  atula_sal: {
+    texto: "ganaste"
+  },
 
     campo_flores: {
     texto: "El campo es realmente inmenso. Hay flores y más flores hacia todas partes.",
