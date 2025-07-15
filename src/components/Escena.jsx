@@ -40,16 +40,21 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   <button
     key={i}
     onClick={() => {
-      const requiere = op.requiere;
-      if (requiere && (!escena.inventario || !escena.inventario.includes(requiere))) {
-        alert(`Necesitás ${requiere} para hacer esto.`);
-        return;
-      }
-      if (op.objeto) {
-        elegirObjeto(op.objeto);
-      }
-      avanzar(op.destino, op.puntos || 0, op.dinero || 0);
-    }}
+  const requiere = op.requiere;
+
+  if (op.requiere && (!escena.inventario || !escena.inventario.includes(requiere))) {
+    alert(`Necesitás ${requiere} para hacer esto.`);
+    return; // no avanza ni agrega objeto
+  }
+
+  // SOLO agregar objeto si la opción tiene objeto Y no es de requerimiento
+  if (op.objeto && !op.requiere) {
+    elegirObjeto(op.objeto);
+  }
+
+  avanzar(op.destino, op.puntos || 0, op.dinero || 0);
+}}
+
     style={{
       display: "block",
       margin: "8px 0",

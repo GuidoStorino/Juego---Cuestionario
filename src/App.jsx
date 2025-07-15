@@ -80,20 +80,24 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0) => {
     });
   };
 
-  const elegirObjeto = (objeto, costo = 0) => {
-    if (estado.dinero >= costo) {
-      const siguiente = escenas[escena].siguiente;
-      setEstado((prev) => ({
-        ...prev,
-        inventario: [...prev.inventario, objeto],
-        dinero: prev.dinero - costo,
-        escena: siguiente,
-        historial: [...prev.historial, prev.escena]
-      }));
-    } else {
-      alert("No tenés suficiente dinero para comprar este objeto.");
-    }
-  };
+const elegirObjeto = (objeto, costo = 0) => {
+  if (estado.dinero < costo) {
+    alert("No tenés suficiente dinero para comprar este objeto.");
+    return;
+  }
+  if (estado.inventario.includes(objeto)) {
+    // Ya tenés este objeto, no lo agregues de nuevo
+    return;
+  }
+  const siguiente = escenas[estado.escena].siguiente;
+  setEstado(prev => ({
+    ...prev,
+    inventario: [...prev.inventario, objeto],
+    dinero: prev.dinero - costo,
+    escena: siguiente,
+    historial: [...prev.historial, prev.escena]
+  }));
+};
 
   const actualizarEscena = (nuevaEscena) => {
     setEstado((prev) => ({ ...prev, escena: nuevaEscena }));
@@ -117,17 +121,20 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0) => {
     <div style={{ maxWidth: 600, margin: "auto", padding: 20, fontFamily: "sans-serif" }}>
       <Estado puntos={puntos} dinero={dinero} />
       <Inventario inventario={inventario} />
-      <Escena
+    console.log("Inventario actual:", estado.inventario);
+
+<Escena
   escena={{
-    ...escenas[escena],
-    volver: historial.length > 0 ? volver : null,
-    inventario: inventario // ✅ Agregamos el inventario a la escena
+    ...escenas[estado.escena],
+    volver: estado.historial.length > 0 ? volver : null,
+    inventario: estado.inventario
   }}
   avanzar={avanzar}
   elegirObjeto={elegirObjeto}
   actualizarEscena={actualizarEscena}
   guardarRespuesta={guardarRespuestaTexto}
 />
+
 
       <button onClick={reiniciarJuego} style={{ marginTop: 20 }}>Reiniciar juego</button>
     </div>
