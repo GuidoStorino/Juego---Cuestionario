@@ -121,7 +121,7 @@ const elegirObjeto = (objeto, costo = 0) => {
     <div style={{ maxWidth: 600, margin: "auto", padding: 20, fontFamily: "sans-serif" }}>
       <Estado puntos={puntos} dinero={dinero} />
       <Inventario inventario={inventario} />
-    console.log("Inventario actual:", estado.inventario);
+    
 
 <Escena
   escena={{

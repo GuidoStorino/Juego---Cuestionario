@@ -1,9 +1,11 @@
 // src/components/Escena.jsx
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
+import AlertaModal from "./AlertaModal";
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
+  const [alerta, setAlerta] = useState(null);
 
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
@@ -36,46 +38,44 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     <div>
       <p>{escena.texto}</p>
 
-      {escena.opciones && escena.opciones.map((op, i) => (
-  <button
-    key={i}
-    onClick={() => {
-  const requiere = op.requiere;
+      {escena.opciones && escena.opciones.map((op, i) => {
+        const requiere = op.requiere;
+        const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
 
-  if (op.requiere && (!escena.inventario || !escena.inventario.includes(requiere))) {
-    alert(`Necesitás ${requiere} para hacer esto.`);
-    return; // no avanza ni agrega objeto
-  }
-
-  // SOLO agregar objeto si la opción tiene objeto Y no es de requerimiento
-  if (op.objeto && !op.requiere) {
-    elegirObjeto(op.objeto);
-  }
-
-  avanzar(op.destino, op.puntos || 0, op.dinero || 0);
-}}
-
-    style={{
-      display: "block",
-      margin: "8px 0",
-      border: "none",
-      background: "none",
-      padding: 0,
-      cursor: "pointer"
-    }}
-  >
-    {op.imagen ? (
-      <img
-        src={op.imagen}
-        alt={op.texto}
-        style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-      />
-    ) : (
-      op.texto
-    )}
-  </button>
-))}
-
+        return (
+          <button
+            key={i}
+            onClick={() => {
+              if (requiere && !tieneRequisito) {
+                setAlerta(`⚔️ Necesitás ${requiere} para hacer esto.`);
+                return;
+              }
+              if (op.objeto && !requiere) {
+                elegirObjeto(op.objeto);
+              }
+              avanzar(op.destino, op.puntos || 0, op.dinero || 0);
+            }}
+            style={{
+              display: "block",
+              margin: "8px 0",
+              border: "none",
+              background: "none",
+              padding: 0,
+              cursor: "pointer"
+            }}
+          >
+            {op.imagen ? (
+              <img
+                src={op.imagen}
+                alt={op.texto}
+                style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
+              />
+            ) : (
+              op.texto
+            )}
+          </button>
+        );
+      })}
 
       {escena.objetos && escena.objetos.map((obj, i) => (
         <button
@@ -115,6 +115,8 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
           Quiero volver sobre mis pasos
         </button>
       )}
+
+      {alerta && <AlertaModal mensaje={alerta} cerrar={() => setAlerta(null)} />}
     </div>
   );
 }
