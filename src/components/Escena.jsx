@@ -36,41 +36,41 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     <div>
       <p>{escena.texto}</p>
 
-      {escena.opciones && escena.opciones.map((op, i) => {
-        const requiere = op.requiere;
-        const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
-        if (!tieneRequisito) return null;
+      {escena.opciones && escena.opciones.map((op, i) => (
+  <button
+    key={i}
+    onClick={() => {
+      const requiere = op.requiere;
+      if (requiere && (!escena.inventario || !escena.inventario.includes(requiere))) {
+        alert(`Necesitás ${requiere} para hacer esto.`);
+        return;
+      }
+      if (op.objeto) {
+        elegirObjeto(op.objeto);
+      }
+      avanzar(op.destino, op.puntos || 0, op.dinero || 0);
+    }}
+    style={{
+      display: "block",
+      margin: "8px 0",
+      border: "none",
+      background: "none",
+      padding: 0,
+      cursor: "pointer"
+    }}
+  >
+    {op.imagen ? (
+      <img
+        src={op.imagen}
+        alt={op.texto}
+        style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
+      />
+    ) : (
+      op.texto
+    )}
+  </button>
+))}
 
-        return (
-          <button
-            key={i}
-            onClick={() => {
-              if (op.objeto) {
-                elegirObjeto(op.objeto);
-              }
-              avanzar(op.destino, op.puntos || 0, op.dinero || 0);
-            }}
-            style={{
-              display: "block",
-              margin: "8px 0",
-              border: "none",
-              background: "none",
-              padding: 0,
-              cursor: "pointer"
-            }}
-          >
-            {op.imagen ? (
-              <img
-                src={op.imagen}
-                alt={op.texto}
-                style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-              />
-            ) : (
-              op.texto
-            )}
-          </button>
-        );
-      })}
 
       {escena.objetos && escena.objetos.map((obj, i) => (
         <button
