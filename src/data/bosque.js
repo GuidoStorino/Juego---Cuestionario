@@ -37,7 +37,7 @@ arturo: {
   texto: "Al salir del lugar, la lluvia de hojas se ha calmado. Sin embargo, luego de caminar un poco hay otro lugar que llama tu atención. Es un local pequeño atendido por un hombre entrado en años llamado Arturo, quien te ofrece algunas de las especias que él mismo hace, no sin antes hablarte sobre el lugar y advertirte de las sorpresas que te podés encontrar por el camino.",
   opciones: [
     {texto: "Llevás un dulce de leche. Para alguna merienda", destino: "atula_estatua"},
-    {texto: "Llevás una sal natural hecha con 14 especias diferentes", destino: "atula_estatua"}
+    {texto: "Llevás una sal natural hecha con 14 especias diferentes", destino: "atula_estatua", objeto: "sal"}
   ]
 },
   
@@ -53,25 +53,59 @@ arturo: {
     texto: "La inmovilidad de la estatua se convierte en una mujer enorme y de aspecto macabro. Inmediatamente te mira con ojos fijos y furiosos. De a poco, levanta una mano para atacarte con alguna magia. ¿Qué hacés en esta situación?",
     opciones: [
       {texto: "Desenvaino la espada que me llevé de La Protegida y se la clavó en el corazón. O donde pueda.", destino: "atula_espada", requiere: "espada"},
-      {texto: "Desesperada, le tiro la sal de Arturo en los ojos.", destino: "atula_sal"},
+      {texto: "Desesperada, le tiro la sal de Arturo en los ojos.", destino: "atula_sal", requiere: "sal"},
       {texto: "Salgo corriendo. Y rezo porque corramos bien rápido", destino: "atula_correr"},
-      {texto: "Le parto la botella de vino en la cabeza. Total ya está vacía", destino: "atula_botella"}
+      {texto: "Le parto la botella de vino en la cabeza. Total ya está vacía", destino: "atula_botella", requiere: "botella"}
     ]
   },
 
   atula_espada: {
-    texto: "ganaste"
+    texto: "Fuiste la Diego de la Vega del pueblo y Atula queda cortada en dos. Este es el fin de este recorrido.",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir hacia la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
   },
 
-  atula_sal: {
-    texto: "ganaste"
+    atula_sal: {
+    texto: "¡Esa sí que no se la vio venir! La sal de Arturo al parecer tenía propiedades muy poderosas e hizo que Atula se quemara y se desintegre. LLegaste al final del recorrido",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir hacia la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
   },
 
-    campo_flores: {
+    atula_botella: {
+    texto: "Uff... Le partista la cabeza. LLegaste al final del recorrido",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir hacia la calle y buscar el auto", destino: "calle_inicio"},
+    ],
+    final: true
+  },
+
+  casa_de_te: {
+    texto: "La casa de té es bonita, acogedora, tiene sillas cómodas en donde sentarse y mesitas de madera. El lugar está completamente vacío. A través de la ventana, se puede observar cómo la lluvia de hojas doradas continúa sin cesar. Mientras miramos, se sienten los pasos de alguien que nos viene a atender. Pero antes nos cuenta una de estas dos historias:",
+    opciones:  [
+      {texto: ""}
+    ]
+  },
+
+  calle_inicio: {
+    texto: "En el auto de vuelta, en marcha sobre la ruta. ¿Para dónde vamos?",
+    opciones: [
+      {texto: "Buenos Aires", destino: "norte_objetos"},
+      {texto: "La Costa", destino: "sur_objetos"}
+    ]
+  },  
+
+  campo_flores: {
     texto: "El campo es realmente inmenso. Hay flores y más flores hacia todas partes.",
     opciones: [
       { texto: "Seguir caminando y mirando las flores", destino: "perderse" },
-      { texto: "Tomar una flor y sentir el aroma", destino: "rosa_roja_violeta" }]
+      { texto: "Tomar una flor y sentir el aroma", destino: "oler_flor" }]
   },
 
   perderse:{
@@ -82,13 +116,33 @@ arturo: {
     ]
   },
 
-  rosa_roja_violeta: {
-    texto: "Algo aparece. Caminás un poco. Es un río, y hay un bote para navegarlo. También hay nuevos árboles, árboles de mandarina debajo de cielos de mermelada. Desde un lugar, alguien te llama, es una chica con ojos de caleidoscopio.",
+  oler_flor: {
+    texto: "Las flores rosas parecen brillar más que ninguna, pero las rojas llaman tanto la atención... Y las violetas, tan particulares.",
     opciones: [
-      { texto: "Río", destino: "rio", imagen:"/images/" },
-      { texto: "Árboles de mandarina", destino: "arboles_mandarina", imagen:"/images/" },
-      { texto: "Chica caleidoscopio", destino: "chica_ojos", imagen:"/images/"}
+      { texto: "Rosas", destino: "lucy_sky", imagen:"/images/" },
+      { texto: "Rojas", destino: "", imagen:"/images/" },
+      { texto: "Violetas", destino: "", imagen:"/images/"}
       ]
+  },
+
+  lucy_sky: {
+    texto: "Un mundo nuevo se abre. A lo lejos se ve un río, y a los lados árboles de mandarina que se abren paso debajo de cielos de mermelada. Sentís una voz que te habla cerca y le contestás despacio. La voz es de:",
+    opciones: [
+      {texto: "Tu propia imaginación", destino: "bote"},
+      {texto: "Una chica con ojos de caleidoscopio", destino: "bote", puntos: 10},
+      {texto: "Una chica con ojos de videotape", destino: "bote"},
+      {texto: ""}
+    ]
+  },
+
+  feria_bosque: {
+    texto: "",
+    opciones: [
+      {texto: "Poción de la suerte", imagen: "", costo: 50},
+      {texto: "Espejo mágico", imagen: "", costo: 30},
+      {texto: "Libro antiguo", imagen: "", costo: 15},
+      {texto: "Piedra", imagen: "", costo: 15}
+    ]
   },
 
 

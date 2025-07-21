@@ -17,6 +17,7 @@ const estadoInicial = () => ({
   historial: []
 });
 
+
 const cargarEstado = () => {
   return {
     escena: localStorage.getItem("escena") || estadoInicial().escena,
@@ -44,6 +45,8 @@ function App() {
   }, [estado]);
 
 const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0) => {
+  
+
   setEstado((prev) => {
     const nuevoHistorial = [...prev.historial, prev.escena];
     const nuevoEstado = {
@@ -122,6 +125,7 @@ const elegirObjeto = (objeto, costo = 0) => {
       <Estado puntos={puntos} dinero={dinero} />
       <Inventario inventario={inventario} />
     
+
 
 <Escena
   escena={{

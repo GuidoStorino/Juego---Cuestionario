@@ -25,18 +25,16 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
   }
 
-  if (escena.final) {
-    return (
-      <div className="final-escena" style={{ textAlign: "center", padding: 20, animation: "fadeIn 2s" }}>
-        <h2>¡Final del recorrido!</h2>
-        <p>{escena.texto}</p>
-      </div>
-    );
-  }
-
-  return (
+      return (
     <div>
-      <p>{escena.texto}</p>
+      <p
+        style={escena.final
+          ? { textAlign: "center", padding: 20, animation: "fadeIn 2s" }
+          : {}}
+      >
+        {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
+      </p>
+
 
       {escena.opciones && escena.opciones.map((op, i) => {
         const requiere = op.requiere;
