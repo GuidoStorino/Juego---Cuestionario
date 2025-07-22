@@ -18,7 +18,7 @@ export const bosque = {
   },
 
 bares_bosque: {
-  texto: "Un poco más lejos y a ambos lados se llegan a ver dos lugares en donde te podrías cobijar por un rato. Uno parece una pulpería de la que te olvidás el nombre ni bien le quitás la vista. El otro es una casa de té.",
+  texto: "Un poco más lejos y a ambos lados se llegan a ver dos lugares en donde te podrías cobijar por un rato. Uno parece una pulpería de la que te olvidás el nombre ni bien le quitás la vista. El otro es una pequeña casa de té.",
   opciones: [
     {texto:"Pulpería", destino: "pulperia"},
     {texto: "Casa de té", destino: "casa_de_te"}
@@ -87,9 +87,27 @@ arturo: {
   },
 
   casa_de_te: {
-    texto: "La casa de té es bonita, acogedora, tiene sillas cómodas en donde sentarse y mesitas de madera. El lugar está completamente vacío. A través de la ventana, se puede observar cómo la lluvia de hojas doradas continúa sin cesar. Mientras miramos, se sienten los pasos de alguien que nos viene a atender. Pero antes nos cuenta una de estas dos historias:",
+    texto: "La casa de té es bonita, acogedora, tiene sillas cómodas en donde sentarse y mesitas de madera. El lugar está completamente vacío. A través de la ventana, se puede observar cómo la lluvia de hojas doradas continúa sin cesar. Mientras miramos, se sienten los pasos de alguien que nos viene a atender. Es una anciana algo encorvada y de cabello muy blanco. Nos entrega la carta del lugar.",
     opciones:  [
-      {texto: ""}
+      {texto: "Hacés un comentario liviano sobre el clima para distender un poco.", destino: "historia_te"},
+      {texto: "Simplemente mirás la carta", destino: "carta_te"}
+    ]
+  },
+
+  carta_te: {
+    texto: "",
+    opciones: [
+      {texto: "Té de hierbas azules"},
+      {texto: "Té de hierbas rojas"},
+      {texto: "Té de hierbas verdes"},
+      {texto: "Té de hierbas doradas"}
+    ]
+  },
+
+  historia_te: {
+    texto: "",
+    opciones: [
+      {texto: "Continuar"}
     ]
   },
 
