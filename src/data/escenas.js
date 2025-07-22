@@ -1,10 +1,11 @@
 import { bosque } from "./bosque";
 import { casino } from "./casino";
-
+import { bar } from "./bar";
 
 export const escenas = {
     ...bosque,
     ...casino,
+    ...bar,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -35,7 +36,7 @@ export const escenas = {
     texto: "¿A dónde querés ir?",
     opciones: [
       { texto: "Boliche", destino: "fin_boliche", puntos: -5 },
-      { texto: "Bar", destino: "fin_bar", puntos: 5 },
+      { texto: "Bar", destino: "bar", puntos: 5 },
       { texto: "Librería", destino: "fin_libreria", puntos: 10 },
       { texto: "Teatro", destino: "fin_teatro", puntos: 5 }
     ]

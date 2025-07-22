@@ -114,10 +114,10 @@ arturo: {
  afuera_casa_te: {
   texto: "Ya afuera de la Casa de Té, das unos pasos y mirás el cielo",
   opciones: [
-    {texto: "La lluvia de hojas doradas se arremolina allí arriba sobre las copas de los árboles y se dirigen hacia un solo lugar, indicándote hacia dónde ir.", requiere: "hierbas rojas"},
+    {texto: "La lluvia de hojas doradas se arremolina allí arriba sobre las copas de los árboles y se dirigen hacia un solo lugar, indicándote hacia dónde ir.", requiere: "hierbas rojas", },
     {texto: "Las hojas calman su furia poco a poco y te quedás hasta ver cómo la última de ellas toca la tierra para quedarse allí.", requiere: "hierbas azules"},
-    {texto: "Las hojas doradas se van tornando de un color más amarillo hasta llegar a ser completamente verdes. Algunas, incluso, se posan en las ramas como si siempre hubieran estado allí. La lluvia cesa y crecen algunas flores.", requiere: "hierbas verdes"},
-    {texto: ""}
+    {texto: "Las hojas doradas se van tornando de un color más amarillo hasta llegar a ser completamente verdes. Algunas, incluso, se posan en las ramas como si siempre hubieran estado allí. La lluvia cesa y crecen algunas flores. Caminás un poco y encontrás un campo primaveral.", requiere: "hierbas verdes", destino: "campo_flores"},
+    {texto: "Hay más y más hojas cayendo desde el cielo sin ton ni son. Serán más del doble que antes, aunque tus ojos entrecerrados no logran ver mucho. Te tapás la cara con un brazo y avanzás entre la tormenta de hojas doradas.", requiere: "hierbas doradas"}
   ]
  },
 
