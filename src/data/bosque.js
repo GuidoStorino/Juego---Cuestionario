@@ -97,19 +97,29 @@ arturo: {
   carta_te: {
     texto: "",
     opciones: [
-      {texto: "Té de hierbas azules"},
-      {texto: "Té de hierbas rojas"},
-      {texto: "Té de hierbas verdes"},
-      {texto: "Té de hierbas doradas"}
+      {texto: "Té de hierbas azules", destino: "afuera_casa_te", objeto: "hierbas azules"},
+      {texto: "Té de hierbas rojas", destino: "afuera_casa_te", objeto: "hierbas rojas" },
+      {texto: "Té de hierbas verdes", destino: "afuera_casa_te", objeto: "hierbas verdes"},
+      {texto: "Té de hierbas doradas", destino: "afuera_casa_te", objeto: "hierbas doradas"}
     ]
   },
 
   historia_te: {
     texto: "",
     opciones: [
-      {texto: "Continuar"}
+      {texto: "Continuar", destino: "carta_te"}
     ]
   },
+
+ afuera_casa_te: {
+  texto: "Ya afuera de la Casa de Té, das unos pasos y mirás el cielo",
+  opciones: [
+    {texto: "La lluvia de hojas doradas se arremolina allí arriba sobre las copas de los árboles y se dirigen hacia un solo lugar, indicándote hacia dónde ir.", requiere: "hierbas rojas"},
+    {texto: "Las hojas calman su furia poco a poco y te quedás hasta ver cómo la última de ellas toca la tierra para quedarse allí.", requiere: "hierbas azules"},
+    {texto: "Las hojas doradas se van tornando de un color más amarillo hasta llegar a ser completamente verdes. Algunas, incluso, se posan en las ramas como si siempre hubieran estado allí. La lluvia cesa y crecen algunas flores.", requiere: "hierbas verdes"},
+    {texto: ""}
+  ]
+ },
 
   calle_inicio: {
     texto: "En el auto de vuelta, en marcha sobre la ruta. ¿Para dónde vamos?",
