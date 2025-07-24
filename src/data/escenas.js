@@ -1,11 +1,15 @@
 import { bosque } from "./bosque";
 import { casino } from "./casino";
 import { bar } from "./bar";
+import { baraccion } from "./baraccion";
+import { juegopersonajes } from "./juegopersonajes";
 
 export const escenas = {
     ...bosque,
     ...casino,
     ...bar,
+    ...juegopersonajes,
+    ...baraccion,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -13,32 +17,36 @@ export const escenas = {
       { texto: "LA PLATA", destino: "sur_objetos" }
     ]
   },
-  norte_objetos: {
-    texto: "Aparece una caja frente a nosotros. Elegí uno:",
-    objetos: [
-      { nombre: "Linterna" }, 
-      { nombre: "Mapa"},
-      {nombre: "Cuerda"}
-    ],      
 
-    siguiente: "norte_destino"
+    norte_objetos: {
+    texto: "Aparece una caja frente a nosotros. Elegí uno:",
+    opciones: [
+      { texto: "Linterna", objeto: "linterna", destino: "norte_destino" }, 
+      { texto: "Mapa", objeto: "mapa", destino: "norte_destino"},
+      { texto: "Cuerda", objeto: "cuerda", destino: "norte_destino"},
+      { texto: "Avanzar sin tomar nada", destino: "norte_destino"}
+    ],   
+   
+
+    
   },
   sur_objetos: {
     texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
     opciones: [
     {texto: "Mapa", objeto: "mapa"},
-      {texto: "cuerda", objeto: "cuerda"},
-      {texto: "reloj", objeto: "reloj"}
+    {texto: "cuerda", objeto: "cuerda"},
+    {texto: "reloj", objeto: "reloj"},
+    {texto: "Avanzar sin tomar nada", destino: "sur_destino"}
     ],
     siguiente: "sur_destino"
   },
   norte_destino: {
     texto: "¿A dónde querés ir?",
     opciones: [
-      { texto: "Boliche", destino: "fin_boliche", puntos: -5 },
-      { texto: "Bar", destino: "bar", puntos: 5 },
-      { texto: "Librería", destino: "fin_libreria", puntos: 10 },
-      { texto: "Teatro", destino: "fin_teatro", puntos: 5 }
+      { texto: "Boliche", destino: "fin_boliche" },
+      { texto: "Bar", destino: "bar" },
+      { texto: "Librería", destino: "fin_libreria" },
+      { texto: "Teatro", destino: "fin_teatro" }
     ]
   },
   sur_destino: {

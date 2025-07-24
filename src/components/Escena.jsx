@@ -48,10 +48,10 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                 setAlerta(`⚔️ Necesitás ${requiere} para hacer esto.`);
                 return;
               }
-              if (op.objeto && !requiere) {
-                elegirObjeto(op.objeto);
+               if (op.objeto) {
+                elegirObjeto(op.objeto); // ✅ se permite tomarlo múltiples veces
               }
-              avanzar(op.destino, op.puntos || 0, op.dinero || 0);
+              avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.personalidad);
             }}
             style={{
               display: "block",
