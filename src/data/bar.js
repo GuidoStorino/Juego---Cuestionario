@@ -68,9 +68,12 @@ agradecimiento: {
 
 
 escaneo_gente: {
-  texto: "s",
+  texto: "Mirás atentamente a la gente del lugar y hay algunos de ellos que logran captar tu atención.",
   opciones: [
-    {texto: "s", destino: "baraccion"} 
+    {texto: "", destino: "baraccion"},
+    {texto: "Un hombre que parece muy tranquilo en realidad está tramando algo sucio. Un cómplice va a caer al bar en cualquier momento para realizar un robo.", destino: "baraccion", resetPerfil: true},
+    {texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
+    {texto: "Me mirás a los ojos y se provoca un efecto inverso. De repente no te recuerdo y tenés que volver a hacer que me acuerde de vos.", destino: "barromance"}
   ]
 }
 

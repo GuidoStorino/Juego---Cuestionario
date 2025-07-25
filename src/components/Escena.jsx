@@ -51,7 +51,8 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                if (op.objeto) {
                 elegirObjeto(op.objeto); // ✅ se permite tomarlo múltiples veces
               }
-              avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.personalidad);
+              avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
+
             }}
             style={{
               display: "block",

@@ -44,10 +44,12 @@ function App() {
     localStorage.setItem("historial", JSON.stringify(historial));
   }, [estado]);
 
-const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalidad = null) => {
+const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalidad = null, resetPerfil = false) => {
   setEstado((prev) => {
     const nuevoHistorial = [...prev.historial, prev.escena];
-    const nuevoPerfil = { ...(prev.perfilPersonalidad || {}) };
+     const nuevoPerfil = resetPerfil
+      ? {}
+      : { ...(prev.perfilPersonalidad || {}) };
     if (personalidad) {
       nuevoPerfil[personalidad] = (nuevoPerfil[personalidad] || 0) + 1;
     }
@@ -62,7 +64,7 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalida
       perfilPersonalidad : nuevoPerfil
     };
 
-    
+
 
     // Guardar los cambios por separado en localStorage
     localStorage.setItem("escena", nuevoEstado.escena);

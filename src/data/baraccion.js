@@ -57,16 +57,18 @@ console.log("Perfil personalidad:", estado.perfilPersonalidad);
     const [personalidad] = personalidadDominante;
 
     const mensajes = {
-      osado: "🗡️ Sos osado. Enfrentás el peligro con valentía.",
-      temeroso: "😨 Sos temeroso. Evitás el conflicto.",
-      calculador: "🧠 Sos calculador. Siempre pensás antes de actuar.",
-      impulsivo: "🔥 Sos impulsivo. Te guiás por la emoción.",
-      líder: "👑 Sos líder. Tomás la iniciativa.",
-      solidario: "❤️ Sos solidario. Te importa el bienestar de los demás."
-    };
+      Gryffindor: "🗡️ Te comportaste con valentía. Asumiste la situación y la tomaste como propia, ayudando y en ocasiones sacrificándote por el resto. Sos una Hufflepuff con corazón de Gryffindor.",
+      Hufflepuff: "😨 Sos un poco temerosa. Evitaste el conflicto todo lo pudiste y lo miraste desde afuera. Es lo natural en vos, ¡sos una Hufflepuff de pura cepa!",
+      Slytherin: " Cuánta astucia y... ¿un poco de maldad? Te manejaste de la mejor manera para salir airosa y triunfante de la situación. Sos una Hufflepuff con aires de Slytherin.",
+      Ravenclaw: "🧠 Te destacaste por tu inteligencia. Estuviste delante de todos en cada movimiento. Una Hufflepuff que se puede sentar en una mesa de Ravenclaw de vez en cuando.",
+      };
 
     return mensajes[personalidad] || `Tu personalidad más destacada es: ${personalidad}`;
   },
+  opciones: [ 
+    {texto: "Volver al bar", destino: "bar" },
+    { texto: "Retomar el test", destino: "baraccion", resetPerfil: true}
+  ],
   final: true
 }
 }
