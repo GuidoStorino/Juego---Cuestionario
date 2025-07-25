@@ -11,7 +11,7 @@ carta_papel: {
   texto: "La moza te sonríe. 'Hace mucho que alguien no elige el QR', dice. Busca una carta que estaba detrás de ella y se retira. Al mirar la carta, te sorprendés con la descripción de algunos tragos y decidís cuál tomar.",
   opciones: [
     {texto: "Un trago que te permite escanear a la gente (sin que lo sepan) y averiguar cosas sobre ellos.", destino: "escaneo_gente"},
-    {texto: "Un trago que te permite tener la capacidad de conectar con las personas que te interesan y llegar a buenas conversaciones.", destino: "conectar_gente"},
+    {texto: "Un trago que te permite tener la capacidad de conectar con las personas que te interesan y llegar a buenas conversaciones.", destino: "juegopersonajes"},
     {texto: "Un trago que te permite conseguir la comida que quieras cuando quieras.", destino: "comida_infinita"}
   ]
 },
