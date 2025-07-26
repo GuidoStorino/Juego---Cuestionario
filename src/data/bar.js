@@ -11,7 +11,7 @@ carta_papel: {
   texto: "La moza te sonríe. 'Hace mucho que alguien no elige el QR', dice. Busca una carta que estaba detrás de ella y se retira. Al mirar la carta, te sorprendés con la descripción de algunos tragos y decidís cuál tomar.",
   opciones: [
     {texto: "Un trago que te permite escanear a la gente (sin que lo sepan) y averiguar cosas sobre ellos.", destino: "escaneo_gente"},
-    {texto: "Un trago que te permite tener la capacidad de conectar con las personas que te interesan y llegar a buenas conversaciones.", destino: "juegopersonajes"},
+    {texto: "Un trago que te permite tener la capacidad de conectar con las personas que te interesan y llegar a buenas conversaciones.", destino: "buenas_conversaciones"},
     {texto: "Un trago que te permite conseguir la comida que quieras cuando quieras.", destino: "comida_infinita"}
   ]
 },
@@ -63,16 +63,23 @@ agradecimiento: {
     {texto: "Volver al bar", destino: "bar"},
     {texto: "Salir a la calle", destino: "calle_inicio"}
   ]
-
 },
 
+buenas_conversaciones: {
+texto: "s",
+opciones: [
+  { texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
+  { texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
+  { texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"}
+]
+},
 
 escaneo_gente: {
   texto: "Mirás atentamente a la gente del lugar y hay algunos de ellos que logran captar tu atención.",
   opciones: [
-    {texto: "", destino: "baraccion"},
+    {texto: "ss", destino: "MiniJuegoImagenes"},
     {texto: "Un hombre que parece muy tranquilo en realidad está tramando algo sucio. Un cómplice va a caer al bar en cualquier momento para realizar un robo.", destino: "baraccion", resetPerfil: true},
-    {texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
+    {texto: ""},
     {texto: "Me mirás a los ojos y se provoca un efecto inverso. De repente no te recuerdo y tenés que volver a hacer que me acuerde de vos.", destino: "barromance"}
   ]
 }

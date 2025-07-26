@@ -3,6 +3,7 @@ import { casino } from "./casino";
 import { bar } from "./bar";
 import { baraccion } from "./baraccion";
 import { juegopersonajes } from "./juegopersonajes";
+import { barhistorias } from "./barhistorias";
 
 export const escenas = {
     ...bosque,
@@ -10,6 +11,7 @@ export const escenas = {
     ...bar,
     ...juegopersonajes,
     ...baraccion,
+    ...barhistorias,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -63,7 +65,7 @@ casino_intro: {
   tipo: "casino",  // <<< esta línea es clave para que Escena.jsx muestre la ruleta
   siguiente: "calle",
   opciones: [
-      { texto: "Salir del casino", destino: "calle", puntos: 8000 }]
+      { texto: "Salir del casino", destino: "calle", puntos: 10 }]
 },
 
   sur_destino: {

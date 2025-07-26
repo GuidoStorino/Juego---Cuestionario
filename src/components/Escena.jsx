@@ -2,6 +2,16 @@
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
+import MiniJuegoImagenes from './MiniJuegoImagenes';
+
+function App() {
+  return (
+    <div>
+      <MiniJuegoImagenes />
+    </div>
+  );
+}
+
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
