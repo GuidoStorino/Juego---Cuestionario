@@ -4,18 +4,14 @@ import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
 import MiniJuegoImagenes from './MiniJuegoImagenes';
 
-function App() {
-  return (
-    <div>
-      <MiniJuegoImagenes />
-    </div>
-  );
-}
 
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
   const [alerta, setAlerta] = useState(null);
+  const [inputCodigo, setInputCodigo] = useState("");
+const [codigoValido, setCodigoValido] = useState(false);
+
 
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
@@ -31,9 +27,17 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     }
   };
 
-  if (escena.tipo === "casino") {
+
+
+
+    if (escena.tipo === "casino") {
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
   }
+
+   const opcionesParaMostrar =
+    (codigoValido && Array.isArray(escena.desbloquea))
+      ? escena.desbloquea
+      : (Array.isArray(escena.opciones) ? escena.opciones : []);
 
       return (
     <div>
@@ -45,18 +49,49 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
         {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
       </p>
 
+        {escena.requiereCodigo && !codigoValido && (
+  <div>
+    <p>Ingresá el código para continuar:</p>
+    <input
+      type="text"
+      value={inputCodigo}
+      onChange={(e) => setInputCodigo(e.target.value)}
+    />
+    <button
+      onClick={() => {
+        if (inputCodigo === escena.codigoCorrecto) {
+          setCodigoValido(true);
+          setAlerta("✅ Código correcto. Opciones desbloqueadas.");
+        } else {
+          setAlerta("❌ Código incorrecto.");
+        }
+      }}
+    >
+      Verificar
+    </button>
+  </div>
+)};
 
-      {escena.opciones && escena.opciones.map((op, i) => {
+
+
+      {(codigoValido ? escena.desbloquea : escena.opciones || []).map((op, i) => {
+  // (tu lógica de botón actual)
         const requiere = op.requiere;
         const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
+        
 
         return (
+
+          
           <button
             key={i}
             onClick={() => {
               if (requiere && !tieneRequisito) {
                 setAlerta(`⚔️ Necesitás ${requiere} para hacer esto.`);
                 return;
+              }
+                if (op.mensaje) {
+                setAlerta(op.mensaje);
               }
                if (op.objeto) {
                 elegirObjeto(op.objeto); // ✅ se permite tomarlo múltiples veces

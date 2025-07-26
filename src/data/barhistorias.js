@@ -29,7 +29,7 @@ auto_abierto: {
 historia_asesinato: {
     texto: "Al seguir mirando descubrís que el hombre fue asesinado de un disparo. Abrís la guantera y encontrás unos papeles Uno de ellos tiene escritas unas palabras en latín.",
     opciones: [
-        {texto: "Resolver este misterio", destino: "crimen_auto"},
+        {texto: "Resolver este misterio", destino: "crimenauto"},
         {texto: "Volver a la calle empedrada", destino: "espejo_bar"}
     ]
 },
