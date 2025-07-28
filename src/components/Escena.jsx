@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
-import MiniJuegoImagenes from './MiniJuegoImagenes';
+
 
 
 
@@ -25,7 +25,7 @@ const [codigoValido, setCodigoValido] = useState(false);
         }
       }
     }
-  };
+  }
 
 
 
@@ -33,11 +33,6 @@ const [codigoValido, setCodigoValido] = useState(false);
     if (escena.tipo === "casino") {
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
   }
-
-   const opcionesParaMostrar =
-    (codigoValido && Array.isArray(escena.desbloquea))
-      ? escena.desbloquea
-      : (Array.isArray(escena.opciones) ? escena.opciones : []);
 
       return (
     <div>
@@ -70,11 +65,11 @@ const [codigoValido, setCodigoValido] = useState(false);
       Verificar
     </button>
   </div>
-)};
+)}
 
 
 
-      {(codigoValido ? escena.desbloquea : escena.opciones || []).map((op, i) => {
+      {((codigoValido ? escena.desbloquea : escena.opciones) || []).map((op, i) => {
   // (tu lógica de botón actual)
         const requiere = op.requiere;
         const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
