@@ -41,8 +41,11 @@ casa_victima: {
 casa_fiesta: {
     texto: "Aparentemente es una casa en donde está habiendo una fiesta. Te dejan pasar. Aceptás la invitación, quizás puedas hablar con la gente y seguir investigando.",
     opciones: [
-        {texto: "Mirar por la ventana", mensaje: "img.retrato"},
-        {texto: "Ir unas casas más allá. Se oyen ruidos", destino: "casa_fiesta"},
+        {texto: "Una chica bailando borracha", mensaje: "'¿Pablo? Mmm... No, no no lo conozco'"},
+        {texto: "Dos chicos tomando cerveza apoyados contra una pared", mensaje: "'No vino, parece. ¿Por qué no te quedás con nosotros?'"},
+        {texto: "Una chica morena de pelo lacio", mensaje: "'Lo estoy esperando... Ya lo extraño'"},
+        {texto: "Mirar la mesa", mensaje: "Gaseosas. Papas fritas. Residuo de papel de nylon con una etiqueta que dice 'El Fiambrecito'"},
+        {texto: "Un chico con gesto preocupado y el celular en la mano", mensaje: "'Es mi amigo, lo llamé pero no atiende. ¿Lo conocés?'"},
         {texto: "Ir a la casa del amigo", destino: "casa_amigo"},
         {texto: "Ir al almacén", destino: "almacen_don_ernesto"}
     ]
