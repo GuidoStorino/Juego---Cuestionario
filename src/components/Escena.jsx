@@ -3,14 +3,27 @@ import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
 
-
-
-
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
   const [alerta, setAlerta] = useState(null);
   const [inputCodigo, setInputCodigo] = useState("");
-const [codigoValido, setCodigoValido] = useState(false);
+  const [codigosValidos, setCodigosValidos] = useState({}); // ✅ estado por escena
+  const escenasMisteriosas = [
+  "crimenauto",
+  "codigo_celular",
+  "casa_victima",
+  "crimen_resuelto",
+  "celular_pablo",
+  "casa_fiesta",
+  "almacen_don_ernesto",
+  "casa_amigo",
+
+  // agregá todos los IDs que pertenezcan al archivo crimenauto.js
+];
+
+const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
+
+
 
 
   const manejarTextoLibre = () => {
@@ -25,26 +38,36 @@ const [codigoValido, setCodigoValido] = useState(false);
         }
       }
     }
-  }
+  };
 
-
-
-
-    if (escena.tipo === "casino") {
+  if (escena.tipo === "casino") {
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
   }
 
-      return (
-    <div>
+  const idEscena = escena.id || escena.nombre || escena.texto; // Usamos algún identificador único de la escena
+  const codigoValido = codigosValidos[idEscena]; // ✅ específico para esta escena
+
+  const opcionesParaMostrar = (
+    (codigoValido ? escena.desbloquea : escena.opciones) || []
+  );
+
+  return (
+     <div className={esEscenaMisteriosa ? "escena-misterio" : ""}>
+      
       <p
-        style={escena.final
-          ? { textAlign: "center", padding: 20, animation: "fadeIn 2s" }
-          : {}}
-      >
+  style={
+    escena.final
+      ? { textAlign: "center", padding: 20, animation: "fadeIn 2s" }
+      : escena.inicio
+      ? { background: "center", padding: 20, animation: "introZoom 1.5s ease-out" }
+      : {}
+  }
+>
+
         {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
       </p>
 
-        {escena.requiereCodigo && !codigoValido && (
+{escena.requiereCodigo && !codigosValidos?.[idEscena] && (
   <div>
     <p>Ingresá el código para continuar:</p>
     <input
@@ -54,8 +77,12 @@ const [codigoValido, setCodigoValido] = useState(false);
     />
     <button
       onClick={() => {
-        if (inputCodigo === escena.codigoCorrecto) {
-          setCodigoValido(true);
+        const esCodigoCorrecto = Array.isArray(escena.codigoCorrecto)
+          ? escena.codigoCorrecto.includes(inputCodigo)
+          : inputCodigo === escena.codigoCorrecto;
+
+        if (esCodigoCorrecto) {
+          setCodigosValidos((prev) => ({ ...prev, [idEscena]: true }));
           setAlerta("✅ Código correcto. Opciones desbloqueadas.");
         } else {
           setAlerta("❌ Código incorrecto.");
@@ -67,17 +94,11 @@ const [codigoValido, setCodigoValido] = useState(false);
   </div>
 )}
 
-
-
-      {((codigoValido ? escena.desbloquea : escena.opciones) || []).map((op, i) => {
-  // (tu lógica de botón actual)
+      {opcionesParaMostrar.map((op, i) => {
         const requiere = op.requiere;
         const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
-        
 
         return (
-
-          
           <button
             key={i}
             onClick={() => {
@@ -85,14 +106,13 @@ const [codigoValido, setCodigoValido] = useState(false);
                 setAlerta(`⚔️ Necesitás ${requiere} para hacer esto.`);
                 return;
               }
-                if (op.mensaje) {
+              if (op.mensaje) {
                 setAlerta(op.mensaje);
               }
-               if (op.objeto) {
-                elegirObjeto(op.objeto); // ✅ se permite tomarlo múltiples veces
+              if (op.objeto) {
+                elegirObjeto(op.objeto);
               }
               avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
-
             }}
             style={{
               display: "block",
@@ -148,6 +168,8 @@ const [codigoValido, setCodigoValido] = useState(false);
           <button onClick={manejarTextoLibre} style={{ marginTop: 8 }}>Enviar</button>
         </div>
       )}
+
+      
 
       {escena.volver && (
         <button onClick={escena.volver} style={{ marginTop: "16px" }}>

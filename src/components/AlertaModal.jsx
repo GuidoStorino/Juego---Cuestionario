@@ -22,7 +22,7 @@ function AlertaModal({ mensaje, cerrar }) {
         textAlign: "center",
         fontFamily: "serif"
       }}>
-        <p style={{ fontSize: "18px", marginBottom: "20px" }}>{mensaje}</p>
+        <p style={{ fontSize: "18px", marginBottom: "20px", whiteSpace: 'pre-line' }}>{mensaje}</p>
         <button onClick={cerrar} style={{
           background: "#ff4444",
           border: "none",

@@ -185,6 +185,23 @@ arturo: {
     texto: "Un anciano sabio te da un mapa mágico. ¡Ganás 10 puntos!",
     opciones: [{ texto: "Volver al inicio", destino: "inicio", puntos: 10 }]
   },
+
+  casitas_bosque: {
+    texto: "Caminando entre las casitas del bosque ves una que te llama la atención. Porque a pesar de que todas son muy similares, esta tiene a unos pasos de su puerta un árbol del que sale un hongo inmenso y de un color naranja brillante.",
+    opciones: [
+      {texto: "Tomarle una fotografía al hongo", requiere: "cámara", destino: "viejo_casa"},
+      {texto: "Seguir caminando", destino: ""}
+    ]
+  },
+
+  viejo_casa: {
+    texto: "Un viejo sale de la casa y te ve fotografiando el hongo. Te ofrece llevártelo.",
+    opciones: [
+      {texto: "Le agradecés y seguís"},
+      {texto: "Te llevás el hongo"}
+    ]
+  },
+
   fin_bosque: {
     texto: "Descubrís un claro con un lago escondido. Paz total.",
     opciones: [{ texto: "Volver al inicio", destino: "inicio", puntos: 5 }]
