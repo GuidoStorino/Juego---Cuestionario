@@ -5,6 +5,7 @@ import { baraccion } from "./baraccion";
 import { juegopersonajes } from "./juegopersonajes";
 import { barhistorias } from "./barhistorias";
 import { crimenauto } from "./crimenauto";
+import { sala_prop_bar } from "./sala_prop_bar";
 
 export const escenas = {
     ...bosque,
@@ -14,6 +15,7 @@ export const escenas = {
     ...baraccion,
     ...barhistorias,
     ...crimenauto,
+    ...sala_prop_bar,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

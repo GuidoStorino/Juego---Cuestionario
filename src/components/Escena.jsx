@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
+import SalaEscapeBar from "./SalaEscapeBar";
+
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
@@ -24,8 +26,6 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
 
-
-
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
       const resultado = escena.validarTexto(input);
@@ -46,6 +46,17 @@ const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
   const idEscena = escena.id || escena.nombre || escena.texto; // Usamos algún identificador único de la escena
   const codigoValido = codigosValidos[idEscena]; // ✅ específico para esta escena
+
+  if (escena.id === "sala_prop_bar") {
+  return (
+    <SalaEscapeBar
+      volverAlBar={() => avanzar("bar")}
+      reiniciarJuego={() => avanzar("sala_prop_bar")}
+      ganarJuego={() => avanzar("ganaste_escape")}
+    />
+  );
+}
+
 
   const opcionesParaMostrar = (
     (codigoValido ? escena.desbloquea : escena.opciones) || []
@@ -178,6 +189,8 @@ const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
       )}
 
       {alerta && <AlertaModal mensaje={alerta} cerrar={() => setAlerta(null)} />}
+
+        
     </div>
   );
 }

@@ -4,7 +4,7 @@ export const barhistorias = {
     opciones: [
       { texto: "", destino: ""},
       { texto: "El segundo espejo del baño, el cual te transporta al tocarlo", destino: "espejo_bar"},
-      { texto: "La puerta de atrás del bar, en donde hace muchos años murió el antiguo dueño y, se dice, nunca pudo salir. Ahora su fantasma vive atrapado allí."}
+      { texto: "La puerta de atrás del bar, en donde hace muchos años murió el antiguo dueño y, se dice, nunca pudo salir. Ahora su fantasma vive atrapado allí.", destino: "sala_prop_bar"}
     ]
   },
 

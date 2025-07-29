@@ -156,3 +156,46 @@ body {
     transform: scale(1);
   }
 }
+
+/* en tu archivo CSS global o uno específico */
+.sala-escape {
+  background-color: #0d0d0d;
+  color: #f8f8f8;
+  padding: 30px;
+  min-height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+  animation: fadeIn 2s ease-in;
+}
+
+.sala-escape h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px #ff004c;
+}
+
+.sala-escape button {
+  background: #1a1a1a;
+  color: #ff004c;
+  padding: 10px 20px;
+  margin: 10px;
+  border: 1px solid #ff004c;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sala-escape button:hover {
+  background: #ff004c;
+  color: black;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
