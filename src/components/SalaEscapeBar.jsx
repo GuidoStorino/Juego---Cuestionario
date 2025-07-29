@@ -6,9 +6,11 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [inputCodigo, setInputCodigo] = useState("");
   const [cajaAbierta, setCajaAbierta] = useState(false);
-  const [mensajeAlerta, setMensajeAlerta] = useState(null); // <<<< Nuevo
+  const [mensajeAlerta, setMensajeAlerta] = useState(null);
+  const [llaveTomada, setLlaveTomada] = useState(false);
 
-  const codigoCorrecto = "4712";
+
+  const codigoCorrectoCaja = "1213";
 
   useEffect(() => {
     if (estadoJuego !== "jugando") return;
@@ -43,7 +45,7 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
   };
 
   const validarCodigoCaja = () => {
-    if (inputCodigo === codigoCorrecto) {
+    if (inputCodigo === codigoCorrectoCaja) {
       mostrarMensaje("¡La caja se abre! Encontrás una llave oxidada 🔑.");
       setCajaAbierta(true);
       setMostrarModal(false);
@@ -92,9 +94,40 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
           🖼️ Pintura
         </button>
 
+        <button onClick={() => mostrarMensaje("Se puede romper si alguien se sienta.")}>
+          🪑 Silla
+        </button>
+
+        <button onClick={() => mostrarMensaje("Contenido del sobre.")}>
+          ✉ Sobre
+        </button>
+
         <button onClick={abrirModalCaja}>
           📦 Caja
         </button>
+
+        {/* Objeto visible solo si la caja fue abierta */}
+{cajaAbierta && !llaveTomada && (
+  <button onClick={() => {
+    setLlaveTomada(true);
+    mostrarMensaje("Tomaste la llave.");
+  }}>
+    🔑 Llave
+  </button>
+)}
+
+<button onClick={() => {
+  if (llaveTomada) {
+    mostrarMensaje("La puerta se abre... ¡lograste escapar!");
+    setEstadoJuego("ganado");
+  } else {
+    mostrarMensaje("Está cerrada con llave.");
+  }
+}}>
+  🚪 Puerta
+</button>
+
+
 
         
       </div>
