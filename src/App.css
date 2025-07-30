@@ -199,3 +199,9 @@ body {
   }
 }
 
+
+
+.texto-manuscrito {
+  font-family: "Playwrite AU NSW", cursive;
+  font-optical-sizing: auto;
+}
