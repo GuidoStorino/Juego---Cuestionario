@@ -86,6 +86,52 @@ arturo: {
     final: true
   },
 
+  pasos_bosque: {
+    texto: "Evidentemente Atula no nos ayudó porque se te cruza un forastero y nos pide todo nuestro dinero bajo amenaza de muerte",
+    opciones: [
+      {texto: "Lo asesinás con la espada", requiere: "espada", destino: "forastero_espada"},
+      {texto: "Le tirás la sal que te llevaste de Arturo", requiere: "sal", destino: "forastero_sal"},
+      {texto: "Lo peleás a puño limpio", destino: "forastero_punos",},
+      {texto: "Le das el dinero", destino: "dinero_robado"}
+    ]
+  },
+
+  forastero_espada: {
+    texto: "Le pegaste un espadazo y le hiciste sangrar toda la cara. Ya está corriendo a buscar a su mamá.",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
+  },
+
+    forastero_sal: {
+    texto: "La sal le entró en los ojos pero pronto se recompuso. Suerte que vinieron un total de 7 (SÍ, SIETE) perros a salvarnos.",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
+  },
+
+    forastero_punos: {
+    texto: "Nunca se vio venir esa derecha a mano cerrada. Lo noqueaste como una campeona.",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
+  },
+
+    forastero_espada: {
+    texto: "Bueno, sirvió para que no nos mate. Pero nos robó todo el dinero.",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle y buscar el auto", destino: "calle_inicio"}
+    ],
+    final: true
+  },
+
   casa_de_te: {
     texto: "La casa de té es bonita, acogedora, tiene sillas cómodas en donde sentarse y mesitas de madera. El lugar está completamente vacío. A través de la ventana, se puede observar cómo la lluvia de hojas doradas continúa sin cesar. Mientras miramos, se sienten los pasos de alguien que nos viene a atender. Es una anciana algo encorvada y de cabello muy blanco. Nos entrega la carta del lugar.",
     opciones:  [

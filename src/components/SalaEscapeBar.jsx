@@ -12,8 +12,8 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
   const [llaveTomada, setLlaveTomada] = useState(false);
 
 
-  const codigoCorrectoCaja = "1234";
-  const codigoCorrectoLuz = "4321";
+  const codigoCorrectoCaja = "268";
+  const codigoCorrectoLuz = "785";
 
   useEffect(() => {
     if (estadoJuego !== "jugando") return;
@@ -111,16 +111,11 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
       <p>El fantasma del primer dueño del bar sigue aquí. ¡Salí antes de que te atrape!</p>
 
       <div className="objetos">
-        <button onClick={() => mostrarMensaje(<p style={{ whiteSpace: "pre-line" }}>
-  {"imagen"}
-</p>
-)}>
-          Pintura
-        </button>
+        
 
         <button onClick={() => mostrarMensaje(
   <img
-    src="/images/pinturaSalaBar.png"
+    src="/img/PinturaSalaBar.png"
     alt="Pintura misteriosa"
     style={{ width: "100%", maxWidth: "400px", borderRadius: "8px" }}
   />
@@ -128,11 +123,11 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
   🖼️ Pintura
 </button>
 
-        <button onClick={() => mostrarMensaje(<p  style={{ whiteSpace: "pre-line" }}> {"Cerveza: $0,90 \n Vino: $1,60 \n Hidromiel: $1,40 \n Whisky: $4,35 \n Ginebra: $6 \n Vermut: $2,50 \n Agua: $0,50 \n Gaseosa: $1"} </p>)}>
+        <button onClick={() => mostrarMensaje(<p  style={{ whiteSpace: "pre-line", textAlign: "left" }}> {"Cerveza: $0,90 \n Vino: $1,60 \n Hidromiel: $1,40 \n Whisky: $4,35 \n Ginebra: $6 \n Vermut: $2,50 \n Agua: $0,50 \n Gaseosa: $1 \n\n Guiso: $3,50 \n Milanesa: $5,20 \n Estofado: $5 \n Locro: $4,50  "} </p>)}>
           🗒️ Libreta de precios
         </button>
 
-        <button onClick={() => mostrarMensaje(<p className="texto-manuscrito" style={{ whiteSpace: "pre-line" }}> {"Mucha suerte, Esteban, todo va a salir espectacular. Tan espectacular como todo lo que tomé esta noche. ¡Un fiestón! Lo mejor de todo, el whisky y la ginebra. ¡Eso sí te va a traer mucha luz! \n Rober \n \n Felicitaciones, mi querido Esteban, por abrir tu segundo bar. \n ¡Esta vez escribo sin códigos! Sólo un pequeño texto, línea tras línea, para celebrar el gran logro de un amigo. Dolores."} </p>)}>
+        <button onClick={() => mostrarMensaje(<p className="texto-manuscrito" style={{ whiteSpace: "pre-line" }}> {"No podría estar más contento por este nuevo comienzo \n Deseo que te vaya muy bien, Esteban. \n Alfonso \n \n Mucha suerte, Esteban, todo va a salir espectacular. Tan espectacular como todo lo que tomé esta noche. ¡Un fiestón! Lo mejor de todo, el whisky. ¡Una luz! Eso sumado a tus guisos. Una maravilla. \n Rober \n \n Voy a ser habitué de este lugar. \n Sebastián \n\n Felicitaciones, mi querido Esteban, por abrir tu segundo bar. \n ¡Esta vez escribo sin códigos! Sólo un pequeño texto, línea tras línea, \n para celebrar el gran logro de un amigo. \nCariños, Dolores. \n\n No alcanzan las palabras para expresar \n la exquisitez que fue todo esto. \n Los comensajes por venir lo disfrutarán \n Marco \n\n ¡Un manjar! \n Carmela"} </p>)}>
           📓 Cuaderno
         </button>
 
@@ -189,7 +184,7 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
       {mostrarModalCaja && (
         <div className="modal">
           <div className="modal-contenido">
-            <h3>🔒 Ingresá el código</h3>
+            <h3>🔒 El armario está cerrado con un candado</h3>
             <input
               type="text"
               value={inputCodigo}
@@ -207,7 +202,7 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
        {mostrarModalLuz && (
         <div className="modal">
           <div className="modal-contenido">
-            <h3>💡 Ingresá el código</h3>
+            <h3>💡 El tablero de luz tiene un código</h3>
             <input
               type="text"
               value={inputCodigo}

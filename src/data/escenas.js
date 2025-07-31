@@ -87,7 +87,7 @@ casino_intro: {
   calle: {
     texto: "Caminando por la calle, ¿a dónde irías?",
     opciones: [
-      { texto: "Playa", destino: "fin_playa", puntos: 10 },
+      { texto: "Playa", destino: "playa" },
       { texto: "Casino", destino: "casino_intro", puntos: -10 },
       { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
       { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }

@@ -20,6 +20,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   "casa_fiesta",
   "almacen_don_ernesto",
   "casa_amigo",
+  "guantera"
 
   // agregá todos los IDs que pertenezcan al archivo crimenauto.js
 ];

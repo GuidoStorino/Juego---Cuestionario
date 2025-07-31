@@ -6,12 +6,20 @@ export const crimenauto = {
       { texto: "Mirar el cadáver", mensaje: "La sangre está fresca. La herida es de un cuchillo muy filoso."},
       { texto: "Billetera", mensaje: "DNI \n Pablo Carmanzio \n 40.845.342 \n Domicilio: Monjitas 321"},
       { texto: "Revisar baúl del auto", mensaje: "Huele a fiambre. Qué conveniente..."},
-      { texto: "Guantera", mensaje: "Licencia Nacional de conducir N° 4548."},
+      { texto: "Guantera", destino: "guantera"},
       { texto: "Celular", destino: "codigo_celular"},
       { texto: "Creo que acá no hay más nada. Voy a ir a la casa de la víctima", destino: "casa_victima"},
       { texto: "Ya resolví todo", destino: "crimen_resuelto"}
     ],
     inicio: true
+  },
+
+  guantera: {
+    id: "guantera",
+    opciones: [
+      {texto: "Licencia de conducir", mensaje: "Pablo Carmanzio \n Licencia Nacional de conducir N°4548 \n "},
+      {texto: "Cédula verde", mensaje: "TITULAR: Mariano Gutierrez \n DOMINIO: PRT376 \n MARCA: TOYOTA \n MODELO: YARIS XLS 1.5 \n CHASIS: BRKR9262 "}
+    ]
   },
 
   codigo_celular:{
@@ -67,7 +75,7 @@ casa_amigo: {
   texto: "🔒 Te encontrás con una puerta con un teclado numérico.",
   opciones: [{texto: "Ir al almacén", destino: "almacen_don_ernesto"}, {texto: "Ir a la casa de la víctima", destino: "casa_victima"}], // no hay opciones al principio, se habilitan si el código es correcto
   requiereCodigo: true, // marca que esta escena tiene input de código
-  codigoCorrecto: "4548", // el código que desbloquea
+  codigoCorrecto: "9262", // el código que desbloquea
   desbloquea: [
     { texto: "Hay una libreta", mensaje: `STD 8926 \n MP 9499 \n BAPRO 3564 \n EF 7244` },
     { texto: "Cargar celular", requiere: "celular", destino: "celular_pablo"},

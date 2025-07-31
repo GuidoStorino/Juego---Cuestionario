@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LagoJuego.css'; // para estilos
+import './LagoJuego.css';
 import bota from '../assets/bota.png';
 import guantes from '../assets/guantes.png';
 import pasto from '../assets/pasto.png';
@@ -18,8 +18,8 @@ export default function LagoJuego() {
   const [usoAcciones, setUsoAcciones] = useState({ patada: 0, guantes: 0, pasto: 0 });
   const [cansancio, setCansancio] = useState(0);
   const [ninos, setNinos] = useState(generateNinos());
+  const [escapeIniciado, setEscapeIniciado] = useState(false);
 
-  // Regenerar cansancio con el tiempo
   useEffect(() => {
     const intervalo = setInterval(() => {
       setCansancio((prev) => Math.max(0, prev - 1));
@@ -28,32 +28,45 @@ export default function LagoJuego() {
   }, []);
 
   function generateNinos() {
-    return Array.from({ length: 7 }).map((_, i) => ({
+    return Array.from({ length: 120 }).map((_, i) => ({
       id: i,
-      estado: 'sentado', // 'sentado', 'arrojado', 'escapando'
-      posicion: Math.random() * 80 + 10, // posición en pantalla (izquierda %)
+      estado: 'sentado',
+      posicion: Math.random() * 70 + 15,
+      direccionEscape: Math.random() > 0.5 ? 'izquierda' : 'derecha'
     }));
   }
 
   function manejarClickNino(id) {
     if (!accionActual || cansancio >= 100) return;
+
     const nuevoEstado = [...ninos];
     const index = nuevoEstado.findIndex((n) => n.id === id);
+
     if (nuevoEstado[index].estado === 'sentado') {
       nuevoEstado[index].estado = 'arrojado';
       setNinos(nuevoEstado);
       setCansancio((c) => c + 20);
 
-      const nuevosUsos = { ...usoAcciones, [accionActual]: usoAcciones[accionActual] + 1 };
-      setUsoAcciones(nuevosUsos);
-
-      if (nuevosUsos[accionActual] >= 2) {
-        setCooldowns({ ...cooldowns, [accionActual]: true });
-        setTimeout(() => {
-          setUsoAcciones({ ...usoAcciones, [accionActual]: 0 });
-          setCooldowns({ ...cooldowns, [accionActual]: false });
-        }, 3000);
+      if (!escapeIniciado) {
+        iniciarEscape();
+        setEscapeIniciado(true);
       }
+
+      // Eliminar al niño después de la animación
+      setTimeout(() => {
+        setNinos((prev) => prev.filter((n) => n.id !== id));
+      }, 800);
+    }
+
+    const nuevosUsos = { ...usoAcciones, [accionActual]: usoAcciones[accionActual] + 1 };
+    setUsoAcciones(nuevosUsos);
+
+    if (nuevosUsos[accionActual] >= 2) {
+      setCooldowns({ ...cooldowns, [accionActual]: true });
+      setTimeout(() => {
+        setUsoAcciones({ ...usoAcciones, [accionActual]: 0 });
+        setCooldowns({ ...cooldowns, [accionActual]: false });
+      }, 3000);
     }
   }
 
@@ -88,14 +101,12 @@ export default function LagoJuego() {
           <img
             key={n.id}
             src={nino}
-            className={`nino ${n.estado}`}
+            className={`nino ${n.estado} ${n.estado === 'escapando' ? n.direccionEscape : ''}`}
             style={{ left: `${n.posicion}%` }}
             onClick={() => manejarClickNino(n.id)}
           />
         ))}
       </div>
-
-      <button className="boton-empezar" onClick={iniciarEscape}>¡Empezar Escape!</button>
     </div>
   );
 }
