@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
+import LagoJuego from "./LagoJuego";
 import SalaEscapeBar from "./SalaEscapeBar";
 
 
@@ -25,6 +26,18 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
 const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
+const emojisPorObjeto = {
+  sal: "🧂",
+  llave: "🔑",
+  cuchillo: "🔪",
+  vino: "🍷",
+  fuego: "🔥",
+  espada: "⚔️",
+  botella: "🍾",
+  cámara: "📷"
+};
+
+
 
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
@@ -42,20 +55,38 @@ const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
   if (escena.tipo === "casino") {
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
-  }
+
+}
+
+  
 
   const idEscena = escena.id || escena.nombre || escena.texto; // Usamos algún identificador único de la escena
   const codigoValido = codigosValidos[idEscena]; // ✅ específico para esta escena
 
+
+  
   if (escena.id === "sala_prop_bar") {
   return (
     <SalaEscapeBar
       volverAlBar={() => avanzar("bar")}
       reiniciarJuego={() => avanzar("sala_prop_bar")}
       ganarJuego={() => avanzar("ganaste_escape")}
+      
     />
   );
-}
+};
+
+  if (escena.id === "lago_juego") {
+  return (
+    <LagoJuego
+      volverAlBar={() => avanzar("bar")}
+      reiniciarJuego={() => avanzar("sala_prop_bar")}
+      ganarJuego={() => avanzar("ganaste_escape")}
+      
+    />
+  );
+};
+
 
 
   const opcionesParaMostrar = (
@@ -114,7 +145,9 @@ const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
             key={i}
             onClick={() => {
               if (requiere && !tieneRequisito) {
-                setAlerta(`⚔️ Necesitás ${requiere} para hacer esto.`);
+                const emoji = emojisPorObjeto[requiere] || "⚠️";
+                setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
+
                 return;
               }
               if (op.mensaje) {
