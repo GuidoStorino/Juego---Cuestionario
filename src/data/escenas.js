@@ -7,6 +7,7 @@ import { barhistorias } from "./barhistorias";
 import { crimenauto } from "./crimenauto";
 import { sala_prop_bar } from "./sala_prop_bar";
 import { lago_juego } from "./lago_juego";
+import { cabana_juego } from "./cabana_juego";
 
 export const escenas = {
     ...bosque,
@@ -18,6 +19,7 @@ export const escenas = {
     ...crimenauto,
     ...sala_prop_bar,
     ...lago_juego,
+    ...cabana_juego,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -31,7 +33,7 @@ export const escenas = {
     opciones: [
       { texto: "Linterna", objeto: "linterna", destino: "norte_destino" }, 
       { texto: "Mapa", objeto: "mapa", destino: "norte_destino"},
-      { texto: "Cuerda", objeto: "cuerda", destino: "norte_destino"},
+      { texto: "Cámara", objeto: "cámara", destino: "norte_destino"},
       { texto: "Avanzar sin tomar nada", destino: "norte_destino"}
     ],   
    
@@ -42,8 +44,8 @@ export const escenas = {
     texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
     opciones: [
     {texto: "Mapa", objeto: "mapa"},
-    {texto: "cuerda", objeto: "cuerda"},
-    {texto: "reloj", objeto: "reloj"},
+    {texto: "Cámara", objeto: "cámara"},
+    {texto: "Libro antiguo", objeto: "Libro antiguo"},
     {texto: "Avanzar sin tomar nada", destino: "sur_destino"}
     ],
     siguiente: "sur_destino"

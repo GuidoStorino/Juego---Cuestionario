@@ -4,6 +4,7 @@ import EscenaCasino from "./EscenaCasino";
 import AlertaModal from "./AlertaModal";
 import LagoJuego from "./LagoJuego";
 import SalaEscapeBar from "./SalaEscapeBar";
+import CabanaJuego from "./CabanaJuego";
 
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
@@ -35,7 +36,8 @@ const emojisPorObjeto = {
   fuego: "🔥",
   espada: "⚔️",
   botella: "🍾",
-  cámara: "📷"
+  cámara: "📷",
+  libroantiguo: "📖"
 };
 
 
@@ -80,6 +82,17 @@ const emojisPorObjeto = {
   if (escena.id === "lago_juego") {
   return (
     <LagoJuego
+      volverAlBar={() => avanzar("bar")}
+      reiniciarJuego={() => avanzar("sala_prop_bar")}
+      ganarJuego={() => avanzar("ganaste_escape")}
+      
+    />
+  );
+};
+
+  if (escena.id === "cabana_juego") {
+  return (
+    <CabanaJuego
       volverAlBar={() => avanzar("bar")}
       reiniciarJuego={() => avanzar("sala_prop_bar")}
       ganarJuego={() => avanzar("ganaste_escape")}

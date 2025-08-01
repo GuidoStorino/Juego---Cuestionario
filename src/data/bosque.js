@@ -1,4 +1,5 @@
 // src/data/bosque.js
+import pasto from '../assets/pasto.png';
 
 export const bosque = {
   bosque_intro: {
@@ -202,12 +203,69 @@ arturo: {
   lucy_sky: {
     texto: "Un mundo nuevo se abre. A lo lejos se ve un río, y a los lados árboles de mandarina que se abren paso debajo de cielos de mermelada. Sentís una voz que te habla cerca y le contestás despacio. La voz es de:",
     opciones: [
-      {texto: "Tu propia imaginación", destino: "bote"},
-      {texto: "Una chica con ojos de caleidoscopio", destino: "bote", puntos: 10},
-      {texto: "Una chica con ojos de videotape", destino: "bote"},
+      {texto: "Tu propia imaginación", destino: "no_drogada"},
+      {texto: "Una chica con ojos de caleidoscopio", destino: "ojos_sol", puntos: 10},
+      {texto: "Una chica con ojos de videotape", destino: "no_cancion"},
       {texto: ""}
     ]
   },
+
+    no_drogada: {
+    texto: "Bueno, parece que la flor rosa no hizo demasiado efecto en vos y estás lo suficientemente consciente para saber que todo era producto de tu imaginación, ¿no?",
+    opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle", destino: "calle_inicio"},
+      {texto: "Ah, ¿sí? Me gustaría volver a probar una flor", destino: "oler_flor"}
+    ],
+    final: true
+  },
+
+  no_cancion: {
+    texto: "La flor rosa te dejó tan confundida que hasta confundiste la canción, el caleidoscopio con el cassette y a Charly con Paul. También perdiste algo de dinero por el camino. Mejor quedarse quieto unos minutos, tomar aire y pensar con claridad.",
+        opciones: [
+      {texto: "Volver a la feria", destino: "feria_bosque"},
+      {texto: "Salir a la calle", destino: "calle_inicio"},
+      {texto: "Ah, ¿sí? Me gustaría volver a probar una flor", destino: "oler_flor"}],
+      final: true
+  },
+
+  ojos_sol: {
+    texto: "Ahora las flores se tornan verdes y amarillas, y se elevan por sobre tu cabeza. Buscas a la chica que tiene en sus ojos... ¿qué?",
+    opciones: [
+      {texto: "El sol", destino: "puente_fuente"},
+      {texto: "Papel", destino: "no_cancion"},
+      {texto: "Que las flores cambien de color hasta lo podría pensar, pero ¿que 'se eleven sobre mi cabeza'?", destino: "no_drogada"}
+    ]
+  },
+
+    puente_fuente: {
+    texto: "La seguís hasta un puente junto a una fuente, en donde todo el mundo te sonríe mientras pasas a través de las flores, mientras está comiendo...",
+    opciones: [
+      {texto: "Un volcán de chocolate", destino: "no_cancion"},
+      {texto: "Pasteles de malvavisco", destino: "bote"},
+      {texto: "El campo estaba vacío cuando llegué, ¿de dónde salió toda esta gente", destino: "no_drogada"}
+    ]
+  },
+
+  bote: {
+    texto: "La chica se fue. Estás en la orilla de un río, en donde hay un bote con una persona. Tiene unos 83 años, pero se ve tan vital como a sus 20. Te mira con una sonrisa y te saluda con un acento inglés. De Liverpool, para ser más precisos. Te dice que se llama Paul, y en sus manos lleva una guitarra acústica. Le podés pedir una canción y solamente una canción. ¿Cuál?",
+
+    textoLibre: true,
+    validarTexto: (input) => ({
+    destino: "bajo",
+    guardar: { clave: "motivacion", valor: input }
+    }),
+    guardarRespuesta: (clave, valor) => {
+    localStorage.setItem(clave, valor); // podés hacer algo más sofisticado si querés
+  }
+    },
+
+    bajo: {
+      texto: "Una gran elección. Llegaste al final de este camino. Felicitaciones. Te ganaste este hermoso bajo Höfner", imagen: "PinturaSalaBar.png",
+      opciones: [
+        {texto: "Salir a la calle", destino: "calle_inicio", imagen: "PinturaSalaBar.png"}
+      ]
+    },
 
   feria_bosque: {
     texto: "",
@@ -223,13 +281,9 @@ arturo: {
   cabana_bosque: {
     texto: "Te agitaste y perdiste.",
     opciones: [
-      { texto: "Entrar en la cabaña", destino: "fin_cabana" },
+      { texto: "Entrar en la cabaña", destino: "cabana_juego" },
       { texto: "Rodearla y seguir", destino: "fin_bosque" }
     ]
-  },
-  fin_cabana: {
-    texto: "Un anciano sabio te da un mapa mágico. ¡Ganás 10 puntos!",
-    opciones: [{ texto: "Volver al inicio", destino: "inicio", puntos: 10 }]
   },
 
   casitas_bosque: {
@@ -244,7 +298,7 @@ arturo: {
     texto: "Un viejo sale de la casa y te ve fotografiando el hongo. Te ofrece llevártelo.",
     opciones: [
       {texto: "Le agradecés y seguís"},
-      {texto: "Te llevás el hongo"}
+      {texto: "Te llevás el hongo", objeto: "hongo"}
     ]
   },
 
