@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const recetas = [
-  {
-    nombre: "Poción de Curación",
-    ingredientes: ["hierbas", "sal", "vino"],
-    resultado: "Lograste crear una poción de curación. ¡Bien hecho!",
-  },
-  {
-    nombre: "Poción Explosiva",
-    ingredientes: ["azufre", "aceite", "sal"],
-    resultado: "¡Boom! El caldero explotó. Has creado una poción explosiva.",
-  },
-  {
-    nombre: "Poción de Invisibilidad",
-    ingredientes: ["mandrágora", "vino", "agua lunar"],
-    resultado: "Te has vuelto invisible por un momento.",
-  },
+const RECETAS_VALIDAS = [
+  ['hierbas', 'vino', 'sal'],
+  ['sal', 'hongos', 'vino'],
+  ['hierbas', 'Hongo', 'agua'],
+];
+
+const RECETAS_FALLIDAS = [
+  { ingredientes: ['sal', 'agua'], resultado: "El líquido se pone oscuro y espeso. No parece seguro beberlo." },
+  { ingredientes: ['hongos', 'vino'], resultado: "Una nube púrpura emerge del caldero... ¡explota sin previo aviso!" },
+  { ingredientes: ['hierbas', 'sal'], resultado: "La mezcla se vuelve amarga y sin color. El anciano frunce el ceño." },
 ];
 
 const CalderoPocion = () => {
@@ -23,6 +17,8 @@ const CalderoPocion = () => {
   const [objetosUsados, setObjetosUsados] = useState([]);
   const [mensaje, setMensaje] = useState("");
   const [tieneLibro, setTieneLibro] = useState(false);
+  const [juegoGanado, setJuegoGanado] = useState(false);
+  const [mostrarRecetas, setMostrarRecetas] = useState(false);
 
   useEffect(() => {
     const inventarioGuardado = JSON.parse(localStorage.getItem("inventario")) || [];
@@ -31,6 +27,10 @@ const CalderoPocion = () => {
   }, []);
 
   const agregarAlCaldero = (objeto) => {
+    if (objeto === "Libro antiguo") {
+      setMostrarRecetas(!mostrarRecetas);
+      return;
+    }
     if (!objetosUsados.includes(objeto)) {
       setObjetosUsados([...objetosUsados, objeto]);
     }
@@ -39,44 +39,119 @@ const CalderoPocion = () => {
   const prepararPocion = () => {
     const ingredientesUsados = [...objetosUsados].sort();
 
-    const recetaEncontrada = recetas.find((receta) => {
-      const ingredientesEsperados = [...receta.ingredientes].sort();
+    const recetaExitosa = RECETAS_VALIDAS.find((receta) => {
+      const r = [...receta].sort();
       return (
-        ingredientesUsados.length === ingredientesEsperados.length &&
-        ingredientesUsados.every((ing, i) => ing === ingredientesEsperados[i])
+        ingredientesUsados.length === r.length &&
+        ingredientesUsados.every((ing, i) => ing === r[i])
       );
     });
 
-    if (recetaEncontrada) {
-      setMensaje(recetaEncontrada.resultado);
+    if (recetaExitosa) {
+      setMensaje("¡La poción comienza a brillar! Has creado una mezcla perfecta.");
+      setJuegoGanado(true);
+      return;
+    }
+
+    const recetaFallida = RECETAS_FALLIDAS.find(({ ingredientes }) => {
+      const r = [...ingredientes].sort();
+      return (
+        ingredientesUsados.length === r.length &&
+        ingredientesUsados.every((ing, i) => ing === r[i])
+      );
+    });
+
+    if (recetaFallida) {
+      setMensaje(recetaFallida.resultado);
     } else {
       setMensaje("La mezcla burbujea sin sentido... No parece funcionar.");
     }
   };
 
-  if (!tieneLibro) {
-    return <p>El anciano dice: "Para preparar una poción necesitas el libro antiguo."</p>;
-  }
+  const reiniciarJuego = () => {
+    setObjetosUsados([]);
+    setMensaje("");
+    setJuegoGanado(false);
+    setMostrarRecetas(false);
+  };
+
+const irAEscena = (destino) => {
+  localStorage.setItem("escena", destino);
+  window.location.reload(); // Forzamos recarga para que la nueva escena se cargue
+};
+
 
   return (
     <div style={{ padding: "1rem", backgroundColor: "#f0efe7", borderRadius: "12px" }}>
       <h2>Caldero Mágico</h2>
-      <p>Seleccioná objetos para echar al caldero:</p>
-      <ul>
-        {inventario.map((obj, idx) => (
-          <li key={idx}>
-            <button onClick={() => agregarAlCaldero(obj)}>{obj}</button>
-          </li>
-        ))}
-      </ul>
 
-      <p>Objetos en el caldero: {objetosUsados.join(", ") || "Ninguno"}</p>
+      {!juegoGanado && (
+        <button onClick={() => irAEscena("bosque_intro")} style={{ marginBottom: "1rem" }}>
+          Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
+        </button>
+      )}
 
-      <button onClick={prepararPocion} disabled={objetosUsados.length === 0}>
-        Preparar Poción
-      </button>
+      {!tieneLibro && (
+        <p>El anciano dice: "Para preparar una poción necesitas el libro antiguo."</p>
+      )}
+
+      {tieneLibro && !juegoGanado && (
+        <>
+          <p>Seleccioná objetos para echar al caldero:</p>
+          <ul>
+            {inventario.map((obj, idx) => (
+              <li key={idx}>
+                <button onClick={() => agregarAlCaldero(obj)}>{obj}</button>
+              </li>
+            ))}
+          </ul>
+
+          <p>Objetos en el caldero: {objetosUsados.join(", ") || "Ninguno"}</p>
+
+          <button onClick={prepararPocion} disabled={objetosUsados.length === 0}>
+            Preparar Poción
+          </button>
+        </>
+      )}
+
+            {mostrarRecetas && (
+        <div style={{ marginTop: "1rem" }}>
+          <img
+            src="/img/recetas-libro.png"
+            alt="Recetas del libro antiguo"
+            style={{ maxWidth: "100%", border: "2px solid #333", borderRadius: "8px" }}
+          />
+        </div>
+      )}
 
       {mensaje && <p style={{ marginTop: "1rem", fontWeight: "bold" }}>{mensaje}</p>}
+
+      {juegoGanado && (
+        <div style={{ marginTop: "1rem" }}>
+          <h3>¡Juego Ganado!</h3>
+          <button onClick={() => irAEscena("bosque_intro")} style={{ marginRight: "1rem" }}>
+            Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
+          </button>
+          <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
+        </div>
+      )}
+
+            {juegoGanado && (
+        <div style={{ marginTop: "1rem" }}>
+          <h3>¡Juego Ganado!</h3>
+          <button onClick={() => irAEscena("bosque_intro")} style={{ marginRight: "1rem" }}>
+            Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
+          </button>
+          <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
+        </div>
+      )}
+
+
+      {!juegoGanado && mensaje && (
+        <div style={{ marginTop: "1rem" }}>
+          <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
+        </div>
+      )}
     </div>
   );
 };

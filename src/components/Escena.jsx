@@ -29,15 +29,20 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
 const emojisPorObjeto = {
-  sal: "🧂",
-  llave: "🔑",
-  cuchillo: "🔪",
-  vino: "🍷",
-  fuego: "🔥",
-  espada: "⚔️",
-  botella: "🍾",
-  cámara: "📷",
-  libroantiguo: "📖"
+  "Sal": "🧂",
+  "Llave": "🔑",
+  "Cuchillo": "🔪",
+  "Vino": "🍷",
+  "Fuego": "🔥",
+  "Espada": "⚔️",
+  "Botella": "🍾",
+  "Cámara": "📷",
+  "Libro antiguo": "📖",
+  "Hongo": "🍄",
+  "Hierbas Azules": "🍃🔵",
+  "Hierbas Doradas": "🍂",
+  "Hierbas Verdes": "🌿",
+  "Hierbas Rojas": "🥀",
 };
 
 
