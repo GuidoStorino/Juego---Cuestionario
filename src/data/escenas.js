@@ -56,8 +56,7 @@ export const escenas = {
     texto: "¿A dónde querés ir?",
     opciones: [
       { texto: "Sala de escape", destino: "sala_escape" },
-      { texto: "Bar", destino: "bar" },
-      { texto: "Librería", destino: "fin_libreria" },
+      { texto: "Bar", destino: "bar" }
     ]
   },
   sur_destino: {

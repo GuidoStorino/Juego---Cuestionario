@@ -66,7 +66,7 @@ agradecimiento: {
 },
 
 buenas_conversaciones: {
-texto: "s",
+texto: "",
 opciones: [
   { texto: "Un chabón sentado tomando una copa de vino que sabría perfectamente cuál vino va con vos.", destino: "test_vino"},
   { texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
@@ -82,7 +82,7 @@ test_vino: {
 escaneo_gente: {
   texto: "Mirás atentamente a la gente del lugar y hay algunos de ellos que logran captar tu atención.",
   opciones: [
-    {texto: "Una persona que vio muchas películas. Podrías hablar de las que viste vos.", destino: "TorneoImagenes"},
+    {texto: "Una persona que vio muchas películas y quiere saber sobre algunas que viste vos", destino: "TorneoImagenes"},
     {texto: "Un hombre que parece muy tranquilo en realidad está tramando algo sucio. Un cómplice va a caer al bar en cualquier momento para realizar un robo.", destino: "baraccion", resetPerfil: true},
     {texto: ""},
     {texto: "Me mirás a los ojos y se provoca un efecto inverso. De repente no te recuerdo y tenés que volver a hacer que me acuerde de vos.", destino: "barromance"}

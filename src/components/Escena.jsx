@@ -45,6 +45,18 @@ const emojisPorObjeto = {
   "Hierbas Doradas": "🍂",
   "Hierbas Verdes": "🌿",
   "Hierbas Rojas": "🥀",
+  "Aries": "♈",
+  "Tauro": "♉",
+  "Géminis": "♊",
+  "Cáncer": "♋",
+  "Leo": "♌",
+  "Virgo": "♍",
+  "Libra": "♎",
+  "Escorpio": "♏",
+  "Sagitario": "♐",
+  "Capricornio": "♑",
+  "Acuario": "♒",
+  "Piscis": "♓"
 };
 
 
@@ -97,11 +109,10 @@ const emojisPorObjeto = {
   );
 };
 
-
-
   if (escena.id === "test_vino") {
   return (
     <TorneoImagenes
+      volver={() => volver ("calle_inicio")}
       volverAlBar={() => avanzar("bar")}
       reiniciarJuego={() => avanzar("sala_prop_bar")}
       ganarJuego={() => avanzar("ganaste_escape")}
@@ -133,6 +144,7 @@ const emojisPorObjeto = {
     />
   );
 };
+
 
 
   const opcionesParaMostrar = (

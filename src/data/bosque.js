@@ -191,10 +191,10 @@ arturo: {
   },
 
   perderse:{
-    texto: "En la inmensidad te perdiste. Todo se ve igual para cualquier lado que mires",
+    texto: "En la inmensidad te perdiste. Todo se ve igual para cualquier lado que mires. Al caminar un poco más, allá a lo lejos, se ve un puente. Mientras lo estás cruzando, ves que hay",
     opciones: [
-      { texto: "Voy a ir desde donde creo que vine", destino: "cabana_bosque"},
-      { texto: "No, seguro estoy desorientada. Voy a tomar el camino contrario", destino: "puente"}  
+      { texto: "un duende del otro lado", destino: "duende_tesoro"},
+      { texto: "y una sirena mirándote desde el agua", destino: "sirena_puzzle"}  
     ]
   },
 
