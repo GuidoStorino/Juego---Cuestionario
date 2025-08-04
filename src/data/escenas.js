@@ -2,11 +2,12 @@ import { bosque } from "./bosque";
 import { casino } from "./casino";
 import { bar } from "./bar";
 import { baraccion } from "./baraccion";
-import { juegopersonajes } from "./juegopersonajes";
 import { barhistorias } from "./barhistorias";
 import { crimenauto } from "./crimenauto";
 import { sala_prop_bar } from "./sala_prop_bar";
 import { lago_juego } from "./lago_juego";
+import { cabana_juego } from "./cabana_juego.js";
+import { test_vino } from "./test_vino";
 import { cabana_juego } from "./cabana_juego";
 import { casadete } from "./casadete";
 
@@ -14,13 +15,13 @@ export const escenas = {
     ...bosque,
     ...casino,
     ...bar,
-    ...juegopersonajes,
     ...baraccion,
     ...barhistorias,
     ...crimenauto,
     ...sala_prop_bar,
     ...lago_juego,
     ...cabana_juego,
+    ...test_vino,
     ...casadete,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",

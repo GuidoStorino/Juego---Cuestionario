@@ -1,0 +1,193 @@
+.juego-zodiaco {
+  font-family: 'Verdana', sans-serif;
+  padding: 2rem;
+  background: radial-gradient(#222, #000);
+  color: #fff;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.mesa-piedras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.piedra {
+  background: #444;
+  border: 2px solid #888;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.piedra:hover {
+  transform: scale(1.05);
+  background: #555;
+}
+
+.piedra-brillante {
+  background: linear-gradient(135deg, #aaffaa, #55ff55);
+  color: #000;
+  border: 2px solid #450212;
+  font-weight: bold;
+  box-shadow: 0 0 10px #450212;
+}
+
+.piedra-parcial {
+  background: #666;
+  border-color: #ccc;
+}
+
+.caracteristica-cayendo {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  animation: caer 2s ease-out;
+}
+
+@keyframes caer {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mensaje-final {
+  background: #222;
+  padding: 2rem;
+  border: 2px solid #450212;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #450212;
+}
+
+.mensaje-final h2 {
+  color: #aaffaa;
+}
+
+.mensaje-final button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #450212;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.mensaje-final button:hover {
+  background: #afffaf;
+}
+
+@keyframes brilloFinal {
+  0% {
+    box-shadow: 0 0 0px #450212;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px #450212, 0 0 40px #450212;
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 10px #450212;
+    transform: scale(1);
+  }
+}
+
+@keyframes chispas {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.5);
+  }
+}
+
+.piedra-brillante {
+  background: #bbb; /* gris claro */
+  color: #222; /* texto oscuro para contraste */
+  border: 2px solid #666; /* borde gris oscuro */
+  box-shadow: none; /* sin sombras verdes ni animación */
+  position: relative;
+  font-weight: bold;
+}
+
+.piedra-brillante::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #450212;
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px #450212,
+    -10px -10px 20px #450212,
+    10px -10px 20px #450212,
+    -10px 10px 20px #450212,
+    10px 10px 20px #450212;
+  transform: translate(-50%, -50%);
+  animation: chispas 1s ease-out forwards;
+}
+
+.piedra:hover {
+  transform: scale(1.05);
+}
+
+@keyframes brillo {
+  0% {
+    box-shadow: 0 0 15px rgba(114, 114, 33, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 255, 100, 0.8);
+  }
+}
+
+.piedra {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border: 2px solid #999;
+  margin: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.piedra-brillante {
+  box-shadow: 0 0 10px 4px gold;
+}
+
+.piedra-barra {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(130,130,130,0.7), rgba(80,80,80,0.9));
+  transition: height 0.3s ease;
+  z-index: 0;
+  border-radius: 0 0 12px 12px;
+}
+
+
+.piedra .contenido {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}

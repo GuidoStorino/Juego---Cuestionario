@@ -5,6 +5,8 @@ import AlertaModal from "./AlertaModal";
 import LagoJuego from "./LagoJuego";
 import SalaEscapeBar from "./SalaEscapeBar";
 import CabanaJuego from "./CabanaJuego";
+import TorneoImagenes from "./TorneoImagenes";
+import ZodiacoJuego from "./ZodiacoJuego";
 
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
@@ -95,6 +97,32 @@ const emojisPorObjeto = {
   );
 };
 
+
+
+  if (escena.id === "test_vino") {
+  return (
+    <TorneoImagenes
+      volverAlBar={() => avanzar("bar")}
+      reiniciarJuego={() => avanzar("sala_prop_bar")}
+      ganarJuego={() => avanzar("ganaste_escape")}
+      
+    />
+  );
+};
+
+  if (escena.id === "hippie_bosque") {
+  return (
+    <ZodiacoJuego 
+    
+      elegirObjeto={elegirObjeto}
+      volverAlBar={() => avanzar("bar")}
+      reiniciarJuego={() => avanzar("sala_prop_bar")}
+      ganarJuego={() => avanzar("ganaste_escape")}
+      
+    />
+  );
+};
+
   if (escena.id === "cabana_juego") {
   return (
     <CabanaJuego
@@ -105,7 +133,6 @@ const emojisPorObjeto = {
     />
   );
 };
-
 
 
   const opcionesParaMostrar = (
