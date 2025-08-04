@@ -6,7 +6,6 @@ import { barhistorias } from "./barhistorias";
 import { crimenauto } from "./crimenauto";
 import { sala_prop_bar } from "./sala_prop_bar";
 import { lago_juego } from "./lago_juego";
-import { cabana_juego } from "./cabana_juego.js";
 import { test_vino } from "./test_vino";
 import { cabana_juego } from "./cabana_juego";
 import { casadete } from "./casadete";
