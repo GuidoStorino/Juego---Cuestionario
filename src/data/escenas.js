@@ -9,6 +9,7 @@ import { lago_juego } from "./lago_juego";
 import { test_vino } from "./test_vino";
 import { cabana_juego } from "./cabana_juego";
 import { casadete } from "./casadete";
+import { hippiebosque } from "./hippiebosque";
 
 export const escenas = {
     ...bosque,
@@ -22,6 +23,7 @@ export const escenas = {
     ...cabana_juego,
     ...test_vino,
     ...casadete,
+    ...hippiebosque,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

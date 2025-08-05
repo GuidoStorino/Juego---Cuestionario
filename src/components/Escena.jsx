@@ -121,13 +121,16 @@ const emojisPorObjeto = {
   );
 };
 
-  if (escena.id === "hippie_bosque") {
+  
+  
+  console.log("Escena actual:", escena);
+
+
+  if (escena.id === "hippiebosque") {
   return (
     <ZodiacoJuego 
     
       elegirObjeto={elegirObjeto}
-      volverAlBar={() => avanzar("bar")}
-      reiniciarJuego={() => avanzar("sala_prop_bar")}
       ganarJuego={() => avanzar("ganaste_escape")}
       
     />
