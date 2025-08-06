@@ -62,7 +62,12 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalida
       fichas: Math.max((prev.fichas || 0) + fichas, 0),
       historial: nuevoHistorial,
       perfilPersonalidad : nuevoPerfil
+
+
+      
     };
+
+    
 
 
 
@@ -125,6 +130,28 @@ const elegirObjeto = (objeto, costo = 0) => {
     localStorage.clear();
     setEstado(estadoInicial());
   };
+
+  useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === "m") {
+      e.preventDefault();
+      const destino = prompt("¿Clave?");
+      if (destino && escenas[destino]) {
+        setEstado((prev) => ({
+          ...prev,
+          escena: destino,
+          historial: [...prev.historial, prev.escena],
+        }));
+      } else {
+        alert("Esa escena no existe.");
+      }
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+  return () => window.removeEventListener("keydown", handleKeyDown);
+}, []);
+
 
   
 

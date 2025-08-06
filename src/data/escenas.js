@@ -10,6 +10,9 @@ import { test_vino } from "./test_vino";
 import { cabana_juego } from "./cabana_juego";
 import { casadete } from "./casadete";
 import { hippiebosque } from "./hippiebosque";
+import { escape_policia } from "./escape_policia";
+import { maru } from "./escenaatajo";
+import {espejo_callejon} from "./espejo_callejon";
 
 export const escenas = {
     ...bosque,
@@ -24,6 +27,9 @@ export const escenas = {
     ...test_vino,
     ...casadete,
     ...hippiebosque,
+    ...escape_policia,
+    ...maru,
+    ...espejo_callejon,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

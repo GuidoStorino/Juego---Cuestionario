@@ -37,27 +37,47 @@ historia_asesinato: {
 auto_robo: {
     texto: "Probás las llaves y el auto enciende. Lo primero pensás es cuál es el embrague, y si los autos antiguos los tienen en el mismo orden que los de ahora. Lo segundo, es que será mejor salir de ahí rápido.",
     opciones: [
-        {texto: "Salís arando a todo lo que da", destino: "sirena_policia"},
+        {texto: "Salís arando a todo lo que da", destino: "escape_policia"},
         {texto: "Si vas despacito nadie va a sospechar", destino: "auto_despacio"},
         {texto: "Voy a una velocidad normal pero doblo en la esquina", destino: "doblo_esquina"}
     ]
 },
 
-sirena_policia: {
-    texto: "Saliste con todo, llamaste demasiado la atención y las sirenas de la policía no tardaron hacerse oír.",
+auto_despacio: {
+    texto: "Y nadie sospechó. Ya que cometiste un delito, ¿cometerías otro y entrarías a robar alguno de los locales que ves mientras paseás?",
     opciones: [
-        {texto: "Sigo en la mía, en algún momento los voy a perder", destino: "perder_policia_meteoro"},
-        {texto: "Salgo del auto y me pongo a caminar como si nada", destino: "perder_policia_caminando" }
+        {texto: "Un negocio llamado 'El Fiambrecito", destino: "el_fiambrecito"},
+        {texto: "Una ferretería", destino: "ferreteria"},
+        {texto: "Un local de instrumentos musicales", destino: "instrumentos_local"},
+        {texto: "No, por supuesto que no", destino: "espejo_bar"}
     ]
 },
 
-perder_policia_meteoro: {
-    texto: "Excelente, Meteoro. Perdiste a la policía como una campeona. Ya estás para la Formula 1. ¿Y ahora?",
+el_fiambrecito: {
     opciones: [
-        {texto: "Volver a la calle empedrada", destino: "espejo_bar"},
-        {texto: "Volver al bar", destino: "bar"},
-        {texto: "Salir a la calle de inicio", destino: "calle_inicio"},
-       ], final: true
+        {texto: "Lomito", objeto: "Lomito", destino: "espejo_bar"},
+        {texto: "Un queso con agujeritos, como el de los dibujitos", objeto: "Queso", destino: "espejo_bar"},
+        {texto: "Una pata de jamón", objeto: "Jamón", destino: "espejo_bar"},
+        {texto: "Un salamín", objeto: "Salamín", destino: "espejo_bar"}
+    ]
+},
+
+ferreteria: {
+    opciones: [
+        {texto: "Un disyuntor", objeto: "Disyuntor", destino: "espejo_bar"},
+        {texto: "Una linterna", objeto: "Linterna", destino: "espejo_bar"},
+        {texto: "Un destornillador", objeto: "Destornillador", destino: "espejo_bar"},
+        {texto: "Una cinta métrica", objeto: "Cinta métrica", destino: "espejo_bar"}
+    ]
+},
+
+instrumentos_local: {
+    opciones: [
+        {texto: "Una guitarra", objeto: "Instrumento", destino: "espejo_bar"},
+        {texto: "Una pandereta", objeto: "Instrumento", destino: "espejo_bar"},
+        {texto: "Un bajo", objeto: "Instrumento", destino: "espejo_bar"},
+        {texto: "Un ukelele", objeto: "Instrumento", destino: "espejo_bar"}
+    ]
 },
 
 perder_policia_caminando: {
@@ -70,7 +90,12 @@ perder_policia_caminando: {
 },
 
 doblo_esquina: {
-    texto: ""
+    texto: "Y como quien no quiere la cosa, ahora perdiste a la policía y manejás un auto antiguo por una calle iluminada y en donde hay algunas cosas para hacer",
+    opciones: [
+        {texto: "Recital", destino: "recital"},
+        {texto: ""},
+        {texto: "Das una vuelta y dejás el auto estacionado donde estaba", destino: "espejo_bar"} 
+    ]
 }
 
 }

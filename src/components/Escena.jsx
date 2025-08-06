@@ -7,6 +7,8 @@ import SalaEscapeBar from "./SalaEscapeBar";
 import CabanaJuego from "./CabanaJuego";
 import TorneoImagenes from "./TorneoImagenes";
 import ZodiacoJuego from "./ZodiacoJuego";
+import CuentaRegresiva from "./CuentaRegresiva";
+import './escape_policia.css';
 
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
@@ -27,6 +29,28 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
   // agregá todos los IDs que pertenezcan al archivo crimenauto.js
 ];
+
+const escenasConCuentaRegresiva = [
+  "escape_policia",
+  "policia_2",
+  "policia_3",
+  "policia_4",
+  "policia_5"
+];
+
+
+const mostrarCuentaRegresiva = escenasConCuentaRegresiva.includes(escena.id);
+
+const escenasPoliciales = [
+  "escape_policia",
+  "policia_2",
+  "policia_3",
+  "policia_4",
+  "policia_5"
+];
+const esEscenaPolicial = escenasPoliciales.includes(escena.id);
+
+
 
 const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
@@ -121,9 +145,6 @@ const emojisPorObjeto = {
   );
 };
 
-  
-  
-  console.log("Escena actual:", escena);
 
 
   if (escena.id === "hippiebosque") {
@@ -155,7 +176,10 @@ const emojisPorObjeto = {
   );
 
   return (
-     <div className={esEscenaMisteriosa ? "escena-misterio" : ""}>
+     <div
+  className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}
+>
+
       
       <p
   style={
@@ -196,50 +220,57 @@ const emojisPorObjeto = {
     </button>
   </div>
 )}
+      
+{opcionesParaMostrar.length > 0 && (
+  <div className={esEscenaPolicial ? "botones-policiales" : ""}>
+    {esEscenaPolicial && (
+  <div className="sirena">
+    <div className="rojo"></div>
+    <div className="azul"></div>
+  </div>
+)}
 
-      {opcionesParaMostrar.map((op, i) => {
-        const requiere = op.requiere;
-        const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
+    {opcionesParaMostrar.map((op, i) => {
+      const requiere = op.requiere;
+      const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
 
-        return (
-          <button
-            key={i}
-            onClick={() => {
-              if (requiere && !tieneRequisito) {
-                const emoji = emojisPorObjeto[requiere] || "⚠️";
-                setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
+      return (
+        <button
+          key={i}
+          onClick={() => {
+            if (requiere && !tieneRequisito) {
+              const emoji = emojisPorObjeto[requiere] || "⚠️";
+              setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
+              return;
+            }
+            if (op.mensaje) setAlerta(op.mensaje);
+            if (op.objeto) elegirObjeto(op.objeto);
+            avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
+          }}
+          style={{
+            display: "block",
+            margin: "8px 0",
+            border: "none",
+            background: "none",
+            padding: 0,
+            cursor: "pointer"
+          }}
+        >
+          {op.imagen ? (
+            <img
+              src={op.imagen}
+              alt={op.texto}
+              style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
+            />
+          ) : (
+            op.texto
+          )}
+        </button>
+      );
+    })}
+  </div>
+)}
 
-                return;
-              }
-              if (op.mensaje) {
-                setAlerta(op.mensaje);
-              }
-              if (op.objeto) {
-                elegirObjeto(op.objeto);
-              }
-              avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
-            }}
-            style={{
-              display: "block",
-              margin: "8px 0",
-              border: "none",
-              background: "none",
-              padding: 0,
-              cursor: "pointer"
-            }}
-          >
-            {op.imagen ? (
-              <img
-                src={op.imagen}
-                alt={op.texto}
-                style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-              />
-            ) : (
-              op.texto
-            )}
-          </button>
-        );
-      })}
 
       {escena.objetos && escena.objetos.map((obj, i) => (
         <button
@@ -271,6 +302,8 @@ const emojisPorObjeto = {
             style={{ padding: "8px", width: "100%", boxSizing: "border-box" }}
           />
           <button onClick={manejarTextoLibre} style={{ marginTop: 8 }}>Enviar</button>
+
+          
         </div>
       )}
 
@@ -283,6 +316,14 @@ const emojisPorObjeto = {
       )}
 
       {alerta && <AlertaModal mensaje={alerta} cerrar={() => setAlerta(null)} />}
+
+        {mostrarCuentaRegresiva && (
+  <CuentaRegresiva
+    segundosInicio={30} // o el tiempo que quieras
+    onTiempoTerminado={() => avanzar("perder_juego_policia")}
+  />
+)}
+
 
         
     </div>
