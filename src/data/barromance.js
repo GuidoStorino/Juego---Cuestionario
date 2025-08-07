@@ -134,7 +134,7 @@ barromance: {
   validarTexto: (input) => {
     if (input.toLowerCase().trim() === "bastardos sin gloria") {
       return {
-        destino: "",
+        destino: "memoria_restaurada",
         puntos: 10,
         guardar: { clave: "bastardos", valor: input }
       };
