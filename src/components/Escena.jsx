@@ -10,81 +10,78 @@ import ZodiacoJuego from "./ZodiacoJuego";
 import CuentaRegresiva from "./CuentaRegresiva";
 import './escape_policia.css';
 
-
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
   const [alerta, setAlerta] = useState(null);
   const [inputCodigo, setInputCodigo] = useState("");
-  const [codigosValidos, setCodigosValidos] = useState({}); // ✅ estado por escena
+  const [codigosValidos, setCodigosValidos] = useState({}); // Estado para códigos válidos
+
   const escenasMisteriosas = [
-  "crimenauto",
-  "codigo_celular",
-  "casa_victima",
-  "crimen_resuelto",
-  "celular_pablo",
-  "casa_fiesta",
-  "almacen_don_ernesto",
-  "casa_amigo",
-  "guantera"
+    "crimenauto",
+    "codigo_celular",
+    "casa_victima",
+    "crimen_resuelto",
+    "celular_pablo",
+    "casa_fiesta",
+    "almacen_don_ernesto",
+    "casa_amigo",
+    "guantera"
+    // agregá todos los IDs que pertenezcan al archivo crimenauto.js
+  ];
 
-  // agregá todos los IDs que pertenezcan al archivo crimenauto.js
-];
+  const escenasConCuentaRegresiva = [
+    "escape_policia",
+    "policia_2",
+    "policia_3",
+    "policia_4",
+    "policia_5"
+  ];
 
-const escenasConCuentaRegresiva = [
-  "escape_policia",
-  "policia_2",
-  "policia_3",
-  "policia_4",
-  "policia_5"
-];
+  const escenasPoliciales = [
+    "escape_policia",
+    "policia_2",
+    "policia_3",
+    "policia_4",
+    "policia_5"
+  ];
 
+  const mostrarCuentaRegresiva = escenasConCuentaRegresiva.includes(escena.id);
+  const esEscenaPolicial = escenasPoliciales.includes(escena.id);
+  const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
 
-const mostrarCuentaRegresiva = escenasConCuentaRegresiva.includes(escena.id);
+  const emojisPorObjeto = {
+    "Sal": "🧂",
+    "Llave": "🔑",
+    "Cuchillo": "🔪",
+    "Vino": "🍷",
+    "Fuego": "🔥",
+    "Espada": "⚔️",
+    "Botella": "🍾",
+    "Cámara": "📷",
+    "Libro antiguo": "📖",
+    "Hongo": "🍄",
+    "Hierbas Azules": "🍃🔵",
+    "Hierbas Doradas": "🍂",
+    "Hierbas Verdes": "🌿",
+    "Hierbas Rojas": "🥀",
+    "Aries": "♈",
+    "Tauro": "♉",
+    "Géminis": "♊",
+    "Cáncer": "♋",
+    "Leo": "♌",
+    "Virgo": "♍",
+    "Libra": "♎",
+    "Escorpio": "♏",
+    "Sagitario": "♐",
+    "Capricornio": "♑",
+    "Acuario": "♒",
+    "Piscis": "♓"
+  };
 
-const escenasPoliciales = [
-  "escape_policia",
-  "policia_2",
-  "policia_3",
-  "policia_4",
-  "policia_5"
-];
-const esEscenaPolicial = escenasPoliciales.includes(escena.id);
+  const idEscena = escena.id || escena.nombre || escena.texto; // Identificador único
+  const codigoValido = codigosValidos[idEscena];
 
-
-
-const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
-
-const emojisPorObjeto = {
-  "Sal": "🧂",
-  "Llave": "🔑",
-  "Cuchillo": "🔪",
-  "Vino": "🍷",
-  "Fuego": "🔥",
-  "Espada": "⚔️",
-  "Botella": "🍾",
-  "Cámara": "📷",
-  "Libro antiguo": "📖",
-  "Hongo": "🍄",
-  "Hierbas Azules": "🍃🔵",
-  "Hierbas Doradas": "🍂",
-  "Hierbas Verdes": "🌿",
-  "Hierbas Rojas": "🥀",
-  "Aries": "♈",
-  "Tauro": "♉",
-  "Géminis": "♊",
-  "Cáncer": "♋",
-  "Leo": "♌",
-  "Virgo": "♍",
-  "Libra": "♎",
-  "Escorpio": "♏",
-  "Sagitario": "♐",
-  "Capricornio": "♑",
-  "Acuario": "♒",
-  "Piscis": "♓"
-};
-
-
-
+  // Función para manejar el texto libre
   const manejarTextoLibre = () => {
     if (escena.validarTexto && typeof escena.validarTexto === "function") {
       const resultado = escena.validarTexto(input);
@@ -99,178 +96,154 @@ const emojisPorObjeto = {
     }
   };
 
+  // Escenas especiales - devolver directamente el componente correspondiente
   if (escena.tipo === "casino") {
     return <EscenaCasino escena={escena} avanzar={avanzar} />;
+  }
 
-}
-
-  
-
-  const idEscena = escena.id || escena.nombre || escena.texto; // Usamos algún identificador único de la escena
-  const codigoValido = codigosValidos[idEscena]; // ✅ específico para esta escena
-
-
-  
   if (escena.id === "sala_prop_bar") {
-  return (
-    <SalaEscapeBar
-      volverAlBar={() => avanzar("bar")}
-      reiniciarJuego={() => avanzar("sala_prop_bar")}
-      ganarJuego={() => avanzar("ganaste_escape")}
-      
-    />
-  );
-};
+    return (
+      <SalaEscapeBar
+        volverAlBar={() => avanzar("bar")}
+        reiniciarJuego={() => avanzar("sala_prop_bar")}
+        ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
+  }
 
   if (escena.id === "lago_juego") {
-  return (
-    <LagoJuego
-      volverAlBar={() => avanzar("bar")}
-      reiniciarJuego={() => avanzar("sala_prop_bar")}
-      ganarJuego={() => avanzar("ganaste_escape")}
-      
-    />
-  );
-};
+    return (
+      <LagoJuego
+        volverAlBar={() => avanzar("bar")}
+        reiniciarJuego={() => avanzar("sala_prop_bar")}
+        ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
+  }
 
   if (escena.id === "test_vino") {
-  return (
-    <TorneoImagenes
-      volver={() => volver ("calle_inicio")}
-      volverAlBar={() => avanzar("bar")}
-      reiniciarJuego={() => avanzar("sala_prop_bar")}
-      ganarJuego={() => avanzar("ganaste_escape")}
-      
-    />
-  );
-};
-
-
+    return (
+      <TorneoImagenes
+        volver={() => avanzar("calle_inicio")}
+        volverAlBar={() => avanzar("bar")}
+        reiniciarJuego={() => avanzar("sala_prop_bar")}
+        ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
+  }
 
   if (escena.id === "hippiebosque") {
-  return (
-    <ZodiacoJuego 
-    
-      elegirObjeto={elegirObjeto}
-      ganarJuego={() => avanzar("ganaste_escape")}
-      
-    />
-  );
-};
+    return (
+      <ZodiacoJuego
+        elegirObjeto={elegirObjeto}
+        ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
+  }
 
   if (escena.id === "cabana_juego") {
-  return (
-    <CabanaJuego
-      volverAlBar={() => avanzar("bar")}
-      reiniciarJuego={() => avanzar("sala_prop_bar")}
-      ganarJuego={() => avanzar("ganaste_escape")}
-      
-    />
-  );
-};
-
-
-
-  const opcionesParaMostrar = (
-    (codigoValido ? escena.desbloquea : escena.opciones) || []
-  );
-
-  return (
-     <div
-  className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}
->
-
-      
-      <p
-  style={
-    escena.final
-      ? { textAlign: "center", padding: 20, animation: "fadeIn 2s" }
-      : escena.inicio
-      ? { background: "center", padding: 20, animation: "introZoom 1.5s ease-out" }
-      : {}
+    return (
+      <CabanaJuego
+        volverAlBar={() => avanzar("bar")}
+        reiniciarJuego={() => avanzar("sala_prop_bar")}
+        ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
   }
->
 
+  // Opciones a mostrar según código válido o normales
+  const opcionesParaMostrar = (codigoValido ? escena.desbloquea : escena.opciones) || [];
+
+  return (
+    <div className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}>
+      <p
+        style={
+          escena.final
+            ? { textAlign: "center", padding: 20, animation: "fadeIn 2s" }
+            : escena.inicio
+            ? { background: "center", padding: 20, animation: "introZoom 1.5s ease-out" }
+            : {}
+        }
+      >
         {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
       </p>
 
-{escena.requiereCodigo && !codigosValidos?.[idEscena] && (
-  <div>
-    <p>Ingresá el código para continuar:</p>
-    <input
-      type="text"
-      value={inputCodigo}
-      onChange={(e) => setInputCodigo(e.target.value)}
-    />
-    <button
-      onClick={() => {
-        const esCodigoCorrecto = Array.isArray(escena.codigoCorrecto)
-          ? escena.codigoCorrecto.includes(inputCodigo)
-          : inputCodigo === escena.codigoCorrecto;
+      {escena.requiereCodigo && !codigoValido && (
+        <div>
+          <p>Ingresá el código para continuar:</p>
+          <input
+            type="text"
+            value={inputCodigo}
+            onChange={(e) => setInputCodigo(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              const esCodigoCorrecto = Array.isArray(escena.codigoCorrecto)
+                ? escena.codigoCorrecto.includes(inputCodigo)
+                : inputCodigo === escena.codigoCorrecto;
 
-        if (esCodigoCorrecto) {
-          setCodigosValidos((prev) => ({ ...prev, [idEscena]: true }));
-          setAlerta("✅ Código correcto. Opciones desbloqueadas.");
-        } else {
-          setAlerta("❌ Código incorrecto.");
-        }
-      }}
-    >
-      Verificar
-    </button>
-  </div>
-)}
-      
-{opcionesParaMostrar.length > 0 && (
-  <div className={esEscenaPolicial ? "botones-policiales" : ""}>
-    {esEscenaPolicial && (
-  <div className="sirena">
-    <div className="rojo"></div>
-    <div className="azul"></div>
-  </div>
-)}
+              if (esCodigoCorrecto) {
+                setCodigosValidos((prev) => ({ ...prev, [idEscena]: true }));
+                setAlerta("✅ Código correcto. Opciones desbloqueadas.");
+              } else {
+                setAlerta("❌ Código incorrecto.");
+              }
+            }}
+          >
+            Verificar
+          </button>
+        </div>
+      )}
 
-    {opcionesParaMostrar.map((op, i) => {
-      const requiere = op.requiere;
-      const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
-
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            if (requiere && !tieneRequisito) {
-              const emoji = emojisPorObjeto[requiere] || "⚠️";
-              setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
-              return;
-            }
-            if (op.mensaje) setAlerta(op.mensaje);
-            if (op.objeto) elegirObjeto(op.objeto);
-            avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
-          }}
-          style={{
-            display: "block",
-            margin: "8px 0",
-            border: "none",
-            background: "none",
-            padding: 0,
-            cursor: "pointer"
-          }}
-        >
-          {op.imagen ? (
-            <img
-              src={op.imagen}
-              alt={op.texto}
-              style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
-            />
-          ) : (
-            op.texto
+      {opcionesParaMostrar.length > 0 && (
+        <div className={esEscenaPolicial ? "botones-policiales" : ""}>
+          {esEscenaPolicial && (
+            <div className="sirena">
+              <div className="rojo"></div>
+              <div className="azul"></div>
+            </div>
           )}
-        </button>
-      );
-    })}
-  </div>
-)}
 
+          {opcionesParaMostrar.map((op, i) => {
+            const requiere = op.requiere;
+            const tieneRequisito = !requiere || (escena.inventario && escena.inventario.includes(requiere));
+
+            return (
+              <button
+                key={i}
+                onClick={() => {
+                  if (requiere && !tieneRequisito) {
+                    const emoji = emojisPorObjeto[requiere] || "⚠️";
+                    setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
+                    return;
+                  }
+                  if (op.mensaje) setAlerta(op.mensaje);
+                  if (op.objeto) elegirObjeto(op.objeto);
+                  avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
+                }}
+                style={{
+                  display: "block",
+                  margin: "8px 0",
+                  border: "none",
+                  background: "none",
+                  padding: 0,
+                  cursor: "pointer"
+                }}
+              >
+                {op.imagen ? (
+                  <img
+                    src={op.imagen}
+                    alt={op.texto}
+                    style={{ width: "100%", maxWidth: 300, borderRadius: "8px" }}
+                  />
+                ) : (
+                  op.texto
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {escena.objetos && escena.objetos.map((obj, i) => (
         <button
@@ -292,6 +265,7 @@ const emojisPorObjeto = {
         </button>
       ))}
 
+      {/* Entrada de texto libre */}
       {escena.textoLibre && (
         <div style={{ marginTop: 16 }}>
           <input
@@ -300,14 +274,15 @@ const emojisPorObjeto = {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Escribí tu respuesta..."
             style={{ padding: "8px", width: "100%", boxSizing: "border-box" }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                manejarTextoLibre();
+              }
+            }}
           />
           <button onClick={manejarTextoLibre} style={{ marginTop: 8 }}>Enviar</button>
-
-          
         </div>
       )}
-
-      
 
       {escena.volver && (
         <button onClick={escena.volver} style={{ marginTop: "16px" }}>
@@ -317,15 +292,12 @@ const emojisPorObjeto = {
 
       {alerta && <AlertaModal mensaje={alerta} cerrar={() => setAlerta(null)} />}
 
-        {mostrarCuentaRegresiva && (
-  <CuentaRegresiva
-    segundosInicio={30} // o el tiempo que quieras
-    onTiempoTerminado={() => avanzar("perder_juego_policia")}
-  />
-)}
-
-
-        
+      {mostrarCuentaRegresiva && (
+        <CuentaRegresiva
+          segundosInicio={30} // o el tiempo que quieras
+          onTiempoTerminado={() => avanzar("perder_juego_policia")}
+        />
+      )}
     </div>
   );
 }

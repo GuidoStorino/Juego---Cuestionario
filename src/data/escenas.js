@@ -13,6 +13,7 @@ import { hippiebosque } from "./hippiebosque";
 import { escape_policia } from "./escape_policia";
 import { maru } from "./escenaatajo";
 import {espejo_callejon} from "./espejo_callejon";
+import { barromance } from "./barromance";
 
 export const escenas = {
     ...bosque,
@@ -30,6 +31,7 @@ export const escenas = {
     ...escape_policia,
     ...maru,
     ...espejo_callejon,
+    ...barromance,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

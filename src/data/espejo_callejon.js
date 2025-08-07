@@ -1,4 +1,4 @@
-export const barhistorias = {
+export const espejo_callejon = {
     espejo_callejon: {
         texto:"La calle es larga y oscura, la pared de gran tamaño. Pero",
     opciones: [
