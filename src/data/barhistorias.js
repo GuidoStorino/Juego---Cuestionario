@@ -150,11 +150,11 @@ calle_boliche: {
 },
 
 sweet_aviso: {
-  texto: "Esta experiencia puede contener luces intensas, música fuerte y escenas para mayores de 18 años. ¿Estás seguro de que querés continuar?",
+  texto: "Esta experiencia puede música alta, imágenes fuertes, y porno, sobre todo mucho porno. Proceder con cautela. ¿Estás segura de que querés continuar?",
   tipo: "aviso",
   id: "aviso",
   opciones: [
-    { texto: "ENTRAR", destino: "b_sw" },
+    { texto: "Sí, soy mayor de 25 años", destino: "b_sw" },
     { texto: "SALIR", destino: "bar" }
   ]
 },

@@ -134,7 +134,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
             style={{
               padding: "12px 24px",
               fontSize: "1.1em",
-              backgroundColor: opcion.texto === "ENTRAR" ? "#00c853" : "#d50000",
+              backgroundColor: opcion.texto === "Sí, soy mayor de 25 años" ? "#c8009dff" : "#d50000",
               color: "white",
               border: "none",
               borderRadius: 4,
