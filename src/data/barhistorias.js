@@ -38,15 +38,14 @@ auto_robo: {
     texto: "Probás las llaves y el auto enciende. Lo primero pensás es cuál es el embrague, y si los autos antiguos los tienen en el mismo orden que los de ahora. Lo segundo, es que será mejor salir de ahí rápido.",
     opciones: [
         {texto: "Salís arando a todo lo que da", destino: "escape_policia"},
-        {texto: "Si vas despacito nadie va a sospechar", destino: "auto_despacio"},
-        {texto: "Voy a una velocidad normal pero doblo en la esquina", destino: "doblo_esquina"}
+        {texto: "Si vas a una velocidad normal nadie va a sospechar", destino: "auto_despacio"},
     ]
 },
 
 auto_despacio: {
     texto: "Y nadie sospechó. Ya que cometiste un delito, ¿cometerías otro y entrarías a robar alguno de los locales que ves mientras paseás?",
     opciones: [
-        {texto: "Un negocio llamado 'El Fiambrecito", destino: "el_fiambrecito"},
+        {texto: "Un negocio llamado 'El Fiambrecito'", destino: "el_fiambrecito"},
         {texto: "Una ferretería", destino: "ferreteria"},
         {texto: "Un local de instrumentos musicales", destino: "instrumentos_local"},
         {texto: "No, por supuesto que no", destino: "espejo_bar"}
@@ -107,6 +106,57 @@ cine: {
         {texto: "Una que no te llama mucho pero te gusta el director", destino: "ruido_pochoclos"},
         {texto: "Una de terror, para variar un poco", destino: "ruido_pochoclos"}
     ]
+},
+
+recital: {
+    texto: "Entramos a un lugar pequeño con una barra y algunas sillas, también gente sentada en el piso. A los pocos minutos, comienza el recital de Lola Cobach. Está tan sola con su guitarra... Te invita a acompañarla en el escenario.",
+    opciones: [
+        {texto: "Me subo, pero solamente a acompañarla con algún instrumento", requiere: "Instrumento", destino: "calle_boliche"},
+        {texto: "Me subo a cantar", destino: "calle_fin_cantar"},
+        {texto: "Paso, mejor me quedo acá mirando y sacando fotos", requiere: "Cámara", destino: "calle_fin"}
+    ]
+},
+
+calle_fin: {
+    texto: "Un gran show. Ahora estás en el auto de vuelta",
+    opciones: [
+        {texto: "Volver al bar", destino: "bar"},
+        {texto: "Salir a la ruta", destino: "calle_inicio"}
+    ]
+},
+
+calle_fin_cantar: {
+    texto: "La rompiste, la gente las aplaudió hasta romperse las manos. Un éxito total.",
+    opciones: [
+        {texto: "Volvamos al bar", destino: "bar"},
+        {texto: "Salgamos a la ruta", destino: "calle_inicio"},
+        {texto: "Ha sido una noche única. Hora de volver a casa", destino: "home_sweet_home"}
+    ]
+},
+
+home_sweet_home: {
+    texto: "Llegamos. Espero que hayas disfrutado el viaje. A dormir.",
+    final: true
+},
+
+calle_boliche: {
+    texto: "Tocaste, cantaste, la gente te aplaudió y te amó. Un show del carajo. Mis felicitaciones",
+    opciones: [
+        {texto: "Ahora volvemos al bar", destino: "bar"},
+        {texto: "O salimos a la ruta", destino: "calle_inicio"},
+        {texto: "Mmm... ¿Y si seguimos la noche? Hay un boliche que se ve por allá. Se llama Sweet.", destino: "sweet_aviso"}
+    ],
+    final: true
+},
+
+sweet_aviso: {
+  texto: "Esta experiencia puede contener luces intensas, música fuerte y escenas para mayores de 18 años. ¿Estás seguro de que querés continuar?",
+  tipo: "aviso",
+  id: "aviso",
+  opciones: [
+    { texto: "ENTRAR", destino: "b_sw" },
+    { texto: "SALIR", destino: "bar" }
+  ]
 },
 
 ruido_pochoclos: {

@@ -9,6 +9,7 @@ import TorneoImagenes from "./TorneoImagenes";
 import ZodiacoJuego from "./ZodiacoJuego";
 import CuentaRegresiva from "./CuentaRegresiva";
 import './escape_policia.css';
+import SalaEscape from "./SalaEscape";
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
@@ -97,9 +98,65 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   };
 
   // Escenas especiales - devolver directamente el componente correspondiente
+
   if (escena.tipo === "casino") {
-    return <EscenaCasino escena={escena} avanzar={avanzar} />;
+  return <EscenaCasino escena={escena} avanzar={avanzar} />;
   }
+
+  if (escena.tipo === "aviso") {
+  return (
+    <div
+      style={{
+        backgroundColor: "#111",
+        color: "white",
+        padding: 32,
+        textAlign: "center",
+        borderRadius: 8,
+        boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+        maxWidth: 600,
+        margin: "0 auto",
+        marginTop: 40
+      }}
+    >
+<img
+  src="/advertencia_18.png"
+  alt="18+"
+  style={{ width: 80, marginBottom: 16 }}
+/>
+
+
+      <h2 style={{ marginBottom: 24 }}>{escena.texto}</h2>
+      <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
+        {escena.opciones.map((opcion, index) => (
+          <button
+            key={index}
+            onClick={() => avanzar(opcion.destino)}
+            style={{
+              padding: "12px 24px",
+              fontSize: "1.1em",
+              backgroundColor: opcion.texto === "ENTRAR" ? "#00c853" : "#d50000",
+              color: "white",
+              border: "none",
+              borderRadius: 4,
+              cursor: "pointer",
+              minWidth: 120
+            }}
+          >
+            {opcion.texto}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+if (escena.tipo === "sala_escape") {
+  return <SalaEscape volverAlJuegoPrincipal={() => avanzar("bar")} />;
+}
+
+
+
+
 
   if (escena.id === "sala_prop_bar") {
     return (

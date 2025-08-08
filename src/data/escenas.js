@@ -14,6 +14,8 @@ import { escape_policia } from "./escape_policia";
 import { maru } from "./escenaatajo";
 import {espejo_callejon} from "./espejo_callejon";
 import { barromance } from "./barromance";
+import { b_sw } from "./b_sw";
+import { sala_escape } from "./sala_escape";
 
 export const escenas = {
     ...bosque,
@@ -32,6 +34,8 @@ export const escenas = {
     ...maru,
     ...espejo_callejon,
     ...barromance,
+    ...b_sw,
+    ...sala_escape,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

@@ -40,7 +40,7 @@ comida_seis_meses: {
   validarTexto: (input) => {
     return {
       destino: "agradecimiento",
-      guardar: { clave: "mensajeFinal", valor: input }
+      guardar: { clave: "comida", valor: input }
     };
   }
 },
@@ -51,7 +51,7 @@ comida_dia: {
   validarTexto: (input) => {
     return {
       destino: "agradecimiento",
-      guardar: { clave: "mensajeFinal", valor: input }
+      guardar: { clave: "comida_dia", valor: input }
     };
   }
 },
@@ -72,6 +72,39 @@ opciones: [
   { texto: "Un hombre viejo en la punta del bar con la mirada fija en la nada que conoce cada secreto de lo que parece solamente un simple bar.", destino: "barhistorias"},
   { texto: "Hay una persona sentada comiendo muy tranquilamente. Pero lo mirás bien. Y mejor. Notás que tiene una miguita en la comisura del labio...", destino: "miguita_comisura"}
 ]
+},
+
+miguita_comisura: {
+  texto: "Te acercás a la persona y te mira, como preguntando qué necesitás.",
+  opciones: [
+    {texto: "Le indicás que tiene una miguita en el labio", destino: "miguita_comisura2"},
+    {texto: "Le ofrecés una servilleta y te señalás la comisura de tu labio", destino: "miguita_comisura2"},
+    ]
+},
+
+miguita_comisura2: {
+  texto: "Te dice que no le importa",
+  opciones: [
+    {texto: "Le pedís amablemente que se la saque", destino: "miguita_comisura3"},
+    {texto: "Le pedís que se la saque repitiendo la palabra 'por favor' tres veces", destino: "miguita_comisura3"}
+  ]
+},
+
+miguita_comisura3: {
+  texto: "Te dice que no",
+  opciones: [
+    {texto: "Lo extorsionás con un trago", destino: "miguita_comisura4"},
+    {texto: "Lo amenazás con llamar a seguridad", destino: "miguita_comisura4"},
+    {texto: "Bueno, creo que no hay caso. Me retiro lentamente", destino: "bar"}
+  ]
+},
+
+miguita_comisura4: {
+  texto: "Te vuelve a decir que no",
+  opciones: [
+    {texto: "Suspirás hondo. Le decís que le queda muy feo", destino: "miguita_comisura2"},
+    {texto: "Le decís que realmente te molesta", destino: "miguita_comisura2"}
+  ]
 },
 
 test_vino: {
