@@ -22,7 +22,7 @@ auto_abierto: {
     opciones: [
         {texto: "una persona muerta con sangre en el rostro", destino: "historia_asesinato"},
         {texto: "unas llaves. Podría manejarlo...", destino: "auto_robo"},
-        {texto: "un sobre blanco", destino: "auto_carta"}
+        {texto: "un sobre de color verde", mensaje: "En clima de dimensiones paralelas y viajes espacio-temporales, el sobre se acaba de materializar en otro lugar. Más precisamente en el galpón de tu casa."} 
     ]
 },
 

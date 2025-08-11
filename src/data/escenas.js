@@ -16,6 +16,8 @@ import {espejo_callejon} from "./espejo_callejon";
 import { barromance } from "./barromance";
 import { b_sw } from "./b_sw";
 import { sala_escape } from "./sala_escape";
+import { cueva_bosque } from "./cueva_bosque";
+import { duende_tesoro } from "./duende_tesoro";
 
 export const escenas = {
     ...bosque,
@@ -36,6 +38,8 @@ export const escenas = {
     ...barromance,
     ...b_sw,
     ...sala_escape,
+    ...cueva_bosque,
+    ...duende_tesoro,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -91,15 +95,6 @@ casino_intro: {
       { texto: "Salir del casino", destino: "calle", puntos: 10 }]
 },
 
-  sur_destino: {
-    texto: "Caminando por la calle, ¿a dónde irías?",
-    opciones: [
-      { texto: "Playa", destino: "fin_playa", puntos: 10 },
-      { texto: "Casino", destino: "casino_intro", puntos: -10 },
-      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
-      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
-    ]
-  },
 
   calle: {
     texto: "Caminando por la calle, ¿a dónde irías?",

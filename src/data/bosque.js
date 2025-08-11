@@ -6,7 +6,7 @@ export const bosque = {
     texto: "Empezás a caminar por un bosque y te empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
     opciones: [
       { texto: "Sendero", imagen: "/Juego---Cuestionario/game-project/public/images/Senderobosque.jpg", destino: "sendero_tierra", puntos: 5 },
-      { texto: "Campo de flores", destino: "campo_flores", puntos: -5 },
+      { texto: "Campo de flores", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/", puntos: -5 },
       { texto: "Feria", destino: "feria_bosque", puntos: -5 },
       { texto: "Casitas", destino: "casitas_bosque", puntos: -5 }
     ]
