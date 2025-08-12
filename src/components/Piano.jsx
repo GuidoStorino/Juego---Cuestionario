@@ -1,55 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import "./Piano.css"; 
 
-export function Piano() {
-  const [notas, setNotas] = useState([]);
-  const [mensaje, setMensaje] = useState("");
-  const [yaDesbloqueado, setYaDesbloqueado] = useState(false);
+export function Piano({ correctSequence = [], onMelodyComplete }){
+  // Definimos las teclas y la secuencia correcta
+  const keys = [
+    { note: "C", type: "white" },
+    { note: "C#", type: "black" },
+    { note: "D", type: "white" },
+    { note: "D#", type: "black" },
+    { note: "E", type: "white" },
+    { note: "F", type: "white" },
+    { note: "F#", type: "black" },
+    { note: "G", type: "white" },
+    { note: "G#", type: "black" },
+    { note: "A", type: "white" },
+    { note: "A#", type: "black" },
+    { note: "B", type: "white" },
+  ];
 
-  const sonidos = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"];
-  const claveCorrecta = ["Do", "Mi", "Sol"];
+  const [sequence, setSequence] = useState([]);
 
-  useEffect(() => {
-    const desbloqueado = localStorage.getItem("piano_desbloqueado") === "true";
-    setYaDesbloqueado(desbloqueado);
-    if (desbloqueado) {
-      setMensaje("🔓 Ya desbloqueaste el piano.");
+  const handleKeyPress = (note) => {
+    const newSequence = [...sequence, note];
+    setSequence(newSequence);
+
+    if (newSequence.length === correctSequence.length) {
+      onMelodyComplete(newSequence);
+      setSequence([]);
     }
-  }, []);
-
-  const tocarNota = (nota) => {
-    reproducirSonido(nota);
-
-    const nuevasNotas = [...notas, nota];
-    setNotas(nuevasNotas);
-
-    const últimas = nuevasNotas.slice(-claveCorrecta.length);
-
-    if (
-      !yaDesbloqueado &&
-      JSON.stringify(últimas) === JSON.stringify(claveCorrecta)
-    ) {
-      setMensaje("🔓 ¡Escuchás un clic de cerradura abriéndose!");
-      setYaDesbloqueado(true);
-      localStorage.setItem("piano_desbloqueado", "true");
-    }
-  };
-
-  const reproducirSonido = (nota) => {
-    const audio = new Audio(`/sonidos/${nota}.mp3`);
-    audio.play();
-  };
+  };  
 
   return (
-    <div>
-      <p>🎹 Piano</p>
-      <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-        {sonidos.map((nota) => (
-          <button key={nota} onClick={() => tocarNota(nota)}>
-            {nota}
-          </button>
-        ))}
-      </div>
-      {mensaje && <p style={{ color: "green", marginTop: "10px" }}>{mensaje}</p>}
+    <div className="piano">
+      {keys.map((key, index) => (
+        <div
+          key={index}
+          className={`piano-key ${key.type}`}
+          onClick={() => handleKeyPress(key.note)}
+        >
+          {/* El nombre de la nota lo dejamos oculto o visible para pruebas */}
+          <span className="note-label">{key.note}</span>
+        </div>
+      ))}
     </div>
   );
 }

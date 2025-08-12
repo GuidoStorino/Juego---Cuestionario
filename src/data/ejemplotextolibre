@@ -1,9 +1,0 @@
-//texto: "¿Qué te motiva en la vida?",
-//textoLibre: true,
-//validarTexto: (input) => ({
-//  destino: "escenaSiguiente",
-//  guardar: { clave: "motivacion", valor: input }
-//}),
-//guardarRespuesta: (clave, valor) => {
-//  localStorage.setItem(clave, valor); // podés hacer algo más sofisticado si querés
-//}

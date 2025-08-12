@@ -10,6 +10,7 @@ import ZodiacoJuego from "./ZodiacoJuego";
 import CuentaRegresiva from "./CuentaRegresiva";
 import './escape_policia.css';
 import SalaEscape from "./SalaEscape";
+import {SirenasMelodia} from "./SirenasMelodia";
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
@@ -166,7 +167,9 @@ if (escena.tipo === "sala_escape") {
   return <SalaEscape volverAlJuegoPrincipal={() => avanzar("bar")} />;
 }
 
-
+if (escena.tipo === "sirenas_melodia") {
+  return <SirenasMelodia ganarJuego={() => avanzar("ganaste_escape")}/>
+}
 
   if (escena.id === "sala_prop_bar") {
     return (

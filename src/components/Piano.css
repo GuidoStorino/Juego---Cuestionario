@@ -1,0 +1,63 @@
+.piano {
+  display: flex;
+  position: relative;
+  height: 200px;
+  background: #222;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  user-select: none;
+}
+
+.piano-key {
+  position: relative;
+  border: 1px solid #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 12px;
+}
+
+.piano-key.white {
+  background: linear-gradient(to bottom, #fff, #ddd);
+  width: 50px;
+  height: 100%;
+  z-index: 1;
+}
+
+.piano-key.black {
+  background: linear-gradient(to bottom, #333, #000);
+  width: 30px;
+  height: 60%;
+  position: absolute;
+  z-index: 2;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Ajustamos left para cada tecla negra basada en el orden dentro del contenedor */
+
+.piano-key.black:nth-of-type(2) { /* C# */
+  left: 31px;
+}
+
+.piano-key.black:nth-of-type(4) { /* D# */
+  left: 81px;
+}
+
+.piano-key.black:nth-of-type(7) { /* F# */
+  left: 181px;
+}
+
+.piano-key.black:nth-of-type(9) { /* G# */
+  left: 230px;
+}
+
+.piano-key.black:nth-of-type(11) { /* A# */
+  left: 281px; /* Corrección importante para que no quede sobre F */
+}
+
+.note-label {
+  opacity: 0.4;
+  margin-bottom: 5px;
+}

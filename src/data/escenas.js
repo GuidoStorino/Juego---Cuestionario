@@ -18,6 +18,7 @@ import { b_sw } from "./b_sw";
 import { sala_escape } from "./sala_escape";
 import { cueva_bosque } from "./cueva_bosque";
 import { duende_tesoro } from "./duende_tesoro";
+import { sirenas_melodia } from "./sirenas_melodia";
 
 export const escenas = {
     ...bosque,
@@ -40,6 +41,7 @@ export const escenas = {
     ...sala_escape,
     ...cueva_bosque,
     ...duende_tesoro,
+    ...sirenas_melodia,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

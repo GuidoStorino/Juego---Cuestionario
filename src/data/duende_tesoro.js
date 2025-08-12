@@ -1,6 +1,7 @@
 export const duende_tesoro = {
 
     duende_tesoro: {
+        texto: "Los duendes te darán pistas para que puedas responder sus preguntas. Si lo lográs, te darán a cambio su tesoro. ¡Cuidado! Estos sólo quieren quitarte dinero.",
         id: "duende_tesoro",
         opciones: [
             {texto: "Rocho", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Rock tiene el tesoro"},

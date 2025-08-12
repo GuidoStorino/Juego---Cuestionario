@@ -182,6 +182,14 @@ arturo: {
     ]
   },
 
+    sirena_puzzle:{
+      texto: "Hay un problema en el agua. Las sirenas te piden ayuda para encontrar la melodía atrapada en las profundidades, sin ella se vuelven cada día más débiles.",
+    opciones: [
+      { texto: "Ir hacia el fondo del mar", destino: "sirenas_melodia"},
+      { texto: "Volver al bosque", destino: "bosque_intro"}  
+    ]
+  },
+
   oler_flor: {
     texto: "Las flores rosas parecen brillar más que ninguna, pero las rojas llaman tanto la atención... Y las violetas, tan particulares.",
     opciones: [
