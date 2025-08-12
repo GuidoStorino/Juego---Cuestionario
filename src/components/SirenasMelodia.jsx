@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { Piano } from "./Piano";
 import "./SirenasMelodia.css";
 
-export function SirenasMelodia({actualizarEscena}) {
+export function SirenasMelodia({ actualizarEscena }) {
   const [mensaje, setMensaje] = useState("");
-  const [esCorrecta, setEsCorrecta] = useState(false); // nuevo estado
+  const [esCorrecta, setEsCorrecta] = useState(false);
+  const [fase, setFase] = useState("juego"); // 🔹 Nueva variable de fase
+  const [animando, setAnimando] = useState(false); // 🔹 Para el fade
   const pianoRef = useRef(null);
   const [pos, setPos] = useState({ x: 100, y: 100 });
   const dragging = useRef(false);
@@ -13,24 +15,21 @@ export function SirenasMelodia({actualizarEscena}) {
   const correctSequence = ["C", "D", "F", "E", "G", "A", "B"];
 
   const verificarMelodia = (melodiaUsuario) => {
-    console.log("Melodía recibida:", melodiaUsuario);
-    console.log("Melodía correcta:", correctSequence);
-
     if (JSON.stringify(melodiaUsuario) === JSON.stringify(correctSequence)) {
       setEsCorrecta(true);
-      setMensaje(""); // no mostramos texto, solo botón
+      setMensaje("");
+      setAnimando(true); // empieza fade out
+      setTimeout(() => {
+        setFase("final"); // pasamos a pantalla final
+        setAnimando(false); // fade in
+      }, 500); // duración del fade
     } else {
       setEsCorrecta(false);
       setMensaje("Esa no es la melodía correcta...");
     }
   };
 
-    const continuarJuego = () => {
-    actualizarEscena("bosque_intro"); // cambias a la escena que quieras
-  };
-
-  
-
+  // Drag logic
   const onMouseDown = (e) => {
     dragging.current = true;
     const rect = pianoRef.current.getBoundingClientRect();
@@ -74,32 +73,37 @@ export function SirenasMelodia({actualizarEscena}) {
   }, []);
 
   return (
-    <div className="sirenas-melodia-container">
+    <div
+      className={`sirenas-melodia-container ${animando ? "fade-out" : "fade-in"}`}
+    >
       <div className="sirenas-background" />
       <div className="sirenas-content">
-        <div
-          ref={pianoRef}
-          className="movible-piano"
-          onMouseDown={onMouseDown}
-          style={{
-            left: pos.x,
-            top: pos.y,
-            position: "absolute",
-            cursor: dragging.current ? "grabbing" : "grab",
-          }}
-        >
-          <Piano
-            correctSequence={correctSequence}
-            onMelodyComplete={verificarMelodia}
-          />
-        </div>
-
-        {esCorrecta ? (
-          <button className="continuar-btn" onClick={continuarJuego("bosque_intro")}>
-            Continuar 🧜‍♀️
-          </button>
+        {fase === "juego" ? (
+          <>
+            <div
+              ref={pianoRef}
+              className="movible-piano"
+              onMouseDown={onMouseDown}
+              style={{
+                left: pos.x,
+                top: pos.y,
+                position: "absolute",
+                cursor: dragging.current ? "grabbing" : "grab",
+              }}
+            >
+              <Piano
+                correctSequence={correctSequence}
+                onMelodyComplete={verificarMelodia}
+              />
+            </div>
+            {!esCorrecta && mensaje && <p className="mensaje">{mensaje}</p>}
+          </>
         ) : (
-          mensaje && <p className="mensaje">{mensaje}</p>
+          <div className="pantalla-final">
+            <h2>Encontraste la melodía. Las sirenas están agradecidas y te regalan una piedra zafiro. 🧜‍♀️</h2>
+            <button onClick={() => setFase("juego")}>Volver a jugar</button>
+            <button onClick={() => actualizarEscena("sirenas_ganar")}>Avanzar</button>
+          </div>
         )}
       </div>
     </div>

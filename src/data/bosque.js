@@ -194,12 +194,62 @@ arturo: {
     texto: "Las flores rosas parecen brillar más que ninguna, pero las rojas llaman tanto la atención... Y las violetas, tan particulares.",
     opciones: [
       { texto: "Rosas", destino: "lucy_sky", imagen:"/images/" },
-      { texto: "Rojas", destino: "", imagen:"/images/" },
-      { texto: "Violetas", destino: "", imagen:"/images/"}
+      { texto: "Rojas", destino: "risas_pulguita", imagen:"/images/" },
+      { texto: "Violetas", destino: "super_sopa", objeto: "Flor violeta", imagen:"/images/"}
       ]
   },
 
-  lucy_sky: {
+  risas_pulguita: {
+    texto: "Hay una pulguita caminando sobre las flores. Te empezás a reír descontroladamente sin saber por qué.",
+    opciones: [
+      { texto: "Mirar la pulguita de cerca", destino: "pulguita_mirar"}
+    ]
+  },
+
+    pulguita_mirar: {
+    texto: "La pulguita se mueve y te seguís riendo. Pulguita, pulguita, pulguita.",
+    opciones: [
+      { texto: "Observarla pulguita con más atención", destino: "pulguita_juego"}
+    ]
+  },
+
+  pulguita_juego: {
+  texto: "PULGUITA! Escribí la palabra correcta o te quedarás riendo para siempre. PULGUITA - PULGUITA - PULGUITA",
+  textoLibre: true,
+  validarTexto: (input) => {
+    if (input.toLowerCase().trim() === "pulidita") {
+      return {
+        destino: "pulguita_ganar",
+        puntos: 10,
+        guardar: { clave: "pulguita", valor: input }
+      };
+    } else {
+      return {
+        destino: "pulguita_perder",
+        puntos: -5
+      };
+    }}},
+
+    pulguita_ganar: {
+      texto: "Uff... Qué suerte. La risa va calmando poco a poco.",
+      opciones: [
+        {texto: "Probar otra flor", destino: "oler_flor", objeto: "Flor Roja"},
+        {texto: "Volver al bosque", destino: "bosque_intro", objeto: "Flor Roja"},
+        {texto: "Salir del bosque", destino: "calle_inicio", objeto: "Flor Roja"}
+      ]
+    },
+
+    pulguita_perder: {
+      texto: "Te seguís riendo sin cesar. Esta risa no va a parar más. Vas descendiendo a la locura.",
+      opciones: [
+        {texto: "Volver a jugar", destino: "pulguita_juego"},
+        {texto: "Volver al bosque", destino: "bosque_intro"},
+        {texto: "Probar otra flor", destino: "oler_flor"},
+        {texto: "Salir del bosque", destino: "calle_inicio"}
+      ]
+    },
+
+    lucy_sky: {
     texto: "Un mundo nuevo se abre. A lo lejos se ve un río, y a los lados árboles de mandarina que se abren paso debajo de cielos de mermelada. Sentís una voz que te habla cerca y le contestás despacio. La voz es de:",
     opciones: [
       {texto: "Tu propia imaginación", destino: "no_drogada"},
@@ -302,7 +352,11 @@ arturo: {
   },
 
   fin_bosque: {
-    texto: "Descubrís un claro con un lago escondido. Paz total.",
-    opciones: [{ texto: "Volver al inicio", destino: "inicio", puntos: 5 }]
+    texto: "Descubrís un claro. Hay paz por unos momentos. Te tomás unos mates y después seguís.",
+    opciones: [
+      { texto: "Volver al inicio del bosque", destino: "bosque_intro" },
+      { texto: "Salir del bosque", destino: "calle_inicio" }
+    ],
+    final: true
   }
 };

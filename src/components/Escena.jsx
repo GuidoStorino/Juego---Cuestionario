@@ -11,6 +11,7 @@ import CuentaRegresiva from "./CuentaRegresiva";
 import './escape_policia.css';
 import SalaEscape from "./SalaEscape";
 import {SirenasMelodia} from "./SirenasMelodia";
+import SopaDePalabras from "./SopaDePalabras";
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
@@ -168,8 +169,9 @@ if (escena.tipo === "sala_escape") {
 }
 
 if (escena.tipo === "sirenas_melodia") {
-  return <SirenasMelodia ganarJuego={() => avanzar("ganaste_escape")}/>
+  return <SirenasMelodia actualizarEscena={avanzar} />;
 }
+
 
   if (escena.id === "sala_prop_bar") {
     return (
@@ -217,6 +219,14 @@ if (escena.tipo === "sirenas_melodia") {
         volverAlBar={() => avanzar("bar")}
         reiniciarJuego={() => avanzar("sala_prop_bar")}
         ganarJuego={() => avanzar("ganaste_escape")}
+      />
+    );
+  }
+
+    if (escena.id === "super_sopa") {
+    return (
+      <SopaDePalabras
+      actualizarEscena={avanzar}
       />
     );
   }

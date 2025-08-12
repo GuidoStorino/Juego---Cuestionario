@@ -19,6 +19,7 @@ import { sala_escape } from "./sala_escape";
 import { cueva_bosque } from "./cueva_bosque";
 import { duende_tesoro } from "./duende_tesoro";
 import { sirenas_melodia } from "./sirenas_melodia";
+import { super_sopa } from "./super_sopa";
 
 export const escenas = {
     ...bosque,
@@ -42,6 +43,7 @@ export const escenas = {
     ...cueva_bosque,
     ...duende_tesoro,
     ...sirenas_melodia,
+    ...super_sopa,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
@@ -108,12 +110,9 @@ casino_intro: {
     ]
   },
 
-  fin_boliche: { texto: "¡Noche agitada en el boliche!", opciones: [], final: true },
-  fin_bar: { texto: "Tranquilo momento en el bar.", opciones: [], final: true },
+  
   fin_libreria: { texto: "Te perdés entre libros maravillosos.", opciones: [], final: true },
-  fin_teatro: { texto: "Una obra te emociona hasta las lágrimas.", opciones: [] },
   fin_playa: { texto: "Tomás sol y descansás en la arena.", opciones: [] },
   fin_casino: { texto: "Perdés todo en la ruleta... Ups.", opciones: [] },
   fin_bowling: { texto: "¡Pleno strike y diversión asegurada!", opciones: [] },
-  fin_bosque: { texto: "Te perdés, pero descubrís un lago secreto.", opciones: [] }
 };
