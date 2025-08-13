@@ -38,9 +38,9 @@ export const crimenauto = {
 celular_pablo: {
   id: "celular_pablo",
   opciones: [
-    {texto: "📨Nano", mensaje: "'¿Lo tenés?\nSí, y media estoy ahí'\nLlamada perdida 00:13 \n Llamada perdida 00:18 \nLlamada perdida 00:21"},
+    {texto: "📨Nano", mensaje: "'El camión con la mercadería llega tipo 8 y cuarto de la mañana. Después el local cierra al mediodía y abre a las 17.00' \n 'Ok listo' \n '¿Lo tenés?\nSí, y media estoy ahí'\nLlamada perdida 00:13 \n Llamada perdida 00:18 \nLlamada perdida 00:21"},
     {texto: "📨Profe tenis", mensaje: "'Nos vemos acá, bombón? \n Venís??'"},
-    {texto: "📨Carlos", mensaje: "El camión con la mercadería llega tipo 8 y cuarto de la mañana. Después el local cierra al mediodía y abre a las 17.00"},
+    {texto: "📩Mamá", mensaje: "Ok."},
     {texto: "📩Amor", mensaje: "'¿Hoy venís a casa?' \n 'No, Caro. Voy a la fiesta. Vuelvo tarde seguro.'"}
   ]
 },

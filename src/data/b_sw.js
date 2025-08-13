@@ -13,5 +13,22 @@ bol_sw2: {
     { texto: "Ir por un trago", destino: "trago_sw" }
   ]
 },
+baile_sw: {
+  texto: "Damos algunos de nuestros mejores pasos. Alrededor hay gente bailando también. Algunos, vestidos con no tanta ropa. Además de la pista y la barra, en el lugar hay unas habitaciones en el piso en donde estamos y una escalera.",
+  opciones: [
+    { texto: "Explorar el piso", destino: "primer_piso" },
+    { texto: "Subir las escaleras", destino: "escaleras_sw" },
+    { texto: "Seguir bailando", destino: "pista_baile"}
+  ]
+},
+trago_sw: {
+  texto: "Esta caipirinha esta genial, y encima no fue muy cara. Alrededor tenemos gente bailando, algunos muy sensualmente. ¿O es la bebida? Qué importa, ¿no? También hay otras habitaciones, al parecer, para explorar en el piso donde estamos, y una escalera hacia arriba.",
+  opciones: [
+    { texto: "Explorar el piso", destino: "primer_piso" },
+    { texto: "Subir las escaleras", destino: "escaleras_sw" },
+    { texto: "Seguir bailando", destino: "pista_baile"}
+  ]
+}
+
 
 }

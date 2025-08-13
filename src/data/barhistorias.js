@@ -27,7 +27,7 @@ auto_abierto: {
 },
 
 historia_asesinato: {
-    texto: "Al seguir mirando descubrís que el hombre fue asesinado de un disparo. Abrís la guantera y encontrás unos papeles Uno de ellos tiene escritas unas palabras en latín.",
+    texto: "Al seguir mirando descubrís que el hombre fue asesinado con un objeto cortante. La sangre le recorre el rostro, esto no sucedió hace mucho.",
     opciones: [
         {texto: "Resolver este misterio", destino: "crimenauto"},
         {texto: "Volver a la calle empedrada", destino: "espejo_bar"}
@@ -93,7 +93,6 @@ camino_empedrado: {
     opciones: [
         {texto: "Recital", destino: "recital"},
         {texto: "Cine", destino: "cine"},
-        {texto: ""},
         {texto: "Das una vuelta y dejás el auto estacionado donde estaba", destino: "espejo_bar"} 
     ]
 },

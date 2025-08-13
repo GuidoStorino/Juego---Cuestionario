@@ -20,6 +20,7 @@ import { cueva_bosque } from "./cueva_bosque";
 import { duende_tesoro } from "./duende_tesoro";
 import { sirenas_melodia } from "./sirenas_melodia";
 import { super_sopa } from "./super_sopa";
+import { espejo_pasado } from "./espejo_pasado";
 
 export const escenas = {
     ...bosque,
@@ -44,6 +45,7 @@ export const escenas = {
     ...duende_tesoro,
     ...sirenas_melodia,
     ...super_sopa,
+    ...espejo_pasado,
     inicio: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [

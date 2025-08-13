@@ -196,10 +196,9 @@ if (escena.tipo === "sirenas_melodia") {
   if (escena.id === "test_vino") {
     return (
       <TorneoImagenes
-        volver={() => avanzar("calle_inicio")}
+        actualizarEscena={avanzar}
         volverAlBar={() => avanzar("bar")}
-        reiniciarJuego={() => avanzar("sala_prop_bar")}
-        ganarJuego={() => avanzar("ganaste_escape")}
+        re
       />
     );
   }

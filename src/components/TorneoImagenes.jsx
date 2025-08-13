@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { listaDeImagenes } from './listaImagenes';
 import './TorneoImagenes.css';
 
-const TorneoImagenes = ({ onFinish }) => {
+const TorneoImagenes = ({ onFinish, actualizarEscena }) => {
   const [rondaActual, setRondaActual] = useState([]);
   const [siguientesRondas, setSiguientesRondas] = useState([]);
   const [indice, setIndice] = useState(0);
@@ -38,10 +38,11 @@ const TorneoImagenes = ({ onFinish }) => {
   if (ganadoraFinal) {
     return (
       <div className="torneo-container">
-        <h2>¡Imagen ganadora!</h2>
+        <h2>Película ganadora!</h2>
         <img src={ganadoraFinal.src} alt="Ganadora" className="imagen-final" />
         <button onClick={() => window.location.reload()}>Jugar otra vez</button>
-        {onFinish && <button onClick={onFinish}>Volver al juego</button>}
+        {onFinish && <button onClick={onFinish}>Volver al juego</button>} 
+        <button onClick={() => actualizarEscena("bar")}>Volver al bar</button>
       </div>
     );
   }
