@@ -1,12 +1,40 @@
 // src/App.jsx
-import "./App.css"
+import "./App.css";
 import { useState, useEffect } from "react";
 import { escenas } from "./data/escenas";
 import Escena from "./components/Escena";
 import Inventario from "./components/Inventario";
 import Estado from "./components/Estado";
 
-
+  const emojisPorObjeto = {
+    "Sal": "🧂",
+    "Llave": "🔑",
+    "Cuchillo": "🔪",
+    "Vino": "🍷",
+    "Fuego": "🔥",
+    "Espada": "⚔️",
+    "Botella": "🍾",
+    "Cámara": "📷",
+    "Libro antiguo": "📖",
+    "Hongo": "🍄",
+    "Hierbas Azules": "🍃🔵",
+    "Hierbas Doradas": "🍂",
+    "Hierbas Verdes": "🌿",
+    "Hierbas Rojas": "🥀",
+    "Aries": "♈",
+    "Tauro": "♉",
+    "Géminis": "♊",
+    "Cáncer": "♋",
+    "Leo": "♌",
+    "Virgo": "♍",
+    "Libra": "♎",
+    "Escorpio": "♏",
+    "Sagitario": "♐",
+    "Capricornio": "♑",
+    "Acuario": "♒",
+    "Piscis": "♓",
+    "Piedra de Cuarzo rosa": "🔺"
+  };
 
 const estadoInicial = () => ({
   escena: "inicio",
@@ -16,7 +44,6 @@ const estadoInicial = () => ({
   fichas: 0,
   historial: []
 });
-
 
 const cargarEstado = () => {
   return {
@@ -32,7 +59,6 @@ const cargarEstado = () => {
 
 function App() {
   const [estado, setEstado] = useState(cargarEstado());
-
   const { escena, inventario, puntos, fichas, dinero, historial } = estado;
 
   useEffect(() => {
@@ -44,45 +70,30 @@ function App() {
     localStorage.setItem("historial", JSON.stringify(historial));
   }, [estado]);
 
-const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalidad = null, resetPerfil = false) => {
-  setEstado((prev) => {
-    const nuevoHistorial = [...prev.historial, prev.escena];
-     const nuevoPerfil = resetPerfil
-      ? {}
-      : { ...(prev.perfilPersonalidad || {}) };
-    if (personalidad) {
-      nuevoPerfil[personalidad] = (nuevoPerfil[personalidad] || 0) + 1;
-    }
- 
-    const nuevoEstado = {
-      ...prev,
-      escena: destino || prev.escena,
-      puntos: prev.puntos + puntos,
-      dinero: prev.dinero + dinero,
-      fichas: Math.max((prev.fichas || 0) + fichas, 0),
-      historial: nuevoHistorial,
-      perfilPersonalidad : nuevoPerfil
-
-
-      
-    };
-
-    
-
-
-
-    // Guardar los cambios por separado en localStorage
-    localStorage.setItem("escena", nuevoEstado.escena);
-    localStorage.setItem("puntos", nuevoEstado.puntos.toString());
-    localStorage.setItem("dinero", nuevoEstado.dinero.toString());
-    localStorage.setItem("fichas", nuevoEstado.fichas.toString());
-    localStorage.setItem("historial", JSON.stringify(nuevoEstado.historial));
-
-    return nuevoEstado;
-  });
-};
-
-
+  const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalidad = null, resetPerfil = false) => {
+    setEstado((prev) => {
+      const nuevoHistorial = [...prev.historial, prev.escena];
+      const nuevoPerfil = resetPerfil ? {} : { ...(prev.perfilPersonalidad || {}) };
+      if (personalidad) {
+        nuevoPerfil[personalidad] = (nuevoPerfil[personalidad] || 0) + 1;
+      }
+      const nuevoEstado = {
+        ...prev,
+        escena: destino || prev.escena,
+        puntos: prev.puntos + puntos,
+        dinero: prev.dinero + dinero,
+        fichas: Math.max((prev.fichas || 0) + fichas, 0),
+        historial: nuevoHistorial,
+        perfilPersonalidad: nuevoPerfil
+      };
+      localStorage.setItem("escena", nuevoEstado.escena);
+      localStorage.setItem("puntos", nuevoEstado.puntos.toString());
+      localStorage.setItem("dinero", nuevoEstado.dinero.toString());
+      localStorage.setItem("fichas", nuevoEstado.fichas.toString());
+      localStorage.setItem("historial", JSON.stringify(nuevoEstado.historial));
+      return nuevoEstado;
+    });
+  };
 
   const volver = () => {
     setEstado((prev) => {
@@ -96,35 +107,33 @@ const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalida
     });
   };
 
-const elegirObjeto = (objeto, costo = 0) => {
-  if (estado.dinero < costo) {
-    alert("No tenés suficiente dinero para comprar este objeto.");
-    return;
-  }
-  if (estado.inventario.includes(objeto)) {
-    // Ya tenés este objeto, no lo agregues de nuevo
-    return;
-  }
-  const siguiente = escenas[estado.escena].siguiente;
-  setEstado(prev => ({
-    ...prev,
-    inventario: [...prev.inventario, objeto],
-    dinero: prev.dinero - costo,
-    escena: siguiente,
-    historial: [...prev.historial, prev.escena]
-  }));
-};
+  const elegirObjeto = (objeto, costo = 0) => {
+    if (estado.dinero < costo) {
+      alert("No tenés suficiente dinero para comprar este objeto.");
+      return;
+    }
+    if (estado.inventario.includes(objeto)) {
+      return;
+    }
+    const siguiente = escenas[estado.escena].siguiente;
+    setEstado((prev) => ({
+      ...prev,
+      inventario: [...prev.inventario, objeto],
+      dinero: prev.dinero - costo,
+      escena: siguiente,
+      historial: [...prev.historial, prev.escena]
+    }));
+  };
 
   const actualizarEscena = (nuevaEscena) => {
     setEstado((prev) => ({ ...prev, escena: nuevaEscena }));
   };
 
   const guardarRespuestaTexto = (clave, texto) => {
-  const nuevasRespuestas = { ...estado.respuestasTexto, [clave]: texto };
-  setEstado((prev) => ({ ...prev, respuestasTexto: nuevasRespuestas }));
-  localStorage.setItem("respuestasTexto", JSON.stringify(nuevasRespuestas));
-};
-
+    const nuevasRespuestas = { ...estado.respuestasTexto, [clave]: texto };
+    setEstado((prev) => ({ ...prev, respuestasTexto: nuevasRespuestas }));
+    localStorage.setItem("respuestasTexto", JSON.stringify(nuevasRespuestas));
+  };
 
   const reiniciarJuego = () => {
     localStorage.clear();
@@ -132,51 +141,47 @@ const elegirObjeto = (objeto, costo = 0) => {
   };
 
   useEffect(() => {
-  const handleKeyDown = (e) => {
-    if (e.ctrlKey && e.key.toLowerCase() === "m") {
-      e.preventDefault();
-      const destino = prompt("¿Clave?");
-      if (destino && escenas[destino]) {
-        setEstado((prev) => ({
-          ...prev,
-          escena: destino,
-          historial: [...prev.historial, prev.escena],
-        }));
-      } else {
-        alert("Esa escena no existe.");
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === "m") {
+        e.preventDefault();
+        const destino = prompt("¿Clave?");
+        if (destino && escenas[destino]) {
+          setEstado((prev) => ({
+            ...prev,
+            escena: destino,
+            historial: [...prev.historial, prev.escena],
+          }));
+        } else {
+          alert("Esa escena no existe.");
+        }
       }
-    }
-  };
-
-  window.addEventListener("keydown", handleKeyDown);
-  return () => window.removeEventListener("keydown", handleKeyDown);
-}, []);
-
-
-  
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 20, fontFamily: "sans-serif" }}>
-      <Estado puntos={puntos} dinero={dinero} />
+    <div style={{ maxWidth: 680, margin: "0 auto", padding: 20 }}>
+      {/* HUD compacto */}
+      <Estado puntos={puntos} dinero={dinero} fichas={fichas} />
       <Inventario inventario={inventario} />
-    
 
+      <Escena
+        escena={{
+          ...escenas[estado.escena],
+          volver: estado.historial.length > 0 ? volver : null,
+          inventario: estado.inventario,
+          estado: estado,
+        }}
+        avanzar={avanzar}
+        elegirObjeto={elegirObjeto}
+        actualizarEscena={actualizarEscena}
+        guardarRespuesta={guardarRespuestaTexto}
+      />
 
-<Escena
-  escena={{
-    ...escenas[estado.escena],
-    volver: estado.historial.length > 0 ? volver : null,
-    inventario: estado.inventario,
-    estado: estado,
-  }}
-  avanzar={avanzar}
-  elegirObjeto={elegirObjeto}
-  actualizarEscena={actualizarEscena}
-  guardarRespuesta={guardarRespuestaTexto}
-/>
-
-
-      <button onClick={reiniciarJuego} style={{ marginTop: 20 }}>Reiniciar juego</button>
+      <button className="btn-reiniciar" onClick={reiniciarJuego} style={{ marginTop: 24 }}>
+        Reiniciar juego
+      </button>
     </div>
   );
 }

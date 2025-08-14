@@ -5,10 +5,10 @@ export const bosque = {
   bosque_intro: {
     texto: "Empezás a caminar por un bosque y te empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
     opciones: [
-      { texto: "Sendero", imagen: "/Juego---Cuestionario/game-project/public/images/Senderobosque.jpg", destino: "sendero_tierra", puntos: 5 },
-      { texto: "Campo de flores", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/", puntos: -5 },
-      { texto: "Feria", destino: "feria_bosque", puntos: -5 },
-      { texto: "Casitas", destino: "casitas_bosque", puntos: -5 }
+      { texto: "", imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "sendero_tierra", puntos: 5 },
+      { texto: "", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/campo_flores.jpg", puntos: -5 },
+      { texto: "", destino: "feria_bosque", puntos: -5, imagen: "/Juego---Cuestionario/game-project/public/images/feria_bosque.jpg" },
+      { texto: "", destino: "casitas_bosque", puntos: -5, imagen: "/Juego---Cuestionario/game-project/public/images/casitas_bosque.jpg" }
     ]
   },
   sendero_tierra: {
@@ -319,10 +319,10 @@ arturo: {
   feria_bosque: {
     texto: "",
     opciones: [
-      {texto: "Poción de la suerte", imagen: "", costo: 50},
-      {texto: "Espejo mágico", imagen: "", costo: 30},
-      {texto: "Libro antiguo", imagen: "", costo: 15},
-      {texto: "Piedra", imagen: "", costo: 15}
+      {texto: "Poción de la suerte $50", destino: "bosque_intro", imagen: "/Juego---Cuestionario/game-project/public/images/pocion_suerte.jpg", dinero: 50},
+      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", costo: 30},
+      {texto: "Agua del bosque $30", imagen:  "/Juego---Cuestionario/game-project/public/images/agua_bosque.jpg", costo: 15, destino: "bosque_intro"},
+      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15}
     ]
   },
 

@@ -1,16 +1,6 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* ====== COSAS ESPECÍFICAS DE APP Y ESCENAS ====== */
 
-
+/* Logos de ejemplo (si los seguís usando) */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -23,83 +13,37 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 20s linear; /* usa keyframes globales */
   }
 }
 
-.card {
-  padding: 2em;
-}
+/* Tarjetas de ejemplo */
+.card { padding: 2em; }
+.read-the-docs { color: #888; }
 
-.read-the-docs {
-  color: #888;
-}
-
-
-.escena-final {
-  animation: aparecerGrande 1s ease-out forwards;
-}
-
-@keyframes aparecerGrande {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Evitar scroll horizontal por contenido ancho */
-body {
-  margin: 0;
-  overflow-x: hidden;
-  min-width: 320px;
-  min-height: 100vh;
-
-  /* Si no necesitás que todo el body sea flex, mejor lo sacás */
-  /* display: flex; */
-  /* place-items: center; */
-}
-
-/* Contenedor general para contenido encima de fondo */
+/* Contenedor general para contenido encima de un fondo */
 #app-container {
   position: relative;
-  z-index: 1; /* siempre encima del fondo */
+  z-index: 1; /* encima del background */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
+
+  /* si tu fondo es claro, ajustá color/text-shadow por escena en vez de acá */
   color: white;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
+/* Efectos/escenas específicas */
+.escena-final { animation: aparecerGrande 1s ease-out forwards; }
+.final-escena { animation: fadeIn 5s ease-in; }
 
-
-.final-escena {
-  animation: fadeIn 5s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
+/* Escena Misterio */
 .escena-misterio {
   background-color: #1e1e1e;
   color: #f1f1f1;
@@ -114,30 +58,24 @@ body {
   position: relative;
   background-image: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
 }
-
 .escena-misterio::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 6px;
   opacity: 0.5;
   animation: scanline 4s linear infinite;
 }
-
 @keyframes scanline {
   0% { top: 0; }
   100% { top: 100%; }
 }
-
 .escena-misterio p {
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 25px;
   text-shadow: 1px 1px 2px black;
 }
-
 .escena-misterio button {
   background-color: #2c2c2c;
   color: #eee;
@@ -152,15 +90,12 @@ body {
   letter-spacing: 1px;
   box-shadow: none;
 }
-
 .escena-misterio button:hover {
   background-color: #3a3a3a;
   border-color: #aaa;
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
   transform: scale(1.00);
 }
-
-
 .escena-misterio input {
   background-color: #121212;
   color: #f8f8f8;
@@ -172,22 +107,7 @@ body {
   border-radius: 4px;
 }
 
-@keyframes introZoom {
-  0% {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.02);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* en tu archivo CSS global o uno específico */
+/* Sala de Escape */
 .sala-escape {
   background-color: #0d0d0d;
   color: #f8f8f8;
@@ -196,13 +116,11 @@ body {
   font-family: 'Courier New', Courier, monospace;
   animation: fadeIn 2s ease-in;
 }
-
 .sala-escape h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   text-shadow: 0 0 5px #ff004c;
 }
-
 .sala-escape button {
   background: #1a1a1a;
   color: #ff004c;
@@ -212,27 +130,7 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
-
 .sala-escape button:hover {
   background: #ff004c;
   color: black;
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-
-
-.texto-manuscrito {
-  font-family: "Playwrite AU NSW", cursive;
-  font-optical-sizing: auto;
-}
-

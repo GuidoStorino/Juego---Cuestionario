@@ -1,0 +1,87 @@
+/* Posiciones fijas de HUD */
+.hud-estado {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+}
+
+/* Panel de inventario (arriba derecha) */
+.inv-wrapper {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.inv-tab {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px 8px 0 0;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: none;
+  color: inherit;
+  font-weight: 600;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.inv-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.inv-panel {
+  width: 260px;
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: none;
+  backdrop-filter: blur(8px);
+  border-radius: 0 0 12px 12px;
+  transition: max-height 0.25s ease, padding 0.2s ease;
+  padding: 0 12px;
+}
+
+/* Cuando está abierto */
+.inv-wrapper.abierto .inv-panel {
+  max-height: 40vh;
+  padding: 8px 12px 12px 12px;
+}
+
+/* Contenido */
+.inv-empty {
+  opacity: 0.7;
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.inv-lista {
+  list-style: none;
+  margin: 8px 0 4px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.inv-item {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
