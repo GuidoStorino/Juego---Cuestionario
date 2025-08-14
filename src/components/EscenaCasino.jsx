@@ -2,30 +2,37 @@
 import React, { useState } from "react";
 import Ruleta from "./Ruleta";
 
-function EscenaCasino({ escena, avanzar }) {
+function EscenaCasino({ escena, avanzar, elegirObjeto, dinero }) {
   const [apuesta, setApuesta] = useState("");
   const [resultadoRuleta, setResultadoRuleta] = useState(null);
   const [girando, setGirando] = useState(false);
 
-  const manejarApuesta = () => {
-    const numeroApostado = parseInt(apuesta);
-    if (isNaN(numeroApostado) || numeroApostado < 1 || numeroApostado > 5) {
-      alert("Ingresá un número entre 1 y 5");
-      return;
-    }
-    const resultado = Math.floor(Math.random() * 5) + 1;
-    setGirando(true);
-    setResultadoRuleta(resultado);
+const manejarApuesta = () => {
+  if ((escena.estado?.fichas || 0) < 1) {
+    alert("No tenés fichas para apostar.");
+    return;
+  }
 
-    setTimeout(() => {
-      setGirando(false);
-      if (resultado === numeroApostado) {
-        avanzar(null, 0, 0, 2); // gana 2 fichas
-      } else {
-        avanzar(null, 0, 0, -1); // pierde 1 ficha
-      }
-    }, 3000);
-  };
+  const numeroApostado = parseInt(apuesta);
+  if (isNaN(numeroApostado) || numeroApostado < 1 || numeroApostado > 5) {
+    alert("Ingresá un número entre 1 y 5");
+    return;
+  }
+
+  const resultado = Math.floor(Math.random() * 5) + 1;
+  setGirando(true);
+  setResultadoRuleta(resultado);
+
+  setTimeout(() => {
+    setGirando(false);
+    if (resultado === numeroApostado) {
+      avanzar(null, 0, 0, 2); // gana 2 fichas
+    } else {
+      avanzar(null, 0, 0, -1); // pierde 1 ficha
+    }
+  }, 3000);
+};
+
 
   return (
     <div>
@@ -33,7 +40,9 @@ function EscenaCasino({ escena, avanzar }) {
 
       <div style={{ marginBottom: 16 }}>
         <p>¿Querés comprar fichas por $10 cada una?</p>
-        <button onClick={() => avanzar(null, 0, -10, 1)}>Comprar 1 ficha</button>
+        <button onClick={() => elegirObjeto("", 10, 1)}>
+  Comprar 1 ficha
+</button>
       </div>
 
       <div>

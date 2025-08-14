@@ -10,8 +10,9 @@ import ZodiacoJuego from "./ZodiacoJuego";
 import CuentaRegresiva from "./CuentaRegresiva";
 import './escape_policia.css';
 import SalaEscape from "./SalaEscape";
-import {SirenasMelodia} from "./SirenasMelodia";
+import { SirenasMelodia } from "./SirenasMelodia";
 import SopaDePalabras from "./SopaDePalabras";
+import "../data/bosque.css"
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
   const [input, setInput] = useState("");
@@ -59,6 +60,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   const esEscenaPolicial = escenasPoliciales.includes(escena.id);
   const esDuendeTesoro = duendeTesoro.includes(escena.id);
   const esEscenaMisteriosa = escenasMisteriosas.includes(escena.id);
+  
 
   const emojisPorObjeto = {
     "Sal": "🧂",
@@ -75,18 +77,18 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     "Hierbas Doradas": "🍂",
     "Hierbas Verdes": "🌿",
     "Hierbas Rojas": "🥀",
-    "Aries": "♈",
-    "Tauro": "♉",
-    "Géminis": "♊",
-    "Cáncer": "♋",
-    "Leo": "♌",
-    "Virgo": "♍",
-    "Libra": "♎",
-    "Escorpio": "♏",
-    "Sagitario": "♐",
-    "Capricornio": "♑",
-    "Acuario": "♒",
-    "Piscis": "♓",
+    "Piedra Aries": "♈",
+    "Piedra Tauro": "♉",
+    "Piedra Géminis": "♊",
+    "Piedra Cáncer": "♋",
+    "Piedra Leo": "♌",
+    "Piedra Virgo": "♍",
+    "Piedra Libra": "♎",
+    "Piedra Escorpio": "♏",
+    "Piedra Sagitario": "♐",
+    "Piedra Capricornio": "♑",
+    "Piedra Acuario": "♒",
+    "Piedra Piscis": "♓",
     "Piedra de Cuarzo rosa": "🔺"
   };
 
@@ -110,8 +112,11 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
   // Escenas especiales - devolver directamente el componente correspondiente
   if (escena.tipo === "casino") {
-    return <EscenaCasino escena={escena} avanzar={avanzar} />;
+    return <EscenaCasino escena={escena} avanzar={avanzar} elegirObjeto={elegirObjeto}
+  dinero={escena.estado.dinero} />;
   }
+
+
 
   if (escena.tipo === "aviso") {
     return (
@@ -136,29 +141,46 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
         <h2 style={{ marginBottom: 24 }}>{escena.texto}</h2>
         <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
-          {escena.opciones.map((opcion, index) => (
-            <button
-              key={index}
-              onClick={() => avanzar(opcion.destino)}
-              style={{
-                padding: "12px 24px",
-                fontSize: "1.1em",
-                backgroundColor: opcion.texto === "Sí, soy mayor de 25 años" ? "#c8009dff" : "#d50000",
-                color: "white",
-                border: "none",
-                borderRadius: 4,
-                cursor: "pointer",
-                minWidth: 120
-              }}
-            >
-              {opcion.texto}
-            </button>
-          ))}
-        </div>
+        
+  {escena.opciones.map((opcion, index) => (
+    <button
+      key={index}
+      onClick={() => {
+        if (opcion.objeto) { // si la opción implica comprar un objeto
+          if (escena.estado.dinero >= (opcion.costo || 0)) {
+            escena.elegirObjeto(opcion.objeto, opcion.costo || 0);
+            if (opcion.destino) escena.actualizarEscena(opcion.destino);
+          } else {
+            alert("No tenés suficiente dinero para comprar este objeto.");
+          }
+        } else {
+          // si no es compra, solo avanza
+          if (opcion.destino) escena.actualizarEscena(opcion.destino);
+        }
+      }}
+      disabled={opcion.costo ? escena.estado.dinero < opcion.costo : false}
+      style={{
+        padding: "12px 24px",
+        fontSize: "1.1em",
+        backgroundColor: "#d50000",
+        color: "white",
+        border: "none",
+        borderRadius: 4,
+        cursor: "pointer",
+        minWidth: 120,
+      }}
+    >
+      {opcion.texto}
+    </button>
+  ))}
+</div>
+
+
       </div>
     );
   }
 
+   
   if (escena.tipo === "sala_escape") {
     return <SalaEscape volverAlJuegoPrincipal={() => avanzar("bar")} />;
   }
@@ -223,6 +245,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     );
   }
 
+
   // Opciones a mostrar según código válido o normales
   const opcionesParaMostrar = (codigoValido ? escena.desbloquea : escena.opciones) || [];
 
@@ -236,6 +259,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     : (tieneImagenes
       ? { display: "grid", gridTemplateColumns: "repeat(2, minmax(140px, 1fr))", gap: "12px", justifyItems: "center", alignItems: "start", width: "100%" }
       : {});
+      
 
   return (
     <div className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}>
@@ -247,6 +271,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
             ? { background: "center", padding: 20, animation: "introZoom 1.5s ease-out" }
             : {}
         }
+        
       >
         {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
       </p>
@@ -367,7 +392,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                 ) : null}
 
                 {/* Texto debajo de la imagen (si la hay) o como contenido del botón */}
-                <div style={{ textAlign: "center", fontSize: 16 }}>
+                <div style={{ textAlign: "center", fontSize:  22}}>
                   {op.texto}
                 </div>
               </button>

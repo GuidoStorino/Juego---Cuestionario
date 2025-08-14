@@ -107,23 +107,32 @@ function App() {
     });
   };
 
-  const elegirObjeto = (objeto, costo = 0) => {
-    if (estado.dinero < costo) {
+const elegirObjeto = (objeto, costo = 0, cantidadFichas = 0) => {
+  setEstado((prev) => {
+    // Validar dinero
+    if (prev.dinero < costo) {
       alert("No tenés suficiente dinero para comprar este objeto.");
-      return;
+      return prev; // retorna el estado sin cambios
     }
-    if (estado.inventario.includes(objeto)) {
-      return;
-    }
-    const siguiente = escenas[estado.escena].siguiente;
-    setEstado((prev) => ({
+
+    // Evitar duplicar el objeto en inventario si no es fichas
+    const nuevoInventario =
+      cantidadFichas === 0 && prev.inventario.includes(objeto)
+        ? prev.inventario
+        : cantidadFichas === 0
+        ? [...prev.inventario, objeto]
+        : prev.inventario;
+
+    return {
       ...prev,
-      inventario: [...prev.inventario, objeto],
+      inventario: nuevoInventario,
       dinero: prev.dinero - costo,
-      escena: siguiente,
-      historial: [...prev.historial, prev.escena]
-    }));
-  };
+      fichas: prev.fichas + cantidadFichas,
+    };
+  });
+};
+
+
 
   const actualizarEscena = (nuevaEscena) => {
     setEstado((prev) => ({ ...prev, escena: nuevaEscena }));
@@ -166,18 +175,45 @@ function App() {
       <Estado puntos={puntos} dinero={dinero} fichas={fichas} />
       <Inventario inventario={inventario} />
 
-      <Escena
-        escena={{
-          ...escenas[estado.escena],
-          volver: estado.historial.length > 0 ? volver : null,
-          inventario: estado.inventario,
-          estado: estado,
-        }}
-        avanzar={avanzar}
-        elegirObjeto={elegirObjeto}
-        actualizarEscena={actualizarEscena}
-        guardarRespuesta={guardarRespuestaTexto}
-      />
+<Escena
+  escena={{
+    ...escenas[estado.escena],
+    volver: estado.historial.length > 0 ? volver : null,
+    inventario: estado.inventario,
+    estado: estado,
+  }}
+  avanzar={avanzar}
+  elegirObjeto={(objeto, costo = 0, cantidadFichas = 0) => {
+    setEstado((prev) => {
+      // Validar dinero antes de comprar
+      if (prev.dinero < costo) {
+        alert("No tenés suficiente dinero para comprar este objeto.");
+        return prev; // no hacer cambios
+      }
+
+      // Evitar duplicados en inventario
+      const nuevoInventario = prev.inventario.includes(objeto)
+        ? prev.inventario
+        : [...prev.inventario, objeto];
+
+      // Actualizar estado
+      const siguiente = escenas[prev.escena]?.siguiente || prev.escena;
+
+      return {
+        ...prev,
+        inventario: cantidadFichas === 0 ? nuevoInventario : prev.inventario,
+        dinero: prev.dinero - costo,
+        fichas: prev.fichas + cantidadFichas,
+        escena: siguiente,
+        historial: [...prev.historial, prev.escena],
+      };
+    });
+  }}
+  actualizarEscena={actualizarEscena}
+  guardarRespuesta={guardarRespuestaTexto}
+/>
+
+
 
       <button className="btn-reiniciar" onClick={reiniciarJuego} style={{ marginTop: 24 }}>
         Reiniciar juego

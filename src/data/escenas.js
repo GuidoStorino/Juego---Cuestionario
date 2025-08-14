@@ -47,6 +47,14 @@ export const escenas = {
     ...super_sopa,
     ...espejo_pasado,
     inicio: {
+    texto: "Era mi turno de hacer un juego. Desde siempre, ha habido muchos cuestionarios, vos sos muy buena para eso. \n Y las parejas están para potenciarse. Así que ideé esto, que es una especie de cuestionario-juego. \n En él vas a encontrarte con preguntas, mini-juegos, tests, entre otras sorpresas. \n Y vas a tener que hacer algo que no te gusta: tomar decisiones. Cada decisión te va ir llevando por diferentes posibilidades, \n caminos, y lugares. Si querés, podemos apretar un botón para volver a la escena anterior. También hay otro para reiniciar el juego, ¡pero ojo! Ese botón te lleva al principio pero borra todo lo que hiciste hasta el momento. \n Creo que eso es todo. Espero que lo disfrutes mucho. Lo importante, claro, es que sigamos jugando. ¿Empezamos?",
+    opciones: [
+      { texto: "Sí", destino: "buenosaireslaplata" },
+      { texto: "No", destino: "ortiba" }
+    ]
+  },
+
+      buenosaireslaplata: {
     texto: "Vamos con el auto y llegamos a un cartel que indica dos caminos posibles. ¿Cuál tomamos?",
     opciones: [
       { texto: "BUENOS AIRES", destino: "norte_objetos" },
@@ -54,6 +62,13 @@ export const escenas = {
     ]
   },
 
+  ortiba: {
+    texto: "Ah, sos la novia más ortiba del mundo.",
+    opciones: [{imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "inicio"}]
+  },
+
+
+ 
     norte_objetos: {
     texto: "Aparece una caja frente a nosotros. Elegí uno:",
     opciones: [
@@ -67,7 +82,7 @@ export const escenas = {
     
   },
   sur_objetos: {
-    texto: "Las valijas con nuestra ropa y cosas esenciales ya están en el auto. Pero también aparece un pequeño bolsa del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
+    texto: "Las valijas con nuestra ropa y elementos esenciales ya están en el auto. Pero también aparece un pequeño bolso del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
     opciones: [
     {texto: "Mapa", objeto: "Mapa"},
     {texto: "Cámara", objeto: "Cámara"},
@@ -77,7 +92,7 @@ export const escenas = {
     siguiente: "sur_destino"
   },
   norte_destino: {
-    texto: "¿A dónde querés ir?",
+    texto: "Por capital hay varios lugares a los que podemos ir... Pero por ahora hay que elegir uno",
     opciones: [
       { texto: "Sala de escape", destino: "sala_escape" },
       { texto: "Bar", destino: "bar" }
@@ -86,10 +101,9 @@ export const escenas = {
   sur_destino: {
     texto: "Llegamos al hotel. Luego de un pequeño descanso del viaje, estamos listos para salir. ¿A dónde te gustaría ir?",
     opciones: [
-      { texto: "Playa", destino: "fin_playa", puntos: 10 },
-      { texto: "Casino", destino: "casino_intro", puntos: -10 },
-      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
-      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
+      { texto: "Casino", destino: "casino_intro" },
+      
+      { texto: "Bosque Peralta Ramos", destino: "bosque_intro"}
     ]
   },
 
@@ -101,20 +115,4 @@ casino_intro: {
       { texto: "Salir del casino", destino: "calle", puntos: 10 }]
 },
 
-
-  calle: {
-    texto: "Caminando por la calle, ¿a dónde irías?",
-    opciones: [
-      { texto: "Playa", destino: "playa" },
-      { texto: "Casino", destino: "casino_intro", puntos: -10 },
-      { texto: "Bowling", destino: "fin_bowling", puntos: 5 },
-      { texto: "Bosque Peralta Ramos", destino: "bosque_intro", puntos: 5 }
-    ]
-  },
-
-  
-  fin_libreria: { texto: "Te perdés entre libros maravillosos.", opciones: [], final: true },
-  fin_playa: { texto: "Tomás sol y descansás en la arena.", opciones: [] },
-  fin_casino: { texto: "Perdés todo en la ruleta... Ups.", opciones: [] },
-  fin_bowling: { texto: "¡Pleno strike y diversión asegurada!", opciones: [] },
-};
+}

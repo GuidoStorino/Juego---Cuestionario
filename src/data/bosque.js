@@ -1,9 +1,10 @@
-// src/data/bosque.js
-import pasto from '../assets/pasto.png';
+import './bosque.css'
 
 export const bosque = {
+  
   bosque_intro: {
-    texto: "Empezás a caminar por un bosque y te empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
+    texto: "Empezás a caminar por un bosque y empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
+    tipo: "bosque",
     opciones: [
       { texto: "", imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "sendero_tierra", puntos: 5 },
       { texto: "", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/campo_flores.jpg", puntos: -5 },
@@ -319,10 +320,10 @@ arturo: {
   feria_bosque: {
     texto: "",
     opciones: [
-      {texto: "Poción de la suerte $50", destino: "bosque_intro", imagen: "/Juego---Cuestionario/game-project/public/images/pocion_suerte.jpg", dinero: 50},
-      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", costo: 30},
-      {texto: "Agua del bosque $30", imagen:  "/Juego---Cuestionario/game-project/public/images/agua_bosque.jpg", costo: 15, destino: "bosque_intro"},
-      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15}
+      {texto: "Poción de la suerte $50", objeto: "Poción Suerte", costo: 50, destino: "bosque_intro", imagen: "/Juego---Cuestionario/game-project/public/images/pocion_suerte.jpg", },
+      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", objeto: "Espejo Mágico", costo: 30 },
+      {texto: "Agua del bosque $30", imagen:  "/Juego---Cuestionario/game-project/public/images/agua_bosque.jpg", costo: 15, objeto: "Agua del Bosque", destino: "bosque_intro"},
+      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15, objeto: "Piedra Zodiacal"}
     ]
   },
 
