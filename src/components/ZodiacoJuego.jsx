@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import signosZodiaco from './signosZodiaco';
 import './ZodiacoJuego.css';
 
-export default function JuegoZodiaco({ elegirObjeto, inventario = [] }) {
+export default function JuegoZodiaco({ elegirObjeto, inventario = [], cambiarEscena }) {
   const [piedras, setPiedras] = useState({});
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [caracteristicaActual, setCaracteristicaActual] = useState(null);
@@ -92,8 +92,16 @@ const manejarSeleccionPiedra = (signoElegido) => {
     iniciarJuego();
   };
 
-  return (
+ return (
     <div className="juego-zodiaco">
+      {/* Botón para salir del juego */}
+      <button
+        className="boton-salir"
+        onClick={() => cambiarEscena('bosque_intro')}
+      >
+        Salir del juego
+      </button>
+
       {juegoTerminado ? (
         <div className="mensaje-final">
           <h2>¡Completaste la piedra de {piedraGanadora}!</h2>
@@ -101,35 +109,27 @@ const manejarSeleccionPiedra = (signoElegido) => {
         </div>
       ) : (
         <>
-          {caracteristicaActual ? (
+          {caracteristicaActual && (
             <div className="caracteristica-cayendo">
               <p>{caracteristicaActual.texto}</p>
             </div>
-          ) : (
-            <p></p>
           )}
           <div className="mesa-piedras">
-{Object.entries(piedras).map(([signo, data]) => (
-  <div
-    key={signo}
-    className={`piedra ${data.completada ? 'piedra-brillante' : data.aciertos > 0 ? 'piedra-brillante' : ''}`}
-    onClick={() => manejarSeleccionPiedra(signo)}
-  >
-    {/* Barra de progreso visual */}
-    <div
-  className="piedra-barra"
-  style={{ height: `${(data.aciertos / 3) * 100}%` }}
-></div>
-
-
-    {/* Contenido visible sobre la piedra */}
-    <div className="contenido">
-      {signo}
-     
-    </div>
-  </div>
-))}
-
+            {Object.entries(piedras).map(([signo, data]) => (
+              <div
+                key={signo}
+                className={`piedra ${
+                  data.completada || data.aciertos > 0 ? 'piedra-brillante' : ''
+                }`}
+                onClick={() => manejarSeleccionPiedra(signo)}
+              >
+                <div
+                  className="piedra-barra"
+                  style={{ height: `${(data.aciertos / 3) * 100}%` }}
+                />
+                <div className="contenido">{signo}</div>
+              </div>
+            ))}
           </div>
         </>
       )}

@@ -115,7 +115,7 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
 
         <button onClick={() => mostrarMensaje(
   <img
-    src="/img/PinturaSalaBar.png"
+    src="/Juego---Cuestionario/game-project/public/images/retrato_salita.PNG"
     alt="Pintura misteriosa"
     style={{ width: "100%", maxWidth: "400px", borderRadius: "8px" }}
   />

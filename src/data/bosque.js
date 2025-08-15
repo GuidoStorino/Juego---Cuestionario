@@ -31,7 +31,7 @@ pulperia: {
   texto: "La pulpería ofrece buena comida y sus paredes están adornadas con cuadros de la época en la que fue construida y objetos antiguos. Al momento de irte, te ofrecen llevarte alguna.",
   opciones: [
     {texto: "Me llevo esa asombrosa espada que cuelga de la pared.", objeto: "Espada", destino: "arturo"},
-    {texto: "No, gracias. Pero me voy a llevar la botella que me quedó un poco de vino", objeto: "Botella", destino:"arturo"}
+    {texto: "No, gracias. Pero me voy a llevar la botella que me quedó un poco de vino", objeto: "Vino", destino:"arturo"}
   ]
 },
 
@@ -321,9 +321,9 @@ arturo: {
     texto: "",
     opciones: [
       {texto: "Poción de la suerte $50", objeto: "Poción Suerte", costo: 50, destino: "bosque_intro", imagen: "/Juego---Cuestionario/game-project/public/images/pocion_suerte.jpg", },
-      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", objeto: "Espejo Mágico", costo: 30 },
+      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", objeto: "Espejo Mágico", costo: 30, destino: "bosque_intro" },
       {texto: "Agua del bosque $30", imagen:  "/Juego---Cuestionario/game-project/public/images/agua_bosque.jpg", costo: 15, objeto: "Agua del Bosque", destino: "bosque_intro"},
-      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15, objeto: "Piedra Zodiacal"}
+      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15, objeto: "Piedra Zodiacal", destino: "bosque_intro"}
     ]
   },
 

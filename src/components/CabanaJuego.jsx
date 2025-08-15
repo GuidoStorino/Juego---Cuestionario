@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import './CabanaJuego.css';
 
 const RECETAS_VALIDAS = [
   ['hierbas', 'vino', 'sal'],
   ['sal', 'hongos', 'vino'],
-  ['hierbas', 'Hongo', 'agua'],
+  ['hierbas', 'hongos', 'agua'],
 ];
 
 const RECETAS_FALLIDAS = [
@@ -28,19 +29,22 @@ const CalderoPocion = () => {
 
   const agregarAlCaldero = (objeto) => {
     if (objeto === "Libro antiguo") {
-      setMostrarRecetas(!mostrarRecetas);
+      setMostrarRecetas(prev => !prev);
       return;
     }
     if (!objetosUsados.includes(objeto)) {
-      setObjetosUsados([...objetosUsados, objeto]);
+      setObjetosUsados(prev => [...prev, objeto]);
     }
   };
 
+  const normalizeAndSort = (arr) =>
+    arr.map(i => String(i).toLowerCase()).sort();
+
   const prepararPocion = () => {
-    const ingredientesUsados = [...objetosUsados].sort();
+    const ingredientesUsados = normalizeAndSort(objetosUsados);
 
     const recetaExitosa = RECETAS_VALIDAS.find((receta) => {
-      const r = [...receta].sort();
+      const r = normalizeAndSort(receta);
       return (
         ingredientesUsados.length === r.length &&
         ingredientesUsados.every((ing, i) => ing === r[i])
@@ -54,7 +58,7 @@ const CalderoPocion = () => {
     }
 
     const recetaFallida = RECETAS_FALLIDAS.find(({ ingredientes }) => {
-      const r = [...ingredientes].sort();
+      const r = normalizeAndSort(ingredientes);
       return (
         ingredientesUsados.length === r.length &&
         ingredientesUsados.every((ing, i) => ing === r[i])
@@ -75,15 +79,24 @@ const CalderoPocion = () => {
     setMostrarRecetas(false);
   };
 
-const irAEscena = (destino) => {
-  localStorage.setItem("escena", destino);
-  window.location.reload(); // Forzamos recarga para que la nueva escena se cargue
-};
+  const irAEscena = (destino) => {
+    localStorage.setItem("escena", destino);
+    window.location.reload();
+  };
 
+  const estadoCaldero = juegoGanado ? "exito" : (mensaje && !juegoGanado ? "fallo" : "");
 
   return (
     <div style={{ padding: "1rem", backgroundColor: "#f0efe7", borderRadius: "12px" }}>
       <h2>Caldero Mágico</h2>
+
+      {/* Caldero visual */}
+      <div className={`caldero ${estadoCaldero}`}>
+        <div className="liquido"></div>
+        <div className="burbujas">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
 
       {!juegoGanado && (
         <button onClick={() => irAEscena("bosque_intro")} style={{ marginBottom: "1rem" }}>
@@ -100,7 +113,7 @@ const irAEscena = (destino) => {
           <p>Seleccioná objetos para echar al caldero:</p>
           <ul>
             {inventario.map((obj, idx) => (
-              <li key={idx}>
+              <li key={obj + "-" + idx}>
                 <button onClick={() => agregarAlCaldero(obj)}>{obj}</button>
               </li>
             ))}
@@ -114,7 +127,7 @@ const irAEscena = (destino) => {
         </>
       )}
 
-            {mostrarRecetas && (
+      {mostrarRecetas && (
         <div style={{ marginTop: "1rem" }}>
           <img
             src="/img/recetas-libro.png"
@@ -135,17 +148,6 @@ const irAEscena = (destino) => {
           <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
         </div>
       )}
-
-            {juegoGanado && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>¡Juego Ganado!</h3>
-          <button onClick={() => irAEscena("bosque_intro")} style={{ marginRight: "1rem" }}>
-            Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
-          </button>
-          <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
-        </div>
-      )}
-
 
       {!juegoGanado && mensaje && (
         <div style={{ marginTop: "1rem" }}>

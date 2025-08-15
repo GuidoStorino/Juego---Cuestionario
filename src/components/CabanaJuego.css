@@ -1,0 +1,247 @@
+/* ---------- Contenedor del caldero (base clásica) ---------- */
+.caldero {
+  position: relative;
+  width: 260px;
+  height: 200px;
+  margin: 18px auto;
+  transform: translateZ(0); /* fuerza layer para animaciones suaves */
+
+  /* estilo "metal viejo" */
+  background: radial-gradient(circle at 35% 25%, #3a3a3a 0%, #222 50%, #0f0f0f 100%);
+  border-radius: 130px 130px 90px 90px / 120px 120px 60px 60px;
+  border: 6px solid rgba(20,20,20,0.9);
+  box-shadow:
+    inset 0 -6px 20px rgba(0,0,0,0.7),
+    0 10px 30px rgba(0,0,0,0.6);
+  overflow: visible;
+}
+
+/* Borde metálico (rim) */
+.caldero::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: -6px;
+  right: -6px;
+  height: 36px;
+  background: linear-gradient(180deg, #b0b0b0 0%, #7a7a7a 40%, #373737 100%);
+  border-radius: 50%;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.6), inset 0 -6px 8px rgba(255,255,255,0.03);
+  z-index: 6;
+}
+
+/* Patas del caldero */
+.caldero::after {
+  content: "";
+  position: absolute;
+  bottom: -28px;
+  left: 18px;
+  right: 18px;
+  height: 36px;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* patas individuales (pseudo-elementos visuales extra) */
+.caldero .pata {
+  position: absolute;
+  bottom: -26px;
+  width: 38px;
+  height: 20px;
+  background: linear-gradient(180deg, #2d2d2d, #0f0f0f);
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.6);
+  transform: rotate(-8deg);
+  z-index: 1;
+}
+.caldero .pata.p2 { left: auto; right: 18px; transform: rotate(8deg); }
+.caldero .pata.p1 { left: 32px; }
+
+/* ---------- Liquido (remolino + color base) ---------- */
+.liquido {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 8%;
+  height: 54%;
+  border-radius: 45% 55% 40% 60% / 60% 60% 40% 40%;
+  overflow: visible;
+  z-index: 4;
+
+  /* color neutral por defecto (místico azulado) */
+  background: radial-gradient(circle at 50% 20%, #6fb3c9 0%, #1f6a8a 45%, #0b2b3a 100%);
+  box-shadow: inset 0 8px 28px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.4);
+  animation: moverLiquido 3.6s ease-in-out infinite;
+  transform-origin: 50% 80%;
+}
+
+/* Remolino sutil (gira el liquido levemente) */
+@keyframes moverLiquido {
+  0%   { transform: rotate(-2deg) translateY(0); }
+  50%  { transform: rotate(2deg) translateY(-4px); }
+  100% { transform: rotate(-2deg) translateY(0); }
+}
+
+/* ---------- Burbujas (orgánicas, varias capas) ---------- */
+.burbujas span {
+  position: absolute;
+  bottom: 12%;
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.12);
+  opacity: 0.95;
+  transform: translateY(0) scale(0.9);
+  animation: burbujear 4s linear infinite;
+  z-index: 5;
+}
+
+/* posiciones y delays para cada burbuja (variedad) */
+.burbujas span:nth-child(1) { left: 22%; animation-delay: 0s; width:14px; height:14px; }
+.burbujas span:nth-child(2) { left: 44%; animation-delay: .9s; width:10px; height:10px; }
+.burbujas span:nth-child(3) { left: 62%; animation-delay: .4s; width:12px; height:12px; }
+.burbujas span:nth-child(4) { left: 80%; animation-delay: 1.6s; width:8px; height:8px; opacity:.8; }
+
+/* sub-animación de subida y estallido */
+@keyframes burbujear {
+  0%   { transform: translateY(0) scale(.8); opacity: 0.9; }
+  60%  { transform: translateY(-88px) scale(1.15); opacity: 0.95; }
+  100% { transform: translateY(-120px) scale(1.3); opacity: 0; }
+}
+
+/* ---------- HUMO (para fallo) ---------- */
+.humo {
+  position: absolute;
+  left: 50%;
+  top: -8%;
+  width: 160px;
+  height: 100px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+}
+
+.humo .nube {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 40px;
+  height: 24px;
+  background: radial-gradient(circle at 30% 30%, rgba(200,200,200,0.8), rgba(120,120,120,0.2));
+  border-radius: 50%;
+  transform-origin: 50% 100%;
+  animation: subirHumo 2.6s infinite;
+}
+
+/* reparto de varias nubes con delays */
+.humo .n1 { left: 36%; animation-delay: 0s; width:46px; height:28px; }
+.humo .n2 { left: 50%; animation-delay: .6s; width:62px; height:36px; }
+.humo .n3 { left: 66%; animation-delay: 1.1s; width:40px; height:24px; }
+
+@keyframes subirHumo {
+  0%   { transform: translateY(0) scale(.9); opacity: 0; }
+  20%  { opacity: 0.6; }
+  80%  { transform: translateY(-60px) scale(1.25); opacity: 0.18; }
+  100% { transform: translateY(-90px) scale(1.4); opacity: 0; }
+}
+
+/* ---------- CHISPAS / DESTELLOS (para éxito) ---------- */
+.chispa {
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 9;
+  opacity: 0;
+}
+
+.chispa:before, .chispa:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,230,120,1), rgba(255,200,20,0.9));
+  transform-origin: center;
+  border-radius: 2px;
+  box-shadow: 0 0 18px rgba(255,200,50,0.9);
+}
+
+.chispa:before { transform: translate(-50%,-50%) rotate(0deg); }
+.chispa:after  { transform: translate(-50%,-50%) rotate(90deg); }
+
+/* generador de muchas chispas usando pseudo-elementos y animación */
+.chispa.chispas-1  { animation: brillo1 .9s ease-out infinite; }
+.chispa.chispas-2  { animation: brillo2 1.1s ease-out infinite; left: 36%; top: 12%; }
+.chispa.chispas-3  { animation: brillo3 1.4s ease-out infinite; left: 64%; top: 10%; }
+
+@keyframes brillo1 {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(.6); filter: blur(0); }
+  30%  { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1.1); filter: blur(.6px); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-28px) scale(.9); filter: blur(1.4px); }
+}
+@keyframes brillo2 {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(.7) rotate(10deg); }
+  40%  { opacity: 1; transform: translateX(-50%) translateY(-18px) scale(1.15) rotate(10deg); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-36px) scale(.9) rotate(10deg); }
+}
+@keyframes brillo3 {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(.55) rotate(-10deg); }
+  35%  { opacity: 1; transform: translateX(-50%) translateY(-22px) scale(1.2) rotate(-10deg); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-42px) scale(.9) rotate(-10deg); }
+}
+
+/* ---------- MODOS: éxito / fallo ---------- */
+
+/* Modo fallback (sin intento): apariencia neutra ya definida por .liquido */
+
+/* Modo ÉXITO: liquido dorado, brillos y chispas visibles */
+.caldero.exito .liquido {
+  background: radial-gradient(circle at 45% 18%, #ffeaa1 0%, #ffb84d 40%, #a86b22 100%);
+  box-shadow: inset 0 12px 40px rgba(255,200,40,0.12), 0 8px 30px rgba(255,180,20,0.08);
+  animation-duration: 2.8s; /* remolino más rápido y vivo */
+}
+.caldero.exito .chispa { opacity: 1; }
+.caldero.exito .chispa.chispas-1,
+.caldero.exito .chispa.chispas-2,
+.caldero.exito .chispa.chispas-3 { /* aumenta brillo cuando está activo */
+  filter: drop-shadow(0 0 10px rgba(255,210,80,0.9));
+}
+
+/* Modo FALLO: liquido oscuro, burbujas más densas y humo */
+.caldero.fallo .liquido {
+  background: radial-gradient(circle at 50% 20%, #2b2b2b 0%, #0b0b0b 55%);
+  box-shadow: inset 0 10px 30px rgba(0,0,0,0.8), 0 6px 20px rgba(0,0,0,0.6);
+  animation-duration: 4.2s; /* más pesadez en el movimiento */
+  filter: saturate(.6) contrast(.85);
+}
+.caldero.fallo .burbujas span {
+  background: rgba(120,120,120,0.12);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.02);
+  animation-duration: 3.2s;
+}
+.caldero.fallo .humo { opacity: 1; }
+
+/* pequeño pulso del caldero cuando hay fallo (como un 'respiro' oscuro) */
+.caldero.fallo {
+  animation: pulsoFallo .9s ease-in-out 1;
+}
+@keyframes pulsoFallo {
+  0% { transform: scale(1); }
+  40% { transform: scale(.995) translateY(1px); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- utilidades / responsividad ---------- */
+@media (max-width: 420px) {
+  .caldero { width: 200px; height: 150px; }
+  .liquido { height: 56%; bottom: 6%; }
+  .burbujas span { display: none; } /* simplificar en móviles */
+}

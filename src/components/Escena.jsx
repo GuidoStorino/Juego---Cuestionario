@@ -73,23 +73,38 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     "Cámara": "📷",
     "Libro antiguo": "📖",
     "Hongo": "🍄",
+    "Flor Violeta": "🪻",
+    "Flor Roja": "🌹",
     "Hierbas Azules": "🍃🔵",
     "Hierbas Doradas": "🍂",
     "Hierbas Verdes": "🌿",
     "Hierbas Rojas": "🥀",
-    "Piedra Aries": "♈",
-    "Piedra Tauro": "♉",
-    "Piedra Géminis": "♊",
-    "Piedra Cáncer": "♋",
-    "Piedra Leo": "♌",
-    "Piedra Virgo": "♍",
-    "Piedra Libra": "♎",
-    "Piedra Escorpio": "♏",
-    "Piedra Sagitario": "♐",
-    "Piedra Capricornio": "♑",
-    "Piedra Acuario": "♒",
-    "Piedra Piscis": "♓",
-    "Piedra de Cuarzo rosa": "🔺"
+    "Aries": "♈",
+    "Tauro": "♉",
+    "Géminis": "♊",
+    "Cáncer": "♋",
+    "Leo": "♌",
+    "Virgo": "♍",
+    "Libra": "♎",
+    "Escorpio": "♏",
+    "Sagitario": "♐",
+    "Capricornio": "♑",
+    "Acuario": "♒",
+    "Piscis": "♓",
+    "Piedra de Cuarzo rosa": "🔺",
+    "Piedra Zafiro": "🔹",
+    "Poción Suerte": "🧪",
+    "Espejo Mágico": "🪞",
+    "Agua del Bosque": "🫙",
+    "Piedra Zodiacal": "🪨",
+    "Incienso Aromático": "♨️",
+    "Sangre de Unicornio": "🦄",
+    "Linterna": "🔦",
+    "Instrumento": "🎻",
+    "Free Pass": "🎟️",
+    "Celular": "📱",
+    "Hueso animal": "🦴"
+
   };
 
   const idEscena = escena.id || escena.nombre || escena.texto; // Identificador único
@@ -201,11 +216,9 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
   if (escena.id === "lago_juego") {
     return (
-      <LagoJuego
-        volverAlBar={() => avanzar("bar")}
-        reiniciarJuego={() => avanzar("sala_prop_bar")}
-        ganarJuego={() => avanzar("ganaste_escape")}
-      />
+      <LagoJuego 
+        cambiarEscena={() => avanzar("bosque_intro")}
+        />
     );
   }
 
@@ -221,6 +234,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   if (escena.id === "hippiebosque") {
     return (
       <ZodiacoJuego
+      cambiarEscena={() => avanzar('bosque_intro')}
         elegirObjeto={elegirObjeto}
         ganarJuego={() => avanzar("ganaste_escape")}
       />

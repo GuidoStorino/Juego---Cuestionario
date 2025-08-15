@@ -5,7 +5,7 @@ const signos = {
     graciosas: ["Grita con una media en la mano"],
     completadas: [], // para llevar cuenta
   },
-  Tauro: {
+  "Piedra Tauro": {
     buenas: ["Leal"],
     malas: ["Obstinado"],
     graciosas: ["Le encanta comer y coger"],
