@@ -12,7 +12,7 @@ espejo_bar: {
     texto: "El tocar ese espejo parece haberte llevado hacia otro lugar. Algo mareada y confundida, te levantás del suelo en una calle empedrada.",
     opciones: [
         {texto: "Hay un auto antiguo estacionado. ¿El espejo me transportó hacia el pasado?", destino: "espejo_pasado"},
-        {texto: "Hay un auto antiguo estacionado. Muy cerca de una pared... ¿El espejo me transportó hacia un callejón sin salida?", destino: "espejo_callejon"},
+        {texto: "Hay un auto antiguo estacionado. Muy cerca de una pared... ¿El espejo me transportó hacia un callejón sin salida?", destino: ""},
         {texto: "Hay un auto antiguo estacionado y... ¿Está abierto?", destino: "auto_abierto"}
     ]
 },
@@ -143,7 +143,7 @@ calle_boliche: {
     opciones: [
         {texto: "Ahora volvemos al bar", destino: "bar"},
         {texto: "O salimos a la ruta", destino: "calle_inicio"},
-        {texto: "Mmm... ¿Y si seguimos la noche? Hay un boliche que se ve por allá. Se llama Sweet.", destino: "sweet_aviso"}
+        {texto: "Mmm... ¿Y si seguimos la noche? Hay un boliche que se ve por allá. Se llama Sweet.", destino: "sweet_aviso", requiere: "Free Pass"}
     ],
     final: true
 },

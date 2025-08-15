@@ -73,7 +73,7 @@ export const escenas = {
     texto: "Aparece una caja frente a nosotros. Elegí uno:",
     opciones: [
       { texto: "Linterna", objeto: "Linterna", destino: "norte_destino" }, 
-      { texto: "Mapa", objeto: "Mapa", destino: "norte_destino"},
+      { texto: "Pelota de fútbol", objeto: "Pelota de Fútbol", destino: "norte_destino"},
       { texto: "Cámara", objeto: "Cámara", destino: "norte_destino"},
       { texto: "Avanzar sin tomar nada", destino: "norte_destino"}
     ],   
@@ -84,9 +84,9 @@ export const escenas = {
   sur_objetos: {
     texto: "Las valijas con nuestra ropa y elementos esenciales ya están en el auto. Pero también aparece un pequeño bolso del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
     opciones: [
-    {texto: "Mapa", objeto: "Mapa"},
+    {texto: "Una petaca", objeto: "petaca"},
     {texto: "Cámara", objeto: "Cámara"},
-    {texto: "Libro antiguo", objeto: "Libro antiguo"},
+    {texto: "La guitarra", objeto: "Instrumento"},
     {texto: "Avanzar sin tomar nada", destino: "sur_destino"}
     ],
     siguiente: "sur_destino"
@@ -98,6 +98,11 @@ export const escenas = {
       { texto: "Bar", destino: "bar" }
     ]
   },
+
+  sala_escape: {
+    texto: "En producción. Trabajando para usted"
+  },
+
   sur_destino: {
     texto: "Llegamos al hotel. Luego de un pequeño descanso del viaje, estamos listos para salir. ¿A dónde te gustaría ir?",
     opciones: [

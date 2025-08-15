@@ -40,7 +40,7 @@ const estadoInicial = () => ({
   escena: "inicio",
   inventario: [],
   puntos: 0,
-  dinero: 0,
+  dinero: 50,
   fichas: 0,
   historial: []
 });

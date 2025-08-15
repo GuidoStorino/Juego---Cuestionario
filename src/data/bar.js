@@ -7,6 +7,16 @@ export const bar = {
     ]
   },
 
+  carta_qr: {
+    opciones: [{imagen: "/Juego---Cuestionario/game-project/public/images/cartaQRcontenido.jpg", destino: "bar",
+          estilo: { 
+      objectFit: "contain",
+      width: "100%",
+      height: "auto"
+    }
+    }]
+  },
+
 carta_papel: {
   texto: "La moza te sonríe. 'Hace mucho que alguien no elige el QR', dice. Busca una carta que estaba detrás de ella y se retira. Al mirar la carta, te sorprendés con la descripción de algunos tragos y decidís cuál tomar.",
   opciones: [

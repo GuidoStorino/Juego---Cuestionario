@@ -2,10 +2,24 @@ import React, { useState, useEffect } from "react";
 import './CabanaJuego.css';
 
 const RECETAS_VALIDAS = [
-  ['hierbas', 'vino', 'sal'],
-  ['sal', 'hongos', 'vino'],
-  ['hierbas', 'hongos', 'agua'],
-  ['cámara', 'hongo']
+  ['cáncer', 'flor roja', 'sal'],
+  ['escorpio', 'flor roja', 'sal'],
+  ['piedra piscis', 'flor roja', 'sal'],
+  ['tauro', 'hueso animal', 'vino'],
+  ['virgo', 'hueso animal', 'vino'],
+  ['capricornio', 'hueso animal', 'vino'],
+  ['aries', 'hongo', 'incienso aromático'],
+  ['leo', 'hongo', 'incienso aromático'],
+  ['sagitario', 'hongo', 'incienso aromático'],
+  ['geminis', 'hongo', 'incienso aromático'],
+  ['libra', 'hongo', 'incienso aromático'],
+  ['acuario', 'hongo', 'incienso aromático'],
+  ['sangre de unicornio', 'agua del bosque']
+  ['piedra zafiro', 'hierbas doradas', 'vino'],
+  ['piedra zafiro', 'hierbas azules', 'vino'],
+  ['piedra de cuarzo rosa', 'hierbas verdes', 'agua del bosque'],
+  ['piedra de cuarzo rosa', 'hierbas rojas', 'agua del bosque'],
+  
 ];
 
 const RECETAS_FALLIDAS = [
@@ -88,7 +102,7 @@ const CalderoPocion = () => {
   const estadoCaldero = juegoGanado ? "exito" : (mensaje && !juegoGanado ? "fallo" : "");
 
   return (
-    <div style={{ padding: "1rem", backgroundColor: "#f0efe7", borderRadius: "12px" }}>
+    <div className="caldero-app" style={{ padding: "1rem", backgroundColor: "#f0efe7", borderRadius: "12px" }}>
       <h2>Caldero Mágico</h2>
 
       <div className={`caldero ${estadoCaldero}`}>
@@ -145,7 +159,7 @@ const CalderoPocion = () => {
       {mostrarRecetas && (
         <div style={{ marginTop: "1rem" }}>
           <img
-            src="/img/recetas-libro.png"
+            src="/Juego---Cuestionario/game-project/public/images/libroantiguo.PNG"
             alt="Recetas del libro antiguo"
             style={{ maxWidth: "100%", border: "2px solid #333", borderRadius: "8px" }}
           />

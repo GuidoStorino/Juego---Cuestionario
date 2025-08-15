@@ -493,3 +493,179 @@
   .liquido { height: 56%; bottom: 6%; }
   .burbujas span { display: none; } /* simplificar en móviles */
 }
+
+/* =========================
+   Estilos bonitos para botones y objetos (Caldero)
+   Scope: .caldero-app
+   ========================= */
+
+/* Fuente y variables (ajustables) */
+.caldero-app {
+  --accent: #8b5e3c;        /* marrón cálido */
+  --accent-dark: #6a4327;
+  --muted: #efe6da;
+  --danger: #bb2b2b;
+  --success: #caa24a;
+  --glass: rgba(255,255,255,0.6);
+  font-family: "Optima", "Trebuchet MS", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* ---------- Botones principales (estilo hechicería) ---------- */
+.caldero-app button {
+  background: linear-gradient(180deg, var(--muted), #e8dccb);
+  border: 2px solid rgba(0,0,0,0.12);
+  color: #2e2e2e;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow:
+    0 6px 18px rgba(25,15,7,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+/* Hover / active */
+.caldero-app button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 28px rgba(25,15,7,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.55);
+}
+.caldero-app button:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18);
+}
+
+/* Disabled */
+.caldero-app button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Botones destacados (usar clase .primary si querés) */
+.caldero-app button.primary {
+  background: linear-gradient(180deg, #ffefc9, #ffd98a);
+  border: 1px solid rgba(120,80,30,0.25);
+  color: #4b2f12;
+}
+.caldero-app button.ghost {
+  background: transparent;
+  border: 1px dashed rgba(0,0,0,0.08);
+  box-shadow: none;
+}
+
+/* Botones de acción del caldero (separados visualmente) */
+.caldero-app > button, /* el botón "Aún no tengo..." justo después del caldero */
+.caldero-app .acciones-caldero {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* ---------- Inventario / Lista de objetos ---------- */
+.caldero-app ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Cada elemento del inventario como "tarjeta pequeña" */
+.caldero-app ul li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botones de objetos (estética de reliquia) */
+.caldero-app ul li button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 92px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(240,230,210,0.95));
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* Icono pequeño (si luego usás img en botón) */
+.caldero-app ul li button img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Hover en objeto */
+.caldero-app ul li button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* Cuando el objeto ya está usado (badge o clase .used) */
+.caldero-app ul li button.used {
+  opacity: 0.64;
+  filter: grayscale(0.35) contrast(.9);
+}
+
+/* ---------- Tags / objetos dentro del caldero (lista de objetosUsados) ---------- */
+.caldero-app .objetos-en-caldero {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0 12px 0;
+}
+.caldero-app .objeto-chip {
+  background: linear-gradient(180deg, rgba(30,30,30,0.06), rgba(255,255,255,0.02));
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 600;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Si querés un chip activo / resaltado */
+.caldero-app .objeto-chip.resaltado {
+  background: linear-gradient(180deg, #fff4d6, #ffe2a8);
+  border-color: rgba(140,100,60,0.25);
+  color: #3e2b12;
+}
+
+/* ---------- Mensajes / Resultado ---------- */
+.caldero-app p, .caldero-app h3, .caldero-app h2 {
+  color: #2c2a28;
+}
+
+/* Mensaje de fallo o éxito (clases utilitarias que podés aplicar) */
+.caldero-app .msg-exito {
+  color: #6a3d05;
+  background: linear-gradient(180deg, rgba(250,240,210,0.6), rgba(255,240,190,0.15));
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(120,80,30,0.08);
+}
+.caldero-app .msg-fallo {
+  color: #5b1212;
+  background: linear-gradient(180deg, rgba(255,230,230,0.6), rgba(255,210,210,0.08));
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(160,40,40,0.06);
+}
+
+/* ---------- Small responsive tweaks ---------- */
+@media (max-width: 560px) {
+  .caldero-app ul li button { min-width: 72px; padding: 6px 8px; font-size: 13px; }
+  .caldero-app .boton-siguiente-escena, .caldero-app > button { padding: 8px 10px; }
+  .caldero-app { width: 94vw; height: auto; }
+}

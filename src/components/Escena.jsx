@@ -394,14 +394,25 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                   <img
                     src={op.imagen}
                     alt={op.texto}
-                    style={{
-                      width: "250px",
-                      height: "250px",
-                      objectFit: "cover",
-                      borderRadius: "4px",
-                      marginBottom: "2px",
-                      display: "block",
-                    }}
+                    style={
+                     op.imagen.includes("cartaQRcontenido.jpg")
+        ? {
+            width: "100%",
+            height: "auto",
+            objectFit: "contain",
+            borderRadius: "4px",
+            marginBottom: "2px",
+            display: "block",
+          }
+        : {
+            width: "250px",
+            height: "250px",
+            objectFit: "cover",
+            borderRadius: "4px",
+            marginBottom: "2px",
+            display: "block",
+          }
+    }
                   />
                 ) : null}
 
