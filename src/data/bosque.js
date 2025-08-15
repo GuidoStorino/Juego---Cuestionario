@@ -6,10 +6,10 @@ export const bosque = {
     texto: "Empezás a caminar por un bosque y empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
     tipo: "bosque",
     opciones: [
-      { texto: "", imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "sendero_tierra", puntos: 5 },
-      { texto: "", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/campo_flores.jpg", puntos: -5 },
-      { texto: "", destino: "feria_bosque", puntos: -5, imagen: "/Juego---Cuestionario/game-project/public/images/feria_bosque.jpg" },
-      { texto: "", destino: "casitas_bosque", puntos: -5, imagen: "/Juego---Cuestionario/game-project/public/images/casitas_bosque.jpg" }
+      { texto: "", imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "sendero_tierra", },
+      { texto: "", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/campo_flores.jpg", },
+      { texto: "", destino: "feria_bosque", imagen: "/Juego---Cuestionario/game-project/public/images/feria_bosque.jpg" },
+      { texto: "", destino: "casitas_bosque", imagen: "/Juego---Cuestionario/game-project/public/images/casitas_bosque.jpg" }
     ]
   },
   sendero_tierra: {
@@ -134,31 +134,6 @@ arturo: {
     final: true
   },
 
-  casa_de_te: {
-    texto: "La casa de té es bonita, acogedora, tiene sillas cómodas en donde sentarse y mesitas de madera. El lugar está completamente vacío. A través de la ventana, se puede observar cómo la lluvia de hojas doradas continúa sin cesar. Mientras miramos, se sienten los pasos de alguien que nos viene a atender. Es una anciana algo encorvada y de cabello muy blanco. Nos entrega la carta del lugar.",
-    opciones:  [
-      {texto: "Hacés un comentario liviano sobre el clima para distender un poco.", destino: "historia_te"},
-      {texto: "Simplemente mirás la carta", destino: "carta_te"}
-    ]
-  },
-
-  carta_te: {
-    texto: "",
-    opciones: [
-      {texto: "Té de hierbas azules", destino: "afuera_casa_te", objeto: "hierbas azules"},
-      {texto: "Té de hierbas rojas", destino: "afuera_casa_te", objeto: "hierbas rojas" },
-      {texto: "Té de hierbas verdes", destino: "afuera_casa_te", objeto: "hierbas verdes"},
-      {texto: "Té de hierbas doradas", destino: "afuera_casa_te", objeto: "hierbas doradas"}
-    ]
-  },
-
-  historia_te: {
-    texto: "",
-    opciones: [
-      {texto: "Continuar", destino: "carta_te"}
-    ]
-  },
-
 
    calle_inicio: {
     texto: "En el auto de vuelta, en marcha sobre la ruta. ¿Para dónde vamos?",
@@ -194,9 +169,9 @@ arturo: {
   oler_flor: {
     texto: "Las flores rosas parecen brillar más que ninguna, pero las rojas llaman tanto la atención... Y las violetas, tan particulares.",
     opciones: [
-      { texto: "Rosas", destino: "lucy_sky", imagen:"/images/" },
-      { texto: "Rojas", destino: "risas_pulguita", imagen:"/images/" },
-      { texto: "Violetas", destino: "super_sopa", objeto: "Flor violeta", imagen:"/images/"}
+      { imagen: "/Juego---Cuestionario/game-project/public/images/pink.jpg", destino: "lucy_sky",  },
+      { imagen: "/Juego---Cuestionario/game-project/public/images/red.jpg", destino: "risas_pulguita", },
+      { imagen: "/Juego---Cuestionario/game-project/public/images/purple.jpg", destino: "super_sopa", objeto: "Flor violeta",}
       ]
   },
 
@@ -329,10 +304,18 @@ arturo: {
 
 
   cabana_bosque: {
-    texto: "Te agitaste y perdiste.",
+    texto: "A una distancia considerable se ve una cabaña solitaria. Te llama la atención y sigilosamente caminamos hacia ella. A medida que nos acercamos se empieza a escuchar un ruido. Hay alguien adentro.",
     opciones: [
-      { texto: "Entrar en la cabaña", destino: "cabana_juego" },
+      { texto: "Entrar en la cabaña", destino: "pre_cabana" },
       { texto: "Rodearla y seguir", destino: "fin_bosque" }
+    ]
+  },
+
+  pre_cabana: {
+    texto: "Madera gastada por el paso de los años, utensilios varios y extraños, estantes con muchas botellitas de colores agrupadas sin orden aparente. En el centro de la escena, un anciano de barba blanca revolviendo un caldero enorme con una cuchara de madera. Nos clava una mirada exhausta y llena de tristeza antes de comenzar su relato: 'Ya lo intenté todo. No hay solución. La magia muere día a día y las criaturas del bosque se vuelven más débiles a cada salida del sol. Mi conocimiento es vasto, pero pecaría de soberbio si dijera que soy capaz de crear la poción necesaria solo con él. Necesitamos una cura lo antes posible, y las recetas mágicas están perdidas hace mucho tiempo.'",
+    opciones: [
+      { texto: "Ayudar al anciano a preparar la poción", destino: "cabana_juego" },
+      { texto: "Salir de la cabaña", destino: "fin_bosque" }
     ]
   },
 
@@ -347,8 +330,8 @@ arturo: {
   viejo_casa: {
     texto: "Un viejo sale de la casa y te ve fotografiando el hongo. Te ofrece llevártelo.",
     opciones: [
-      {texto: "Le agradecés y seguís"},
-      {texto: "Te llevás el hongo", objeto: "Hongo"}
+      {texto: "Le agradecés y seguís", destino: "cabana_bosque"},
+      {texto: "Te llevás el hongo", objeto: "Hongo", destino: "cabana_bosque"}
     ]
   },
 

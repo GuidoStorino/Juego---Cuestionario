@@ -5,6 +5,7 @@ const RECETAS_VALIDAS = [
   ['hierbas', 'vino', 'sal'],
   ['sal', 'hongos', 'vino'],
   ['hierbas', 'hongos', 'agua'],
+  ['cámara', 'hongo']
 ];
 
 const RECETAS_FALLIDAS = [
@@ -52,7 +53,7 @@ const CalderoPocion = () => {
     });
 
     if (recetaExitosa) {
-      setMensaje("¡La poción comienza a brillar! Has creado una mezcla perfecta.");
+      setMensaje("¡La poción está brillando! ¡Encontraste la cura! Salvaste a las criaturas del bosque. Gracias, gracias, ¡gracias!");
       setJuegoGanado(true);
       return;
     }
@@ -90,13 +91,27 @@ const CalderoPocion = () => {
     <div style={{ padding: "1rem", backgroundColor: "#f0efe7", borderRadius: "12px" }}>
       <h2>Caldero Mágico</h2>
 
-      {/* Caldero visual */}
       <div className={`caldero ${estadoCaldero}`}>
-        <div className="liquido"></div>
-        <div className="burbujas">
-          <span></span><span></span><span></span>
-        </div>
-      </div>
+  <div className="pata p1" aria-hidden="true"></div>
+  <div className="pata p2" aria-hidden="true"></div>
+
+  <div className="liquido" aria-hidden="true"></div>
+
+  <div className="burbujas" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div className="humo" aria-hidden="true">
+    <div className="nube n1"></div>
+    <div className="nube n2"></div>
+    <div className="nube n3"></div>
+  </div>
+
+  <div className="chispa chispas-1" aria-hidden="true"></div>
+  <div className="chispa chispas-2" aria-hidden="true"></div>
+  <div className="chispa chispas-3" aria-hidden="true"></div>
+</div>
+
 
       {!juegoGanado && (
         <button onClick={() => irAEscena("bosque_intro")} style={{ marginBottom: "1rem" }}>
@@ -141,7 +156,7 @@ const CalderoPocion = () => {
 
       {juegoGanado && (
         <div style={{ marginTop: "1rem" }}>
-          <h3>¡Juego Ganado!</h3>
+          <h3></h3>
           <button onClick={() => irAEscena("bosque_intro")} style={{ marginRight: "1rem" }}>
             Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
           </button>
