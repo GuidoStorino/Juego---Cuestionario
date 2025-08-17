@@ -21,6 +21,7 @@ import { duende_tesoro } from "./duende_tesoro";
 import { sirenas_melodia } from "./sirenas_melodia";
 import { super_sopa } from "./super_sopa";
 import { espejo_pasado } from "./espejo_pasado";
+import maruo from '../assets/maruo.jpg';
 
 export const escenas = {
     ...bosque,
@@ -64,7 +65,7 @@ export const escenas = {
 
   ortiba: {
     texto: "Ah, sos la novia más ortiba del mundo.",
-    opciones: [{imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "inicio"}]
+    opciones: [{imagen: maruo, destino: "inicio"}]
   },
 
 

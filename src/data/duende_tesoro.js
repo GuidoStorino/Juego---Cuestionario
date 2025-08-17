@@ -1,15 +1,17 @@
+import leprechaun from '../assets/leprechaun.png'
+
 export const duende_tesoro = {
 
     duende_tesoro: {
         texto: "Los duendes te darán pistas para que puedas responder sus preguntas. Si lo lográs, te darán a cambio su tesoro. ¡Cuidado! Estos sólo quieren quitarte dinero.",
         id: "duende_tesoro",
         opciones: [
-            {texto: "Rocho", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Rock tiene el tesoro"},
-            {texto: "Robbie", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Uno de nosotros miente"},
-            {texto: "Rock", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Rocho no tiene el tesoro"},
-            {texto: "Rooney", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Tanto tiempo hace que estamos aquí. Rowling, quien más. Rock, quien menos."},
-            {texto: "Rocco", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "Yo no sé quién tiene el tesoro, no sé de esas cosas. No estoy aquí hace tan poco como Rock, pero tampoco hace tanto como Rowling, Sólo sé que no se lo darían a quien acusa a otro de traición. Eso es una traición. Pero no me pregunten. No sé quién lo tiene."},
-            {texto: "Rowling", imagen: "/Juego---Cuestionario/game-project/public/images/leprechaun.png", mensaje: "El tesoro no se le deja nunca al más anciano, pero mucho menos se le confía al más joven"},
+            {texto: "Rocho", imagen: leprechaun, mensaje: "Rock tiene el tesoro"},
+            {texto: "Robbie", imagen: leprechaun, mensaje: "Uno de nosotros miente"},
+            {texto: "Rock", imagen: leprechaun, mensaje: "Rocho no tiene el tesoro"},
+            {texto: "Rooney", imagen: leprechaun, mensaje: "Tanto tiempo hace que estamos aquí. Rowling, quien más. Rock, quien menos."},
+            {texto: "Rocco", imagen: leprechaun, mensaje: "Yo no sé quién tiene el tesoro, no sé de esas cosas. No estoy aquí hace tan poco como Rock, pero tampoco hace tanto como Rowling, Sólo sé que no se lo darían a quien acusa a otro de traición. Eso es una traición. Pero no me pregunten. No sé quién lo tiene."},
+            {texto: "Rowling", imagen: leprechaun, mensaje: "El tesoro no se le deja nunca al más anciano, pero mucho menos se le confía al más joven"},
             {texto: "❗Ya tengo las respuestas a sus preguntas", destino: "pregunta1"}
         ]
     },

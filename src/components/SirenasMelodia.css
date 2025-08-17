@@ -9,16 +9,7 @@
   font-family: Arial, sans-serif;
 }
 
-.sirenas-background {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('/Juego---Cuestionario/game-project/public/images/sirenas.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: brightness(0.7); /* Oscurece la imagen para mejorar contraste */
-  z-index: 0;
-}
+
 
 .sirenas-content {
   position: relative;

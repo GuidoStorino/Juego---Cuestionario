@@ -1,3 +1,5 @@
+import retrato from '../assets/retrato.png';
+
 export const crimenauto = { 
      crimenauto: {
       id: "crimenauto",
@@ -49,7 +51,7 @@ casa_victima: {
   id: "casa_victima",
     texto: "La casa está cerrada.",
     opciones: [
-        {texto: "Mirar por la ventana", mensaje: "img.retrato"},
+        {texto: "Mirar por la ventana", mensaje: retrato},
         {texto: "Ir unas casas más allá. Se oyen ruidos", destino: "casa_fiesta"},
         { texto: "Ya resolví todo", destino: "crimen_resuelto"}
     ]

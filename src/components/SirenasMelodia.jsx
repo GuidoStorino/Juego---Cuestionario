@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Piano } from "./Piano";
 import "./SirenasMelodia.css";
+import sirenas from "../assets/sirenas.JPG"
 
 export function SirenasMelodia({ actualizarEscena }) {
   const [mensaje, setMensaje] = useState("");
@@ -76,7 +77,20 @@ export function SirenasMelodia({ actualizarEscena }) {
     <div
       className={`sirenas-melodia-container ${animando ? "fade-out" : "fade-in"}`}
     >
-      <div className="sirenas-background" />
+<div
+  className="sirenas-background"
+  style={{
+    backgroundImage: `url(${sirenas})`,
+    backgroundSize: "contain",     // ← cambiar cover → contain
+    backgroundRepeat: "no-repeat", // para que no se repita si no llena todo
+    backgroundPosition: "center",  // centrado
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
+  }}
+/>
       <div className="sirenas-content">
         {fase === "juego" ? (
           <>
@@ -90,6 +104,7 @@ export function SirenasMelodia({ actualizarEscena }) {
                 position: "absolute",
                 cursor: dragging.current ? "grabbing" : "grab",
               }}
+              
             >
               <Piano
                 correctSequence={correctSequence}
@@ -97,6 +112,21 @@ export function SirenasMelodia({ actualizarEscena }) {
               />
             </div>
             {!esCorrecta && mensaje && <p className="mensaje">{mensaje}</p>}
+
+                <button
+      onClick={() => actualizarEscena("bosque_intro")}
+      style={{
+        marginTop: "15rem",
+        padding: "0px 20px",
+        borderRadius: "8px",
+        border: "none",
+        backgroundColor: "#4CAF50",
+        color: "white",
+        cursor: "pointer",
+      }}
+    >
+      Volver al bosque
+    </button>
           </>
         ) : (
           <div className="pantalla-final">

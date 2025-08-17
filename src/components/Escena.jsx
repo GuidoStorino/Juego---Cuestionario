@@ -201,7 +201,8 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   }
 
   if (escena.tipo === "sirenas_melodia") {
-    return <SirenasMelodia actualizarEscena={avanzar} />;
+    return <SirenasMelodia actualizarEscena={avanzar} 
+    />;
   }
 
   if (escena.id === "sala_prop_bar") {
@@ -383,7 +384,14 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                     setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
                     return;
                   }
-                  if (op.mensaje) setAlerta(op.mensaje);
+                  if (op.mensaje) {
+  setAlerta(
+    typeof op.mensaje === "string" && op.mensaje.endsWith(".png")
+      ? <img src={op.mensaje} alt="Imagen" style={{ maxWidth: "100%" }} />
+      : op.mensaje
+  );
+}
+
                   if (op.objeto) elegirObjeto(op.objeto);
                   avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
                 }}

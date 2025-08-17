@@ -1,4 +1,16 @@
-import './bosque.css'
+import './bosque.css';
+import sendero from '../assets/sendero_bosque.jpg';
+import campoFlores from '../assets/campo_flores.jpg';
+import feriaBosque from '../assets/feria_bosque.jpg';
+import casitasBosque from '../assets/casitas_bosque.jpg';
+import pocion from '../assets/pocion_suerte.jpg';
+import agua from '../assets/agua_bosque.jpg';
+import piedra_zodiaco from '../assets/piedra_zodiaco.jpg';
+import espejo from '../assets/espejo_magico.jpg';
+import pink from '../assets/pink.jpg';
+import red from '../assets/red.jpg';
+import purple from '../assets/purple.jpg';
+import hofner from '../assets/hofner.jpg';
 
 export const bosque = {
   
@@ -6,10 +18,10 @@ export const bosque = {
     texto: "Empezás a caminar por un bosque y empezás a ver diferentes caminos para tomar. Un campo inmenso de flores rojas, rosas, y violetas, un sendero de tierra rodeado de árboles de hojas doradas, una feria de artesanías antiguas, y pequeñas casitas entre el paisaje boscoso. ¿Qué camino tomás?",
     tipo: "bosque",
     opciones: [
-      { texto: "", imagen: "/Juego---Cuestionario/game-project/public/images/sendero_bosque.jpg", destino: "sendero_tierra", },
-      { texto: "", destino: "campo_flores", imagen: "/Juego---Cuestionario/game-project/public/images/campo_flores.jpg", },
-      { texto: "", destino: "feria_bosque", imagen: "/Juego---Cuestionario/game-project/public/images/feria_bosque.jpg" },
-      { texto: "", destino: "casitas_bosque", imagen: "/Juego---Cuestionario/game-project/public/images/casitas_bosque.jpg" }
+      { texto: "", imagen: sendero, destino: "sendero_tierra", },
+      { texto: "", destino: "campo_flores", imagen: campoFlores, },
+      { texto: "", destino: "feria_bosque", imagen: feriaBosque },
+      { texto: "", destino: "casitas_bosque", imagen: casitasBosque }
     ]
   },
   sendero_tierra: {
@@ -169,9 +181,9 @@ arturo: {
   oler_flor: {
     texto: "Las flores rosas parecen brillar más que ninguna, pero las rojas llaman tanto la atención... Y las violetas, tan particulares.",
     opciones: [
-      { imagen: "/Juego---Cuestionario/game-project/public/images/pink.jpg", destino: "lucy_sky",  },
-      { imagen: "/Juego---Cuestionario/game-project/public/images/red.jpg", destino: "risas_pulguita", },
-      { imagen: "/Juego---Cuestionario/game-project/public/images/purple.jpg", destino: "super_sopa", objeto: "Flor violeta",}
+      { imagen: pink, destino: "lucy_sky",  },
+      { imagen: red, destino: "risas_pulguita", },
+      { imagen: purple, destino: "super_sopa", objeto: "Flor violeta",}
       ]
   },
 
@@ -286,19 +298,19 @@ arturo: {
     },
 
     bajo: {
-      texto: "Una gran elección. Llegaste al final de este camino. Felicitaciones. Te ganaste este hermoso bajo Höfner", imagen: "PinturaSalaBar.png",
+      texto: "Una gran elección. Llegaste al final de este camino. Felicitaciones. Te ganaste este hermoso bajo Höfner", imagen: hofner,
       opciones: [
-        {texto: "Salir a la calle", destino: "calle_inicio", imagen: "PinturaSalaBar.png"}
+        {texto: "Salir a la calle", destino: "calle_inicio"}
       ]
     },
 
   feria_bosque: {
     texto: "",
     opciones: [
-      {texto: "Poción de la suerte $50", objeto: "Poción Suerte", costo: 50, destino: "bosque_intro", imagen: "/Juego---Cuestionario/game-project/public/images/pocion_suerte.jpg", },
-      {texto: "Espejo mágico $30", imagen:  "/Juego---Cuestionario/game-project/public/images/espejo_magico.jpg", objeto: "Espejo Mágico", costo: 30, destino: "bosque_intro" },
-      {texto: "Agua del bosque $30", imagen:  "/Juego---Cuestionario/game-project/public/images/agua_bosque.jpg", costo: 15, objeto: "Agua del Bosque", destino: "bosque_intro"},
-      {texto: "Piedra zodiacal $15", imagen:  "/Juego---Cuestionario/game-project/public/images/piedra_zodiaco.jpg", costo: 15, objeto: "Piedra Zodiacal", destino: "bosque_intro"}
+      {texto: "Poción de la suerte $50", objeto: "Poción Suerte", costo: 50, destino: "bosque_intro", imagen: pocion, },
+      {texto: "Espejo mágico $30", imagen:  espejo, objeto: "Espejo Mágico", costo: 30, destino: "bosque_intro" },
+      {texto: "Agua del bosque $30", imagen: agua, costo: 15, objeto: "Agua del Bosque", destino: "bosque_intro"},
+      {texto: "Piedra zodiacal $15", imagen:  piedra_zodiaco, costo: 15, objeto: "Piedra Zodiacal", destino: "bosque_intro"}
     ]
   },
 

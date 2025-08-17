@@ -1,3 +1,7 @@
+import cartaQRcontenido from '../assets/cartaQRcontenido.jpg';
+
+
+
 export const bar = {
     bar: {
         texto:"El bar es espacioso, de luz tenue y paredes de piedra. Hay gente, pero no está lleno. Para sentarte, elegís la barra. Una moza joven con el pelo recogido se acerca y te ofrece escanear el código QR o la carta en papel.",
@@ -8,7 +12,7 @@ export const bar = {
   },
 
   carta_qr: {
-    opciones: [{imagen: "/Juego---Cuestionario/game-project/public/images/cartaQRcontenido.jpg", destino: "bar",
+    opciones: [{imagen: cartaQRcontenido, destino: "bar",
           estilo: { 
       objectFit: "contain",
       width: "100%",
