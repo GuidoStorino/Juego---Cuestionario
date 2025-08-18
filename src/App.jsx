@@ -185,18 +185,15 @@ const elegirObjeto = (objeto, costo = 0, cantidadFichas = 0) => {
   avanzar={avanzar}
   elegirObjeto={(objeto, costo = 0, cantidadFichas = 0) => {
     setEstado((prev) => {
-      // Validar dinero antes de comprar
       if (prev.dinero < costo) {
         alert("No tenés suficiente dinero para comprar este objeto.");
-        return prev; // no hacer cambios
+        return prev;
       }
 
-      // Evitar duplicados en inventario
       const nuevoInventario = prev.inventario.includes(objeto)
         ? prev.inventario
         : [...prev.inventario, objeto];
 
-      // Actualizar estado
       const siguiente = escenas[prev.escena]?.siguiente || prev.escena;
 
       return {
@@ -211,7 +208,16 @@ const elegirObjeto = (objeto, costo = 0, cantidadFichas = 0) => {
   }}
   actualizarEscena={actualizarEscena}
   guardarRespuesta={guardarRespuestaTexto}
+  dinero={estado.dinero}                      // 🔹 pasar dinero
+  onChangeDinero={(delta) =>
+    setEstado((prev) => ({ ...prev, dinero: Math.max(0, prev.dinero + delta) }))
+  }
+  fichas={estado.fichas}                      // 🔹 pasar fichas
+  onChangeFichas={(delta) =>
+    setEstado((prev) => ({ ...prev, fichas: Math.max(0, prev.fichas + delta) }))
+  }
 />
+
 
 
 

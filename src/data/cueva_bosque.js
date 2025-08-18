@@ -1,9 +1,11 @@
+import simbolo from '../assets/simbolo_cueva.jpg';
+
 export const cueva_bosque = { 
      cueva_bosque: {
       id: "cuevabosque",
         texto: "Estás dentro de una cueva que no parece ser muy grande. La luz del sol te ayuda a ver un poco. Hay algunas cosas sobre el suelo y paredes que parecen tener escritos.",
     opciones: [
-      { texto: "Ver cueva", mensaje: {imagen: "/Juego---Cuestionario/game-project/public/images/cueva_bosque.jpg"} },
+      { texto: "Ver cueva", mensaje: simbolo},
       { texto: "Tomar un hueso", objeto: "Hueso animal", mensaje: "Tomaste un hueso animal", destino: "cueva_bosque"},
       { texto: "Salir de la cueva", destino: "cueva_bosque2"}
     ],
@@ -13,7 +15,7 @@ export const cueva_bosque = {
   cueva_bosque2:{
     id: "",
     texto: "🔒 Salís de la cueva y llegás a una pared. Tiene un símbolo ",
-  opciones: [ {texto: "Ver símbolo", mensaje: {imagen: "/Juego---Cuestionario/game-project/public/images/simbolo_cueva.jpg"}},
+  opciones: [ {texto: "Ver símbolo", mensaje: ""},
     {texto: "Volver a la cueva", destino: "cueva_bosque"},
 
   ], 

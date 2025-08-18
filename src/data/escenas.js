@@ -85,7 +85,7 @@ export const escenas = {
   sur_objetos: {
     texto: "Las valijas con nuestra ropa y elementos esenciales ya están en el auto. Pero también aparece un pequeño bolso del que emana una luz, adentro hay algunos objetos. Podés elegir uno.",
     opciones: [
-    {texto: "Una petaca", objeto: "petaca"},
+    {texto: "Una petaca", objeto: "Petaca"},
     {texto: "Cámara", objeto: "Cámara"},
     {texto: "La guitarra", objeto: "Instrumento"},
     {texto: "Avanzar sin tomar nada", destino: "sur_destino"}

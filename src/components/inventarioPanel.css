@@ -59,8 +59,21 @@
 
 /* Cuando está abierto */
 .inv-wrapper.abierto .inv-panel {
-  max-height: 40vh;
+  max-height: 60vh;              /* ocupa hasta 60% de la altura de pantalla */
   padding: 8px 12px 12px 12px;
+  overflow-y: auto;              /* habilita scroll vertical si hay demasiados objetos */
+}
+
+/* Scroll estético */
+.inv-wrapper.abierto .inv-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.inv-wrapper.abierto .inv-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+.inv-wrapper.abierto .inv-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Contenido */

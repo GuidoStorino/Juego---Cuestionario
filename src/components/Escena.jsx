@@ -19,6 +19,12 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   const [alerta, setAlerta] = useState(null);
   const [inputCodigo, setInputCodigo] = useState("");
   const [codigosValidos, setCodigosValidos] = useState({}); // Estado para códigos válidos
+  const [dinero, setDinero] = useState(100);
+
+
+
+
+
 
   const escenasMisteriosas = [
     "crimenauto",
@@ -103,12 +109,14 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     "Instrumento": "🎻",
     "Free Pass": "🎟️",
     "Celular": "📱",
-    "Hueso animal": "🦴"
-
+    "Hueso animal": "🦴",
+    "Petaca": "🍾"
   };
 
   const idEscena = escena.id || escena.nombre || escena.texto; // Identificador único
   const codigoValido = codigosValidos[idEscena];
+
+
 
   // Función para manejar el texto libre
   const manejarTextoLibre = () => {
@@ -125,11 +133,24 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     }
   };
 
+    const handleChangeDinero = (delta) => {
+    setDinero((d) => Math.max(0, d + delta)); // evitar dinero negativo
+  };
+
+
   // Escenas especiales - devolver directamente el componente correspondiente
-  if (escena.tipo === "casino") {
-    return <EscenaCasino escena={escena} avanzar={avanzar} elegirObjeto={elegirObjeto}
-  dinero={escena.estado.dinero} />;
-  }
+if (escena.tipo === "casino") {
+  return (
+    <EscenaCasino
+      escena={escena}
+      avanzar={avanzar}
+      elegirObjeto={elegirObjeto}
+      dinero={dinero}                   // ✅ pasás el dinero del estado local
+      onChangeDinero={handleChangeDinero} // ✅ pasás la función para actualizarlo
+      
+    />
+  );
+}
 
 
 
@@ -261,6 +282,8 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
   }
 
 
+
+
   // Opciones a mostrar según código válido o normales
   const opcionesParaMostrar = (codigoValido ? escena.desbloquea : escena.opciones) || [];
 
@@ -278,6 +301,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
   return (
     <div className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}>
+      <p style={{ fontSize: 22, fontWeight: "bold", marginBottom: 16 }}>Dinero: ${dinero}</p>
       <p
         style={
           escena.final
@@ -384,13 +408,15 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
                     setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
                     return;
                   }
-                  if (op.mensaje) {
+if (op.mensaje) {
   setAlerta(
-    typeof op.mensaje === "string" && op.mensaje.endsWith(".png")
-      ? <img src={op.mensaje} alt="Imagen" style={{ maxWidth: "100%" }} />
-      : op.mensaje
+    typeof op.mensaje === "string" && (op.mensaje.endsWith(".png") || op.mensaje.endsWith(".jpg"))
+      ? { imagen: op.mensaje }   // 👈 objeto con 'imagen'
+      : { texto: op.mensaje }    // 👈 objeto con 'texto'
   );
 }
+
+
 
                   if (op.objeto) elegirObjeto(op.objeto);
                   avanzar(op.destino, op.puntos || 0, op.dinero || 0, op.fichas || 0, op.personalidad, op.resetPerfil);
@@ -489,6 +515,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
       )}
     </div>
   );
+  
 }
 
 export default Escena;
