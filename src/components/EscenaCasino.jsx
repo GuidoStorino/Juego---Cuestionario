@@ -1,76 +1,102 @@
 // src/components/EscenaCasino.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Ruleta from "./Ruleta";
 
 function EscenaCasino({
   escena,
-  avanzar,
-  elegirObjeto,
-  dinero,            // dinero actual
-  onChangeDinero,    // función (delta) => void
-  fichas,            // cantidad de fichas disponibles
-  onChangeFichas     // función (delta) => void
+  dinero = 0,
+  fichas = 0,
+  inventario = [],
+  onChangeDinero = () => {},
+  onChangeFichas = () => {},
+  elegirObjeto
 }) {
   const [apuesta, setApuesta] = useState("");
   const [resultadoRuleta, setResultadoRuleta] = useState(null);
   const [girando, setGirando] = useState(false);
+  const [warnMissingCallbacks, setWarnMissingCallbacks] = useState(false);
+  const tienePocionSuerte = inventario.includes("Poción Suerte");
 
-  const DURACION_RUEDA = 3000;       // duración animación ruleta
-  const GANANCIA_POR_ACIERTO = 30;   // cuánto se suma al dinero si acierta
 
-  const manejarApuesta = () => {
-    if (girando) return;
+  const DURACION_RUEDA = 3000;
+  const GANANCIA_POR_ACIERTO = 30;
+  const PRECIO_FICHA = 10;
 
-    if (fichas < 1) {
-      alert("No tenés fichas para apostar.");
+  // Detectar si faltan callbacks
+  useEffect(() => {
+    const missing = (typeof onChangeDinero !== "function") || (typeof onChangeFichas !== "function");
+    setWarnMissingCallbacks(missing);
+  }, [onChangeDinero, onChangeFichas]);
+
+  // Comprar ficha sin afectar inventario ni escena
+  const comprarFicha = (cantidad = 1) => {
+    if (dinero < PRECIO_FICHA * cantidad) {
+      alert("No tenés suficiente dinero para comprar fichas.");
       return;
     }
-
-    const numeroApostado = parseInt(apuesta, 10);
-    if (isNaN(numeroApostado) || numeroApostado < 1 || numeroApostado > 5) {
-      alert("Ingresá un número entre 1 y 5");
-      return;
-    }
-
-    // descontamos una ficha por la apuesta
-    if (typeof onChangeFichas === "function") {
-      onChangeFichas(-1);
-    }
-
-    // generamos el número ganador
-    const resultado = Math.floor(Math.random() * 5) + 1;
-    setResultadoRuleta(resultado);
-    setGirando(true);
-
-    setTimeout(() => {
-      setGirando(false);
-
-      if (resultado === numeroApostado) {
-        if (typeof onChangeDinero === "function") {
-          onChangeDinero(GANANCIA_POR_ACIERTO);
-          alert(`¡Ganaste! Sumaste $${GANANCIA_POR_ACIERTO}`);
-        }
-      } else {
-        alert(`Perdiste. La ruleta cayó en ${resultado}`);
-      }
-    }, DURACION_RUEDA + 80);
+    onChangeDinero(-PRECIO_FICHA * cantidad);
+    onChangeFichas(cantidad);
   };
+
+
+const manejarApuesta = () => {
+  if (girando) return;
+  if (fichas < 1) {
+    alert("No tenés fichas para apostar.");
+    return;
+  }
+
+  const numeroApostado = parseInt(apuesta, 10);
+  if (isNaN(numeroApostado) || numeroApostado < 1 || numeroApostado > 5) {
+    alert("Ingresá un número entre 1 y 5");
+    return;
+  }
+
+  onChangeFichas(-1);
+
+  const PROB_POCION_SUERTE = 0.9; // 90% de chance de acertar con la poción
+  let resultado;
+
+  if (tienePocionSuerte) {
+    if (Math.random() < PROB_POCION_SUERTE) {
+      resultado = numeroApostado; // gana
+    } else {
+      const otros = [1,2,3,4,5].filter(n => n !== numeroApostado);
+      resultado = otros[Math.floor(Math.random() * otros.length)];
+    }
+  } else {
+    resultado = Math.floor(Math.random() * 5) + 1;
+  }
+
+  setResultadoRuleta(resultado);
+  setGirando(true);
+
+  setTimeout(() => {
+    setGirando(false);
+    if (resultado === numeroApostado) {
+      onChangeDinero(GANANCIA_POR_ACIERTO);
+      alert(`¡Ganaste! Sumaste $${GANANCIA_POR_ACIERTO}`);
+    } else {
+      alert(`Perdiste. La ruleta cayó en ${resultado}`);
+    }
+    setApuesta("");
+  }, DURACION_RUEDA + 80);
+};
+
 
   return (
     <div>
+      {warnMissingCallbacks && (
+        <div style={{ background: "#fff4e5", padding: 8, borderRadius: 6, marginBottom: 10 }}>
+          <strong>Atención:</strong> falta onChangeDinero y/o onChangeFichas en el componente padre.
+        </div>
+      )}
+
       <p>{escena?.texto}</p>
 
       <div style={{ marginBottom: 16 }}>
         <p>Fichas disponibles: {fichas}</p>
-        <button
-          onClick={() => {
-            if (typeof elegirObjeto === "function") {
-              elegirObjeto("Ficha", 10, 1); // compra de fichas
-            }
-          }}
-        >
-          Comprar 1 ficha por $10
-        </button>
+        <button onClick={() => comprarFicha(1)}>Comprar 1 ficha por ${PRECIO_FICHA}</button>
       </div>
 
       <div>

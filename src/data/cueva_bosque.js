@@ -1,11 +1,12 @@
 import simbolo from '../assets/simbolo_cueva.jpg';
+import cueva from '../assets/cueva_bosque.jpg';
 
 export const cueva_bosque = { 
      cueva_bosque: {
       id: "cuevabosque",
         texto: "Estás dentro de una cueva que no parece ser muy grande. La luz del sol te ayuda a ver un poco. Hay algunas cosas sobre el suelo y paredes que parecen tener escritos.",
     opciones: [
-      { texto: "Ver cueva", mensaje: simbolo},
+      { texto: "Ver cueva", mensaje: cueva},
       { texto: "Tomar un hueso", objeto: "Hueso animal", mensaje: "Tomaste un hueso animal", destino: "cueva_bosque"},
       { texto: "Salir de la cueva", destino: "cueva_bosque2"}
     ],
@@ -13,9 +14,8 @@ export const cueva_bosque = {
   },
 
   cueva_bosque2:{
-    id: "",
     texto: "🔒 Salís de la cueva y llegás a una pared. Tiene un símbolo ",
-  opciones: [ {texto: "Ver símbolo", mensaje: ""},
+  opciones: [ {texto: "Ver símbolo", mensaje: simbolo},
     {texto: "Volver a la cueva", destino: "cueva_bosque"},
 
   ], 

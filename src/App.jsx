@@ -69,6 +69,8 @@ function App() {
     localStorage.setItem("fichas", fichas.toString());
     localStorage.setItem("historial", JSON.stringify(historial));
   }, [estado]);
+  
+
 
   const avanzar = (destino = null, puntos = 0, dinero = 0, fichas = 0, personalidad = null, resetPerfil = false) => {
     setEstado((prev) => {

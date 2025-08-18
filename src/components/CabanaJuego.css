@@ -669,3 +669,25 @@
   .caldero-app .boton-siguiente-escena, .caldero-app > button { padding: 8px 10px; }
   .caldero-app { width: 94vw; height: auto; }
 }
+/* Forzar que el caldero no tape controles y que los botones estén por encima */
+.caldero {
+  z-index: 1; /* caldero en fondo relativo */
+  position: relative; /* ya lo tenías, aquí por claridad */
+}
+
+/* Aseguramos que los botones principales y la UI del caldero estén por encima */
+.caldero-app > button,
+.caldero-app .acciones-caldero,
+.caldero-app .boton-siguiente-escena,
+.caldero-app ul li button,
+.caldero-app .objetos-en-caldero,
+.caldero-app .botones-caldero {
+  position: relative;
+  z-index: 20; /* por encima de las nubes, chispas y pseudo-elementos */
+}
+
+/* Si tenés un modal o receta que deba tapar todo, usá un z-index mayor allí (por ejemplo 1000) */
+.caldero-app .receta-modal,
+.caldero-app .overlay-receta {
+  z-index: 1000;
+}

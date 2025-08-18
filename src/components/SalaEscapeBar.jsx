@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import pinturaImg from '../assets/pinturacuadro.png'
 
 const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
   const [tiempo, setTiempo] = useState(1500); // 30 minutos
@@ -115,7 +116,7 @@ const SalaEscapeBar = ({ volverAlBar, reiniciarJuego, ganarJuego }) => {
 
         <button onClick={() => mostrarMensaje(
   <img
-    src="/Juego---Cuestionario/game-project/public/images/retrato_salita.PNG"
+    src= {pinturaImg}
     alt="Pintura misteriosa"
     style={{ width: "100%", maxWidth: "400px", borderRadius: "8px" }}
   />

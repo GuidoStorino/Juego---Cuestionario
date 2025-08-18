@@ -14,14 +14,18 @@ import { SirenasMelodia } from "./SirenasMelodia";
 import SopaDePalabras from "./SopaDePalabras";
 import "../data/bosque.css"
 
-function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta }) {
+function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta, dinero, onChangeDinero, fichas, onChangeFichas, inventario }) 
+   {if (!escena) return null;
   const [input, setInput] = useState("");
   const [alerta, setAlerta] = useState(null);
   const [inputCodigo, setInputCodigo] = useState("");
   const [codigosValidos, setCodigosValidos] = useState({}); // Estado para códigos válidos
-  const [dinero, setDinero] = useState(100);
 
 
+
+  const handleChangeFichas = (delta) => {
+    setEstado(prev => ({ ...prev, fichas: Math.max(0, prev.fichas + delta) }));
+  };
 
 
 
@@ -139,18 +143,24 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
 
   // Escenas especiales - devolver directamente el componente correspondiente
-if (escena.tipo === "casino") {
-  return (
-    <EscenaCasino
-      escena={escena}
-      avanzar={avanzar}
-      elegirObjeto={elegirObjeto}
-      dinero={dinero}                   // ✅ pasás el dinero del estado local
-      onChangeDinero={handleChangeDinero} // ✅ pasás la función para actualizarlo
+  if (escena.tipo === "casino") {
+    return (
+      <EscenaCasino
+        escena={escena}
+        avanzar={avanzar}
+        elegirObjeto={elegirObjeto}
+        dinero={dinero}
+        onChangeDinero={onChangeDinero}
+        fichas={fichas}
+        onChangeFichas={onChangeFichas}
+        inventario={inventario}
+      />
+    );
+  }
+
+
       
-    />
-  );
-}
+
 
 
 
@@ -408,13 +418,26 @@ if (escena.tipo === "casino") {
                     setAlerta(`${emoji} Necesitás ${requiere} para hacer esto.`);
                     return;
                   }
+// Dentro del onClick del botón (en tu map de opciones):
 if (op.mensaje) {
-  setAlerta(
-    typeof op.mensaje === "string" && (op.mensaje.endsWith(".png") || op.mensaje.endsWith(".jpg"))
-      ? { imagen: op.mensaje }   // 👈 objeto con 'imagen'
-      : { texto: op.mensaje }    // 👈 objeto con 'texto'
-  );
+  // Si op.mensaje ya es un objeto { imagen, texto } lo usamos tal cual
+  if (typeof op.mensaje === 'object' && (op.mensaje.imagen || op.mensaje.texto)) {
+    setAlerta(op.mensaje);
+  } else if (typeof op.mensaje === 'string') {
+    // Si es string, comprobamos si apunta a una imagen por su extensión
+    const lower = op.mensaje.toLowerCase();
+    const esImagen = lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.webp') || lower.endsWith('.gif') || lower.startsWith('/'); // allow public/
+    if (esImagen) {
+      setAlerta({ imagen: op.mensaje });
+    } else {
+      setAlerta({ texto: op.mensaje });
+    }
+  } else {
+    // Fallback: convertir a texto
+    setAlerta({ texto: String(op.mensaje) });
+  }
 }
+
 
 
 
