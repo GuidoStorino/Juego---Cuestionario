@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './CabanaJuego.css';
 import libroantiguo from '../assets/libroantiguo.PNG'
 
@@ -30,7 +30,7 @@ const RECETAS_FALLIDAS = [
 
 const CalderoPocion = () => {
   const [inventario, setInventario] = useState([]);
-  const [objetosUsados, setObjetosUsados] = useState([]); // debería ser siempre array
+  const [objetosUsados, setObjetosUsados] = useState([]); // array siempre
   const [mensaje, setMensaje] = useState("");
   const [tieneLibro, setTieneLibro] = useState(false);
   const [juegoGanado, setJuegoGanado] = useState(false);
@@ -42,23 +42,61 @@ const CalderoPocion = () => {
     setTieneLibro(inventarioGuardado.map(i => String(i).toLowerCase()).includes("libro antiguo"));
   }, []);
 
+  // ---- LUPA: refs y handlers ----
+  const imgRef = useRef(null);
+  const lensRef = useRef(null);
+  const ZOOM = 2;         // nivel de zoom dentro de la lente
+  const LENS_SIZE = 140;  // diámetro en px (debe coincidir con CSS)
+
+  const handleEnter = () => {
+    if (lensRef.current) lensRef.current.style.display = "block";
+  };
+  const handleLeave = () => {
+    if (lensRef.current) lensRef.current.style.display = "none";
+  };
+  const handleMove = (e) => {
+    const img = imgRef.current;
+    const lens = lensRef.current;
+    if (!img || !lens) return;
+
+    const rect = img.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const x = clientX - rect.left; // posición relativa dentro de la imagen
+    const y = clientY - rect.top;
+
+    const half = LENS_SIZE / 2;
+    const cx = Math.max(half, Math.min(x, rect.width - half));
+    const cy = Math.max(half, Math.min(y, rect.height - half));
+
+    // posicionar la lente
+    lens.style.left = `${cx - half}px`;
+    lens.style.top = `${cy - half}px`;
+
+    // fondo de la lente: la misma imagen pero ampliada
+    lens.style.backgroundImage = `url(${img.src})`;
+    lens.style.backgroundRepeat = "no-repeat";
+    lens.style.backgroundSize = `${rect.width * ZOOM}px ${rect.height * ZOOM}px`;
+    lens.style.backgroundPosition = `-${(cx * ZOOM) - half}px -${(cy * ZOOM) - half}px`;
+  };
+  // ---- FIN LUPA ----
+
   // versión segura: acepta null/undefined y devuelve array de strings (lowercase) ordenado
   const normalizeAndSort = (arr) => {
     if (!Array.isArray(arr)) {
-      if (arr == null) return []; // si es null/undefined devolvemos array vacío
-      // si no es array, intentamos convertirlo a array con un solo elemento
+      if (arr == null) return [];
       return [String(arr).toLowerCase()].sort();
     }
     return arr.map(i => String(i).toLowerCase()).sort();
   };
 
   const agregarAlCaldero = (objeto) => {
-    // guardamos la cadena tal cual en inventario; pero comparamos en lowercase
+    // si clickean el libro: mostrar/ocultar la imagen (con lupa)
     if (String(objeto).toLowerCase() === "libro antiguo") {
       setMostrarRecetas(prev => !prev);
       return;
     }
-    // defensivo: si objetosUsados está undefined por alguna razón, inicializamos a []
     setObjetosUsados(prev => {
       const base = Array.isArray(prev) ? prev : [];
       if (base.includes(objeto)) return base;
@@ -67,20 +105,12 @@ const CalderoPocion = () => {
   };
 
   const prepararPocion = () => {
-    // logs de diagnóstico
-    console.log("PREPARAR: objetosUsados (raw) =", objetosUsados, "tieneLibro =", tieneLibro);
-
-    // aseguramos que trabajamos con array
     const ingredientesUsados = normalizeAndSort(objetosUsados);
-    console.log("PREPARAR: ingredientesUsados (normalizados) =", ingredientesUsados);
-
-    // si no hay ingredientes, salimos (y mostramos mensaje)
     if (ingredientesUsados.length === 0) {
       setMensaje("No hay objetos en el caldero. Agregá algo primero.");
       return;
     }
 
-    // buscar receta exitosa
     const recetaExitosa = RECETAS_VALIDAS.find((receta) => {
       const r = normalizeAndSort(receta);
       return (
@@ -95,7 +125,6 @@ const CalderoPocion = () => {
       return;
     }
 
-    // buscar receta fallida
     const recetaFallida = RECETAS_FALLIDAS.find(({ ingredientes }) => {
       const r = normalizeAndSort(ingredientes);
       return (
@@ -174,12 +203,20 @@ const CalderoPocion = () => {
       )}
 
       {mostrarRecetas && (
-        <div style={{ marginTop: "1rem" }}>
+        <div className="magnify-wrap"
+             onMouseEnter={handleEnter}
+             onMouseLeave={handleLeave}
+             onMouseMove={handleMove}
+             onTouchStart={handleEnter}
+             onTouchMove={handleMove}
+             onTouchEnd={handleLeave}>
           <img
-            src= {libroantiguo}
+            ref={imgRef}
+            src={libroantiguo}
             alt="Recetas del libro antiguo"
-            style={{ maxWidth: "100%", border: "2px solid #333", borderRadius: "8px" }}
+            className="magnify-img"
           />
+          <div ref={lensRef} className="magnify-lens" style={{ width: LENS_SIZE, height: LENS_SIZE }} />
         </div>
       )}
 
@@ -188,7 +225,7 @@ const CalderoPocion = () => {
       {juegoGanado && (
         <div style={{ marginTop: "1rem" }}>
           <button onClick={() => irAEscena("bosque_intro")} style={{ marginRight: "1rem" }}>
-            Aún no tengo suficientes elementos, voy a seguir buscando en el bosque
+            Volver al bosque
           </button>
           <button onClick={reiniciarJuego}>Preparar poción nuevamente</button>
         </div>

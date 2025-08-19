@@ -691,3 +691,33 @@
 .caldero-app .overlay-receta {
   z-index: 1000;
 }
+
+/* Contenedor de la imagen con lente */
+.magnify-wrap {
+  position: relative;
+  display: inline-block;
+  border: 2px solid #333;
+  border-radius: 8px;
+  overflow: hidden; /* opcional para recortar la lente en bordes */
+}
+
+/* Imagen base */
+.magnify-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Lente circular que sigue el cursor */
+.magnify-lens {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.35);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  pointer-events: none; /* deja pasar clics a la imagen */
+  display: none;        /* se muestra al entrar */
+  cursor: none;         /* ocultar cursor dentro de la lente */
+  background-color: transparent;
+  /* width/height se setean inline para coincidir con LENS_SIZE */
+}
+

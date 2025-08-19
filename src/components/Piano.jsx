@@ -21,52 +21,72 @@ export function Piano({ correctSequence = [], onMelodyComplete }) {
   const audioCtx = useRef(null);
 
   useEffect(() => {
+    // no creamos el AudioContext aquí para evitar que algunos navegadores lo suspendan sin interacción
+  }, []);
+
+  const ensureAudioContext = async () => {
     if (!audioCtx.current) {
       audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
     }
-  }, []);
+    if (audioCtx.current.state === "suspended") {
+      try {
+        await audioCtx.current.resume();
+      } catch (e) {
+        // ignore
+      }
+    }
+  };
 
   const playTone = (frequency, type = "white", duration = 0.4) => {
     if (!audioCtx.current) return;
 
-    const osc = audioCtx.current.createOscillator();
-    const gain = audioCtx.current.createGain();
+    const ctx = audioCtx.current;
+    const now = ctx.currentTime;
 
-    // Diferentes timbres según tipo de tecla
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    // timbre
     osc.type = type === "white" ? "sine" : "triangle";
+    osc.frequency.setValueAtTime(frequency, now);
 
-    osc.frequency.value = frequency;
-    gain.gain.setValueAtTime(type === "white" ? 0.25 : 0.2, audioCtx.current.currentTime);
-
-    // Un pequeño ataque y decaimiento para hacerlo más piano-like
-    gain.gain.setValueAtTime(0, audioCtx.current.currentTime);
-    gain.gain.linearRampToValueAtTime(type === "white" ? 0.25 : 0.2, audioCtx.current.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.current.currentTime + duration);
+    // Envelope seguro: empezamos en valor muy bajo (no 0), atacamos y luego decay exponencial a valor pequeño
+    const peak = type === "white" ? 0.25 : 0.18;
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(peak, now + 0.02); // ataque
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration); // decay
 
     osc.connect(gain);
-    gain.connect(audioCtx.current.destination);
+    gain.connect(ctx.destination);
 
-    osc.start();
-    osc.stop(audioCtx.current.currentTime + duration);
+    osc.start(now);
+    // detener un pelín después del decay para asegurar que la rampa termine
+    osc.stop(now + duration + 0.02);
+
+    // limpieza opcional cuando termina
+    osc.onended = () => {
+      try {
+        osc.disconnect();
+        gain.disconnect();
+      } catch (e) {}
+    };
   };
 
-const handleKeyPress = (note, freq, type) => {
-  // Crear AudioContext al primer click si aún no existe
-  if (!audioCtx.current) {
-    audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
-  }
+  const handleKeyPress = async (note, freq, type) => {
+    // asegurar AudioContext activo (resume si hace falta)
+    await ensureAudioContext();
 
-  playTone(freq, type);
+    playTone(freq, type);
 
-  const newSequence = [...sequence, note];
-  setSequence(newSequence);
+    const newSequence = [...sequence, note];
+    setSequence(newSequence);
 
-  if (newSequence.length === correctSequence.length) {
-    onMelodyComplete(newSequence);
-    setSequence([]);
-  }
-};
-
+    if (newSequence.length === correctSequence.length && correctSequence.length > 0) {
+      onMelodyComplete && onMelodyComplete(newSequence);
+      setSequence([]);
+    }
+  };
 
   return (
     <div className="piano">

@@ -153,7 +153,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
         onChangeDinero={onChangeDinero}
         fichas={fichas}
         onChangeFichas={onChangeFichas}
-        inventario={inventario}
+        inventario={inventario || escena.inventario || []}
       />
     );
   }
@@ -188,27 +188,33 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
         <h2 style={{ marginBottom: 24 }}>{escena.texto}</h2>
         <div style={{ display: "flex", justifyContent: "center", gap: 16 }}>
         
-  {escena.opciones.map((opcion, index) => (
+{escena.opciones.map((opcion, index) => {
+  // Color según la opción
+  let backgroundColor = "#d50000"; // rojo por defecto
+  if (opcion.texto === "Sí, soy mayor de 25 años") {
+    backgroundColor = "#fd0076ff"; // verde para esta opción
+  }
+
+  return (
     <button
       key={index}
       onClick={() => {
-        if (opcion.objeto) { // si la opción implica comprar un objeto
+        if (opcion.objeto) {
           if (escena.estado.dinero >= (opcion.costo || 0)) {
-            escena.elegirObjeto(opcion.objeto, opcion.costo || 0);
-            if (opcion.destino) escena.actualizarEscena(opcion.destino);
+            elegirObjeto(opcion.objeto, opcion.costo || 0);
+            if (opcion.destino) actualizarEscena(opcion.destino);
           } else {
             alert("No tenés suficiente dinero para comprar este objeto.");
           }
         } else {
-          // si no es compra, solo avanza
-          if (opcion.destino) escena.actualizarEscena(opcion.destino);
+          if (opcion.destino) actualizarEscena(opcion.destino);
         }
       }}
       disabled={opcion.costo ? escena.estado.dinero < opcion.costo : false}
       style={{
         padding: "12px 24px",
         fontSize: "1.1em",
-        backgroundColor: "#d50000",
+        backgroundColor,
         color: "white",
         border: "none",
         borderRadius: 4,
@@ -218,7 +224,9 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
     >
       {opcion.texto}
     </button>
-  ))}
+  );
+})}
+
 </div>
 
 
@@ -311,7 +319,7 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
 
   return (
     <div className={`${esEscenaMisteriosa ? "escena-misterio" : ""} ${esEscenaPolicial ? "escena-policial" : ""}`}>
-      <p style={{ fontSize: 22, fontWeight: "bold", marginBottom: 16 }}>Dinero: ${dinero}</p>
+      
       <p
         style={
           escena.final

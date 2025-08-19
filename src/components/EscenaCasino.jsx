@@ -54,7 +54,7 @@ const manejarApuesta = () => {
 
   onChangeFichas(-1);
 
-  const PROB_POCION_SUERTE = 0.9; // 90% de chance de acertar con la poción
+  const PROB_POCION_SUERTE = 0.6; 
   let resultado;
 
   if (tienePocionSuerte) {
@@ -76,8 +76,6 @@ const manejarApuesta = () => {
     if (resultado === numeroApostado) {
       onChangeDinero(GANANCIA_POR_ACIERTO);
       alert(`¡Ganaste! Sumaste $${GANANCIA_POR_ACIERTO}`);
-    } else {
-      alert(`Perdiste. La ruleta cayó en ${resultado}`);
     }
     setApuesta("");
   }, DURACION_RUEDA + 80);
