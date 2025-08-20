@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './LagoJuego.css';
 import bota from '../assets/bota.png';
 import guantes from '../assets/guantes.png';
@@ -12,87 +12,212 @@ const ACCIONES = {
   pasto: { icono: pasto, nombre: 'Empujar' },
 };
 
-// Generador de niños (usado con lazy init)
 function generateNinos() {
   return Array.from({ length: 120 }).map((_, i) => ({
     id: i,
-    estado: 'sentado', // 'sentado' | 'arrojado' | 'escapando'
-    posicion: Math.random() * 70 + 15, // 15% a 85% del ancho
+    estado: 'sentado',          // 'sentado' | 'agarrado' | 'arrojado' | 'escapando'
+    posicion: Math.random() * 70 + 15, // left% (15 a 85)
+    top: null,                  // top% cuando se arrastra; null => bottom:10%
     direccionEscape: Math.random() > 0.5 ? 'izquierda' : 'derecha',
   }));
 }
 
-export default function LagoJuego({cambiarEscena}) {
+function emojiCursor(emoji, size = 64, hotspotX = 32, hotspotY = 32) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}'>
+    <text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-size='${size * 0.8}'>${emoji}</text>
+  </svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${hotspotX} ${hotspotY}, auto`;
+}
+
+export default function LagoJuego({ cambiarEscena }) {
   const [accionActual, setAccionActual] = useState(null);
   const [cooldowns, setCooldowns] = useState({ patada: false, guantes: false, pasto: false });
   const [usoAcciones, setUsoAcciones] = useState({ patada: 0, guantes: 0, pasto: 0 });
   const [cansancio, setCansancio] = useState(0);
-  const [ninos, setNinos] = useState(generateNinos); // lazy init
+  const [ninos, setNinos] = useState(generateNinos);
   const [escapeIniciado, setEscapeIniciado] = useState(false);
 
-  // Regeneración de cansancio
+  const areaRef = useRef(null);
+  const draggingIdRef = useRef(null);
+  const cansancioRef = useRef(cansancio);
+  useEffect(() => { cansancioRef.current = cansancio; }, [cansancio]);
+
+  const cursorCSS = useMemo(() => {
+    if (accionActual === 'patada') return emojiCursor('👢', 64, 40, 40);
+    if (accionActual === 'guantes') return 'grabbing';
+    if (accionActual === 'pasto') return 'grab';
+    return 'auto';
+  }, [accionActual]);
+
+  // Regeneración de cansancio gradual
   useEffect(() => {
-    const intervalo = setInterval(() => {
-      setCansancio((prev) => Math.max(0, prev - 1));
-    }, 500);
-    return () => clearInterval(intervalo);
+    const t = setInterval(() => setCansancio(c => Math.max(0, c - 1)), 500);
+    return () => clearInterval(t);
   }, []);
 
-function manejarClickNino(id) {
-  if (!accionActual || cansancio >= 100) return;
-
-  // Verificamos el estado actual del niño (estado "real", no el que pueda estar en un closure viejo)
-  const objetivo = ninos.find(n => n.id === id);
-  if (!objetivo) return;
-
-  // Permitimos click si está sentado o si ya está escapando
-  if (!(objetivo.estado === 'sentado' || objetivo.estado === 'escapando')) return;
-
-  // 1) Marcamos el niño clickeado como 'arrojado' de forma atómica
-  setNinos(prev =>
-    prev.map(n => (n.id === id ? { ...n, estado: 'arrojado' } : n))
-  );
-
-  // 2) Cansancio con clamp
-  setCansancio(c => Math.min(100, c + 20));
-
-  // 3) Eliminar al niño arrojado después de la animación (solo si fue marcado)
-  setTimeout(() => {
-    setNinos(prev => prev.filter(n => n.id !== id));
-  }, 800); // coincide con tu animación .nino.arrojado
-
-  // 4) Uso de acciones y cooldowns con functional setState (evita stale state)
-  setUsoAcciones(prev => {
-    const nuevoValor = (prev[accionActual] || 0) + 1;
-    const actualizado = { ...prev, [accionActual]: nuevoValor };
-
-    if (nuevoValor >= 2) {
-      setCooldowns(cd => ({ ...cd, [accionActual]: true }));
-      setTimeout(() => {
-        setUsoAcciones(u => ({ ...u, [accionActual]: 0 }));
-        setCooldowns(cd => ({ ...cd, [accionActual]: false }));
-      }, 3000);
-    }
-
-    return actualizado;
-  });
-
-  // 5) Si el escape no había iniciado, lo programamos con RETARDO para dar una ventana
-  //    al jugador y que pueda seguir clickeando a otros niños.
-  if (!escapeIniciado) {
-    setEscapeIniciado(true);
-    const RETARDO_ESCAPE_MS = 2200; // ajustalo si querés más/menos tiempo
-    setTimeout(() => {
+  // Disparar escape 2.2s después de la primera acción
+  useEffect(() => {
+    if (!escapeIniciado) return;
+    const RETARDO_ESCAPE_MS = 2200;
+    const t = setTimeout(() => {
       setNinos(prev => prev.map(n => (n.estado === 'sentado' ? { ...n, estado: 'escapando' } : n)));
     }, RETARDO_ESCAPE_MS);
+    return () => clearTimeout(t);
+  }, [escapeIniciado]);
+
+  // Reset de cooldowns automáticamente a los 3s
+  useEffect(() => {
+    const timers = [];
+    (['patada','guantes','pasto']).forEach((k) => {
+      if (cooldowns[k]) {
+        const t = setTimeout(() => {
+          setCooldowns(cd => ({ ...cd, [k]: false }));
+          setUsoAcciones(u => ({ ...u, [k]: 0 }));
+        }, 3000);
+        timers.push(t);
+      }
+    });
+    return () => timers.forEach(clearTimeout);
+  }, [cooldowns]);
+
+  // Listeners globales: drag y drop (mouse/touch)
+  useEffect(() => {
+    function onMouseMove(e) {
+      const id = draggingIdRef.current;
+      if (id == null) return;
+      const rect = areaRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const pctX = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+      const pctY = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+      setNinos(prev => prev.map(n => (n.id === id ? { ...n, posicion: pctX, top: pctY } : n)));
+    }
+
+    function onMouseUp() {
+      const id = draggingIdRef.current;
+      if (id == null) return;
+
+      if (cansancioRef.current >= 100) {
+        // cancelar agarre: vuelve a la orilla
+        setNinos(prev => prev.map(n => (n.id === id ? { ...n, estado: 'sentado', top: null } : n)));
+        draggingIdRef.current = null;
+        return;
+      }
+
+      // lanzar
+      setNinos(prev => {
+        const objetivo = prev.find(n => n.id === id && n.estado === 'agarrado');
+        if (!objetivo) return prev;
+        return prev.map(n => (n.id === id ? { ...n, estado: 'arrojado' } : n));
+      });
+
+      setCansancio(c => Math.min(100, c + 20));
+      setUsoAcciones(prev => {
+        const nuevo = (prev.guantes || 0) + 1;
+        const actualizado = { ...prev, guantes: nuevo };
+        if (nuevo >= 2) setCooldowns(cd => ({ ...cd, guantes: true }));
+        return actualizado;
+      });
+
+      setEscapeIniciado(prev => (prev ? prev : true));
+      draggingIdRef.current = null;
+    }
+
+    function onTouchMove(e) {
+      const id = draggingIdRef.current;
+      if (id == null) return;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const rect = areaRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const pctX = Math.max(0, Math.min(100, ((touch.clientX - rect.left) / rect.width) * 100));
+      const pctY = Math.max(0, Math.min(100, ((touch.clientY - rect.top) / rect.height) * 100));
+      setNinos(prev => prev.map(n => (n.id === id ? { ...n, posicion: pctX, top: pctY } : n)));
+    }
+
+    function onTouchEnd() { onMouseUp(); }
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchEnd);
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, []);
+
+  // Eliminar niños al terminar la animación de vuelo
+  useEffect(() => {
+    function onAnimationEnd(e) {
+      if (e.animationName !== 'volarAlLago') return;
+      const el = e.target;
+      const idStr = el?.dataset?.id;
+      if (!idStr) return;
+      const id = Number(idStr);
+      setNinos(prev => prev.filter(n => n.id !== id));
+    }
+    const area = areaRef.current;
+    if (!area) return;
+    area.addEventListener('animationend', onAnimationEnd);
+    return () => area.removeEventListener('animationend', onAnimationEnd);
+  }, []);
+
+  // Click (patada/pasto)
+  function manejarClickNinoByEvent(e) {
+    const id = parseInt(e.currentTarget.dataset?.id, 10);
+    if (Number.isNaN(id)) return;
+    if (accionActual === 'guantes') return;          // guantes se maneja con drag
+    if (cansancioRef.current >= 100) return;
+
+    setNinos(prev => {
+      const objetivo = prev.find(n => n.id === id);
+      if (!objetivo) return prev;
+      if (!(objetivo.estado === 'sentado' || objetivo.estado === 'escapando')) return prev;
+      return prev.map(n => (n.id === id ? { ...n, estado: 'arrojado' } : n));
+    });
+
+    setCansancio(c => Math.min(100, c + 20));
+    setUsoAcciones(prev => {
+      const nuevo = (prev[accionActual] || 0) + 1;
+      const actualizado = { ...prev, [accionActual]: nuevo };
+      if (nuevo >= 2) setCooldowns(cd => ({ ...cd, [accionActual]: true }));
+      return actualizado;
+    });
+    setEscapeIniciado(prev => (prev ? prev : true));
   }
-}
 
+  // Agarrar con guantes (mousedown/touchstart)
+  function agarrarNinoByEvent(e) {
+    if (accionActual !== 'guantes') return;
+    if (cansancioRef.current >= 100) return;
 
- return (
+    const id = parseInt(e.currentTarget.dataset?.id, 10);
+    if (Number.isNaN(id)) return;
+
+    const clientX = e.touches ? e.touches[0]?.clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0]?.clientY : e.clientY;
+    const rect = areaRef.current?.getBoundingClientRect();
+
+    setNinos(prev => {
+      const objetivo = prev.find(n => n.id === id);
+      if (!objetivo || objetivo.estado !== 'sentado') return prev;
+      const pctX = rect && clientX != null ? Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)) : objetivo.posicion;
+      const pctY = rect && clientY != null ? Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100)) : null;
+      return prev.map(n => (n.id === id ? { ...n, estado: 'agarrado', posicion: pctX, top: pctY } : n));
+    });
+
+    draggingIdRef.current = id;
+    e.preventDefault();
+  }
+
+  return (
     <div
-      className="juego-lago"
-      style={{ backgroundImage: `url(${fondo})` }}
+      className={`juego-lago ${accionActual ? 'tiene-accion' : ''}`}
+      style={{ backgroundImage: `url(${fondo})`, cursor: cursorCSS }}
       aria-label="Mini juego del lago"
       role="region"
     >
@@ -123,25 +248,29 @@ function manejarClickNino(id) {
       </div>
 
       {/* Área con los niños */}
-      <div className="area-ninos">
+      <div className="area-ninos" ref={areaRef}>
         {ninos.map((n) => (
           <img
             key={n.id}
+            data-id={String(n.id)}
             src={nino}
-            alt="Niño sentado"
+            alt="Niño"
             className={`nino ${n.estado} ${n.estado === 'escapando' ? n.direccionEscape : ''}`}
-            style={{ left: `${n.posicion}%` }}
-            onClick={() => (n.estado === 'sentado' || n.estado === 'escapando') && manejarClickNino(n.id)}
+            style={{
+              left: `${n.posicion}%`,
+              top: n.top != null ? `${n.top}%` : undefined,
+              bottom: n.top == null ? '10%' : 'auto'
+            }}
             draggable={false}
+            onClick={manejarClickNinoByEvent}
+            onMouseDown={agarrarNinoByEvent}
+            onTouchStart={agarrarNinoByEvent}
           />
         ))}
       </div>
 
-      {/* Botón para cambiar de escena */}
-      <button
-        className="boton-siguiente-escena"
-        onClick={() => cambiarEscena('bosque_intro')}
-      >
+      {/* Cambio de escena */}
+      <button className="boton-siguiente-escena" onClick={() => cambiarEscena('bosque_intro')}>
         Volver al bosque
       </button>
     </div>

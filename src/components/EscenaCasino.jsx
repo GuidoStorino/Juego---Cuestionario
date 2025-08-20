@@ -54,7 +54,7 @@ const manejarApuesta = () => {
 
   onChangeFichas(-1);
 
-  const PROB_POCION_SUERTE = 0.6; 
+  const PROB_POCION_SUERTE = 0.8; 
   let resultado;
 
   if (tienePocionSuerte) {
