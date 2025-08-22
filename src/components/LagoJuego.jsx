@@ -15,9 +15,9 @@ const ACCIONES = {
 function generateNinos() {
   return Array.from({ length: 120 }).map((_, i) => ({
     id: i,
-    estado: 'sentado',          // 'sentado' | 'agarrado' | 'arrojado' | 'escapando'
+    estado: 'sentado',                 // 'sentado' | 'agarrado' | 'arrojado' | 'escapando'
     posicion: Math.random() * 70 + 15, // left% (15 a 85)
-    top: null,                  // top% cuando se arrastra; null => bottom:10%
+    top: null,                         // top% durante drag; null => bottom:10%
     direccionEscape: Math.random() > 0.5 ? 'izquierda' : 'derecha',
   }));
 }
@@ -36,6 +36,7 @@ export default function LagoJuego({ cambiarEscena }) {
   const [cansancio, setCansancio] = useState(0);
   const [ninos, setNinos] = useState(generateNinos);
   const [escapeIniciado, setEscapeIniciado] = useState(false);
+  const [mensajePaz, setMensajePaz] = useState(false); // <-- NUEVO
 
   const areaRef = useRef(null);
   const draggingIdRef = useRef(null);
@@ -43,11 +44,17 @@ export default function LagoJuego({ cambiarEscena }) {
   useEffect(() => { cansancioRef.current = cansancio; }, [cansancio]);
 
   const cursorCSS = useMemo(() => {
-    if (accionActual === 'patada') return emojiCursor('👢', 64, 40, 40);
+    if (accionActual === 'patada') return emojiCursor('🥾', 64, 40, 40);
     if (accionActual === 'guantes') return 'grabbing';
     if (accionActual === 'pasto') return 'grab';
     return 'auto';
   }, [accionActual]);
+
+  // Temporizador de 15s para mostrar el mensaje
+  useEffect(() => {
+    const timer = setTimeout(() => setMensajePaz(true), 20000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Regeneración de cansancio gradual
   useEffect(() => {
@@ -65,10 +72,10 @@ export default function LagoJuego({ cambiarEscena }) {
     return () => clearTimeout(t);
   }, [escapeIniciado]);
 
-  // Reset de cooldowns automáticamente a los 3s
+  // Reset de cooldowns a los 3s
   useEffect(() => {
     const timers = [];
-    (['patada','guantes','pasto']).forEach((k) => {
+    (['patada', 'guantes', 'pasto']).forEach((k) => {
       if (cooldowns[k]) {
         const t = setTimeout(() => {
           setCooldowns(cd => ({ ...cd, [k]: false }));
@@ -97,13 +104,11 @@ export default function LagoJuego({ cambiarEscena }) {
       if (id == null) return;
 
       if (cansancioRef.current >= 100) {
-        // cancelar agarre: vuelve a la orilla
         setNinos(prev => prev.map(n => (n.id === id ? { ...n, estado: 'sentado', top: null } : n)));
         draggingIdRef.current = null;
         return;
       }
 
-      // lanzar
       setNinos(prev => {
         const objetivo = prev.find(n => n.id === id && n.estado === 'agarrado');
         if (!objetivo) return prev;
@@ -170,7 +175,7 @@ export default function LagoJuego({ cambiarEscena }) {
   function manejarClickNinoByEvent(e) {
     const id = parseInt(e.currentTarget.dataset?.id, 10);
     if (Number.isNaN(id)) return;
-    if (accionActual === 'guantes') return;          // guantes se maneja con drag
+    if (accionActual === 'guantes') return;
     if (cansancioRef.current >= 100) return;
 
     setNinos(prev => {
@@ -215,12 +220,39 @@ export default function LagoJuego({ cambiarEscena }) {
   }
 
   return (
-    <div
-      className={`juego-lago ${accionActual ? 'tiene-accion' : ''}`}
-      style={{ backgroundImage: `url(${fondo})`, cursor: cursorCSS }}
-      aria-label="Mini juego del lago"
-      role="region"
-    >
+  <div
+    className={`juego-lago ${accionActual ? "tiene-accion" : ""}`}
+    style={{
+      backgroundImage: `url(${fondo})`,
+      cursor: cursorCSS,
+      position: "relative",
+      left: "-210px", // 👈 mueve toda la pantalla 40px a la izquierda
+    }}
+    aria-label="Mini juego del lago"
+    role="region"
+  >
+      {/* Mensaje de paz */}
+      {mensajePaz && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'rgba(255,255,255,0.9)',
+            padding: '10px 20px',
+            borderRadius: '6px',
+            fontSize: '1.4rem',
+            fontWeight: 'bold',
+            zIndex: 100,
+            textAlign: 'center',
+            pointerEvents: 'none', // para no bloquear clics
+          }}
+        >
+          Ahora sí, paz y tranquilidad
+        </div>
+      )}
+
       {/* Acciones */}
       <div className="acciones">
         {Object.entries(ACCIONES).map(([clave, { icono, nombre }]) => {
@@ -259,7 +291,7 @@ export default function LagoJuego({ cambiarEscena }) {
             style={{
               left: `${n.posicion}%`,
               top: n.top != null ? `${n.top}%` : undefined,
-              bottom: n.top == null ? '10%' : 'auto'
+              bottom: n.top == null ? '10%' : 'auto',
             }}
             draggable={false}
             onClick={manejarClickNinoByEvent}

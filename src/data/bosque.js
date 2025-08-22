@@ -334,8 +334,8 @@ arturo: {
   casitas_bosque: {
     texto: "Caminando entre las casitas del bosque ves una que te llama la atención. Porque a pesar de que todas son muy similares, esta tiene a unos pasos de su puerta un árbol del que sale un hongo inmenso y de un color naranja brillante.",
     opciones: [
-      {texto: "Tomarle una fotografía al hongo", requiere: "Cámara", destino: "viejo_casa"},
-      {texto: "Seguir caminando", destino: "lago_juego" }
+      {texto: "Tomarle una fotografía al hongo. Problema: Podrías llamar la atención de los habitantes de la casa.", requiere: "Cámara", destino: "viejo_casa"},
+      {texto: "Seguir caminando, se ve un lago un poco más allá. Problema: está lleno de niños.", destino: "lago_juego" }
     ]
   },
 
