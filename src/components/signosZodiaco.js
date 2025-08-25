@@ -1,43 +1,43 @@
 const signos = {
   Aries: {
     buenas: ["Apasionado"],
-    malas: ["Explota fácil"],
-    graciosas: ["Grita con una media en la mano"],
+    malas: ["No piques mucho que explota fácil"],
+    graciosas: ["Compite hasta para ver quién pestañea más rápido"],
     completadas: [], // para llevar cuenta
   },
-  "Piedra Tauro": {
+  Tauro: {
     buenas: ["Leal"],
-    malas: ["Obstinado"],
+    malas: ["Si lo tiene en la cabeza lo va a hacer, es algo obstinado"],
     graciosas: ["Le encanta comer y coger"],
     completadas: [],
   },
     Géminis: {
-    buenas: ["Divertido"],
-    malas: ["Inestable"],
+    buenas: ["Te visita y preparate para divertirte"],
+    malas: ["Preparado para eso, o para otra cosa. Bueno... Un poco inestable"],
     graciosas: ["Te manda un “te amo” y un “me aburro” con dos minutos de diferencia"],
     completadas: [], // para llevar cuenta
   },
   Cáncer: {
     buenas: ["Cuida a los suyos"],
-    malas: ["Dramático"],
+    malas: ["Le pone nombre a las plantas y se ofende si no las saludás"],
     graciosas: ["Te cocina algo rico y llora si no decís “qué rico” tres veces"],
     completadas: [],
   },
     Leo: {
     buenas: ["Brillante"],
-    malas: ["Egocéntrico"],
-    graciosas: ["Sube una selfie, espera 10 minutos… y si no hay likes, la borra"],
+    malas: ["Coloca la lámpara y empieza a esperar que el mundo gire alrededor de sí"],
+    graciosas: ["Ensaya cómo lo ovacionan frente al espejo"],
     completadas: [], // para llevar cuenta
   },
   Virgo: {
     buenas: ["Inteligente"],
-    malas: ["Maniático"],
+    malas: ["Que todo esté ordenado y perfecto, por favor"],
     graciosas: ["Organiza hasta los encuentros sexuales por Excel"],
     completadas: [],
   },
     Libra: {
     buenas: ["Encantador"],
-    malas: ["Indeciso"],
+    malas: ["Tarda 40 minutos en elegir qué película no ver"],
     graciosas: ["Le gusta estar en pareja… pero con tres opciones más “por si acaso”"],
     completadas: [], // para llevar cuenta
   },
@@ -56,12 +56,12 @@ const signos = {
   Capricornio: {
     buenas: ["Persistente"],
     malas: ["Frío"],
-    graciosas: ["Te dice “no tengo tiempo” y a los cinco minutos está mirando precios del dólar"],
+    graciosas: ["Te dice “no tengo tiempo” y a los cinco minutos está analizando el mercado"],
     completadas: [],
   },
     Acuario: {
     buenas: ["Creativo"],
-    malas: ["Desconectado"],
+    malas: ["Propone abrazar árboles como primera cita"],
     graciosas: ["Te manda memes raros y después desaparece dos días para “pensar”"],
     completadas: [], // para llevar cuenta
   },

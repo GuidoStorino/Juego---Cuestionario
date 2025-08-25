@@ -26,6 +26,9 @@ const RECETAS_FALLIDAS = [
   { ingredientes: ['sal', 'agua del bosque', 'vino'], resultado: "El líquido se pone oscuro y espeso. No parece seguro beberlo." },
   { ingredientes: ['hongo', 'vino', 'hueso animal'], resultado: "Una nube púrpura emerge del caldero... ¡explota sin previo aviso!" },
   { ingredientes: ['hierbas azules', 'sal', 'hierbas rojas'], resultado: "La mezcla se vuelve amarga y sin color. El anciano frunce el ceño." },
+  { ingredientes: ['piedra zodiacal', 'hueso animal', 'vino'], resultado: "Ha salido un olor horrendo, olor a trampa y engaño" },
+  { ingredientes: ['piedra zodiacal', 'hongo', 'incienso aromático'], resultado: "Nada sucede, puede que te hayan vendido gato por liebre" },
+  { ingredientes: ['piedra zodiacal', 'flor roja', 'sal'], resultado: "Hay algo raro... ¿Estás segura de que nada de lo que arrojaste ahí es trucho?" },
 ];
 
 const CalderoPocion = () => {

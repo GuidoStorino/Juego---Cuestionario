@@ -146,7 +146,7 @@ setPiedras(prev => {
 
           {piedraGanadora && !juegoTerminado && (
             <div className="mensaje-piedra">
-              ¡Completaste la piedra de {piedraGanadora}! 🎉
+              ¡Completaste la piedra de {piedraGanadora}! 
             </div>
           )}
         </>
