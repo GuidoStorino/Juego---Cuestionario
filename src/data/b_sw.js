@@ -75,6 +75,56 @@ puerta_dos: {
     {texto: "Sentarnos en un sillón y besarnos", destino: "beso_sw"},
     {texto: "Salgamos de esta habitación, no quiero estar acá con estos pervertidos", destino: "primer_piso"}
   ]
+},
+
+chupada_sw: {
+  texto: "No estaba del todo parada, pero adentro de tu boca se endurece muy rápido y empezás a hacer movimientos que la ponen todavía más gorda.",
+  opciones: [
+    {texto: "Mirar cómo disfruto mientras me la chupás", destino: "chupada_acabada"},
+    {texto: "Empezar a pajearme para que me exite mientras miro alrededor", destino: "mirar_habitacion"},
+    {texto: "Mirarme, sonreírme, volver a ponerme el pantalón y llevarme de la mano a seguir explorando el lugar", destino: "primer_piso"}
+  ]
+},
+
+beso_sw: {
+  texto: "Tus besos me estimulan y me la ponen dura. Empiezo a tocarte un poco por debajo de la remera y vos hacés lo mismo. Después de mucho beso y toqueteo, abrimos un poco los ojos para ver que las dos personas que estaban ahí se están tocando mientras nos miran",
+  opciones: [
+    {texto: "Nos seguimos besando con más ganas para que se calienten más", destino: "besos_puerta_dos"},
+    {texto: "Demasiado para mí. Salgamos de acá", destino: "primer_piso"},
+    {texto: "Te saco la remera, que se toquen viendo esas tetas a punto de explotarte adentro del corpiño", destino: "tetas_puerta_dos"}
+  ]
+
+},
+
+besos_puerta_dos: {
+  texto: "Nuestras bocas no dejan de tocarse y nosotros tampoco, de vez en cuando miramos de reojo. Uno de los dos tiene la pija que no da más",
+  opciones: [
+    {texto: "Te desabrocho el pantalón, nos paramos y te pongo contra la pared", destino: "coger_puerta_dos"},
+    {texto: "Ok, ya le dimos bastante. Que terminen solos.", destino: "primer_piso"}
+  ]
+},
+
+coger_puerta_dos:{
+  texto: "Tenés las manos contra la pared y toda mi pija adentro. Empezás a gemir un poco. Empiezo a darte de costado para que te puedan ver mejor el orto",
+  opciones: [
+    {texto: "Empezás a mover el culo.", destino: "acabar_puerta_dos", puntos: 10},
+    {texto: "Abrir la boca sugerentemente mientras los mirás", destino: "acabar_puerta_dos", puntos: 10}
+  ]
+},
+
+acabar_puerta_dos: {
+  texto: "Sos tan putita que no aguanté más, ni yo ni nadie. Hiciste acabar tres pijas y te dejé toda la cola llena de leche",
+  opciones: [
+    {texto: "Salir de la habitación", destino: "primer_piso"},
+    {texto: "Salir del boliche", destino: "calle_inicio"}
+  ]
+},
+
+tetas_puerta_dos: {
+  texto: "Te toco un poco por encima del corpiño mientras nos seguimos besando, te las agarro y te las junto para que se vean mejor",
+  opciones: [
+    {texto: ""}
+  ]
 }
 
 }
