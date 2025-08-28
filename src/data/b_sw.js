@@ -1,6 +1,9 @@
+import './b_sw.css';
+
 export const b_sw = {
 b_sw: {
   texto: "Entramos al boliche. Al principio se ve un bar no muy concurrido. Pero subimos una escalera y se va escuchando música. Dejamos nuestros abrigos y celulares y nos vamos para donde está la música. Bienvenidos a la fiesta.",
+  leche: 1,
   opciones: [
     { texto: "Continuar", destino: "bol_sw2" },
     { texto: "Un momento, quiero comprar algo antes", destino: "guardarropas"},
@@ -9,14 +12,17 @@ b_sw: {
 },
 
 guardarropas: {
+  leche: 0,
   opciones: [
     { texto: "Preservativos Prime Texturado", objeto: "Forros", destino: "b_sw", costo: 5},
-    { texto: "Un chocolate para la vuelta", objeto: "Chocolate", destino: "b_sw", costo: 5}
+    { texto: "Un chocolate para la vuelta", objeto: "Chocolate", destino: "b_sw", costo: 5},
+    { texto: "Seguir para el boliche", destino: "bol_sw2"}
   ]
 },
 
 bol_sw2: {
   texto: "Suena una música que siempre tiene una base electrónica de fondo. La pista es relativamente pequeña y hay gente bailando y otra comprando tragos en la barra.",
+  leche: 1,
   opciones: [
     { texto: "Ir a bailar", destino: "baile_sw" },
     { texto: "Ir por un trago", destino: "trago_sw" }
@@ -24,6 +30,7 @@ bol_sw2: {
 },
 baile_sw: {
   texto: "Damos algunos de nuestros mejores pasos. Alrededor hay gente bailando también. Algunos, vestidos con no tanta ropa. Además de la pista y la barra, en el lugar hay unas habitaciones en el piso en donde estamos y una escalera.",
+  leche: 0,
   opciones: [
     { texto: "Explorar el piso", destino: "primer_piso" },
     { texto: "Subir las escaleras", destino: "escaleras_sw" },
@@ -33,6 +40,7 @@ baile_sw: {
 },
 trago_sw: {
   texto: "Esta caipirinha esta genial, y encima no fue muy cara. Alrededor tenemos gente bailando, algunos muy sensualmente. ¿O es la bebida? Qué importa, ¿no? También hay otras habitaciones, al parecer, en el piso donde estamos, y una escalera hacia arriba.",
+  leche: 1,
   opciones: [
     { texto: "Explorar el piso", destino: "primer_piso" },
     { texto: "Subir las escaleras", destino: "escaleras_sw" },
@@ -42,6 +50,7 @@ trago_sw: {
 
 primer_piso: {
   texto: "Los pasillos son estrechos, oscuros, y con luces rojas. Caminando uno se encuentra con diferentes habitaciones y un baño.",
+  leche: 1,
   opciones: [
     {texto: "PUERTA 1: Parejas", destino: "puerta_uno"},
     {texto: "PUERTA 2: Solos y solas", destino: "puerta_dos"},
@@ -52,6 +61,7 @@ primer_piso: {
 
 escaleras_sw: {
   texto: "Las escaleras llevan a un ambiente en donde se puede empezar a respirar un aire un poco más fresco. Llegamos a la terraza del lugar, un lugar espacioso al aire libre en donde hay gente charlando.",
+  leche: 1,
   opciones: [
     {texto: "En la barra hay una chica comprando, la vemos de espaldas. Tiene una calza transparente. Vamos a hablarle", destino: "hablar_terraza"},
     {texto: "Hay una pareja bonita. Él está vestido con una camisa roja a cuadros. Ella tiene botas, un saco negro y pinta de estudiante de contaduría. Podríamos hablarles a ellos...", destino: "hablar_pareja"},
@@ -61,6 +71,7 @@ escaleras_sw: {
 
 puerta_uno: {
   texto: "La habitación está oscura. Se oyen algunos gemidos y se llega a ver que hay unos sillones a los costados. Los ojos se nos van acostumbrando un poco y empezamos a ver a las personas un poco más nítidamente. Hay un chabón alto dándole a una rubia contra la pared. Del otro lado, una chica se monta una pija sin haberse quitado la ropa interior. Unos lugares más allá y en el mismo sillón, dos personas se practican sexo oral entre sí.",
+  leche: 2,
   opciones: [
     {texto: "Agacharte ahí mismo y empezar a chuparme la pija", destino: "chupada_sw"},
     {texto: "Mirar a la pareja coger contra la pared", destino: "mirar_coger"},
@@ -71,6 +82,7 @@ puerta_uno: {
 
 puerta_dos: {
   texto: "Todo parece vacío al entrar, está realmente oscuro. Pero vemos después que no es así, hay dos chicos a un costado.",
+  leche: 1,
   opciones: [
     {texto: "Sentarnos en un sillón y besarnos", destino: "beso_sw"},
     {texto: "Salgamos de esta habitación, no quiero estar acá con estos pervertidos", destino: "primer_piso"}
@@ -79,6 +91,7 @@ puerta_dos: {
 
 chupada_sw: {
   texto: "No estaba del todo parada, pero adentro de tu boca se endurece muy rápido y empezás a hacer movimientos que la ponen todavía más gorda.",
+  leche: 3,
   opciones: [
     {texto: "Mirar cómo disfruto mientras me la chupás", destino: "chupada_acabada"},
     {texto: "Empezar a pajearme para que me exite mientras miro alrededor", destino: "mirar_habitacion"},
@@ -88,6 +101,7 @@ chupada_sw: {
 
 beso_sw: {
   texto: "Tus besos me estimulan y me la ponen dura. Empiezo a tocarte un poco por debajo de la remera y vos hacés lo mismo. Después de mucho beso y toqueteo, abrimos un poco los ojos para ver que las dos personas que estaban ahí se están tocando mientras nos miran",
+  leche: 2,
   opciones: [
     {texto: "Nos seguimos besando con más ganas para que se calienten más", destino: "besos_puerta_dos"},
     {texto: "Demasiado para mí. Salgamos de acá", destino: "primer_piso"},
@@ -98,6 +112,7 @@ beso_sw: {
 
 besos_puerta_dos: {
   texto: "Nuestras bocas no dejan de tocarse y nosotros tampoco, de vez en cuando miramos de reojo. Uno de los dos tiene la pija que no da más",
+  leche: 3,
   opciones: [
     {texto: "Te desabrocho el pantalón, nos paramos y te pongo contra la pared", destino: "coger_puerta_dos"},
     {texto: "Ok, ya le dimos bastante. Que terminen solos.", destino: "primer_piso"}
@@ -106,6 +121,7 @@ besos_puerta_dos: {
 
 coger_puerta_dos:{
   texto: "Tenés las manos contra la pared y toda mi pija adentro. Empezás a gemir un poco. Empiezo a darte de costado para que te puedan ver mejor el orto",
+  leche: 3,
   opciones: [
     {texto: "Empezás a mover el culo.", destino: "acabar_puerta_dos", puntos: 10},
     {texto: "Abrir la boca sugerentemente mientras los mirás", destino: "acabar_puerta_dos", puntos: 10}
@@ -114,6 +130,7 @@ coger_puerta_dos:{
 
 acabar_puerta_dos: {
   texto: "Sos tan putita que no aguanté más, ni yo ni nadie. Hiciste acabar tres pijas y te dejé toda la cola llena de leche",
+  leche: 4,
   opciones: [
     {texto: "Salir de la habitación", destino: "primer_piso"},
     {texto: "Salir del boliche", destino: "calle_inicio"}
@@ -121,6 +138,7 @@ acabar_puerta_dos: {
 },
 
 tetas_puerta_dos: {
+  leche: 2,
   texto: "Te toco un poco por encima del corpiño mientras nos seguimos besando, te las agarro y te las junto para que se vean mejor",
   opciones: [
     {texto: ""}

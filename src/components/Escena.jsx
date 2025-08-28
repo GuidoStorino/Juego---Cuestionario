@@ -13,6 +13,8 @@ import SalaEscape from "./SalaEscape";
 import { SirenasMelodia } from "./SirenasMelodia";
 import SopaDePalabras from "./SopaDePalabras";
 import "../data/bosque.css"
+import '../data/b_sw.css';
+
 
 function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespuesta, dinero, onChangeDinero, fichas, onChangeFichas, inventario }) 
    {if (!escena) return null;
@@ -332,6 +334,39 @@ function Escena({ escena, avanzar, elegirObjeto, actualizarEscena, guardarRespue
       >
         {typeof escena.texto === "function" ? escena.texto(escena.estado || {}) : escena.texto}
       </p>
+{typeof escena.leche === "number" && (
+  <div className="pote-container">
+    <div className={`pote ${escena.leche === 4 ? "pote--lleno" : ""}`}>
+      <div className="pote__liquido" style={{ height: `${(escena.leche / 4) * 100}%` }}>
+        <div className="pote__onda" />
+      </div>
+      <div className="pote__brillo" />
+      <div className="pote__espuma" />
+      
+      {escena.leche === 4 && (
+        <>
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+          <div className="gota" />
+        </>
+      )}
+    </div>
+  </div>
+)}
+
+
+
+
+
 
       {escena.requiereCodigo && !codigoValido && (
         <div>
