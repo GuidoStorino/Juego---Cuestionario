@@ -57,7 +57,7 @@
   top: -12px;          /* justo por encima del borde superior del pote */
   left: 50%;
   width: 40px;         /* más gordas */
-  height: 60px;
+  height: 75px;
   background: white;   /* color blanco */
   border-radius: 50% 70% 40% 60%; /* forma irregular */
   transform: translateX(-50%);
