@@ -7,8 +7,11 @@
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   user-select: none;
+    user-select: none;
+  -webkit-user-drag: element; /* el contenedor es draggeable */
 }
 
+/* Todas las teclas */
 .piano-key {
   position: relative;
   border: 1px solid #000;
@@ -17,6 +20,10 @@
   justify-content: center;
   align-items: flex-end;
   font-size: 12px;
+  box-sizing: border-box;
+    -webkit-user-drag: none; /* 👈 las teclas no disparan drag */
+  user-select: none;
+  cursor: pointer;
 }
 
 .piano-key.white {
@@ -35,29 +42,16 @@
   border-radius: 0 0 3px 3px;
 }
 
-/* Ajustamos left para cada tecla negra basada en el orden dentro del contenedor */
-
-.piano-key.black:nth-of-type(2) { /* C# */
-  left: 31px;
-}
-
-.piano-key.black:nth-of-type(4) { /* D# */
-  left: 81px;
-}
-
-.piano-key.black:nth-of-type(7) { /* F# */
-  left: 181px;
-}
-
-.piano-key.black:nth-of-type(9) { /* G# */
-  left: 230px;
-}
-
-.piano-key.black:nth-of-type(11) { /* A# */
-  left: 281px; /* Corrección importante para que no quede sobre F */
-}
+/* Posiciones fijas para cada tecla negra */
+.piano-key.black.Csharp { left: 31px; }
+.piano-key.black.Dsharp { left: 81px; }
+.piano-key.black.Fsharp { left: 180px; }
+.piano-key.black.Gsharp { left: 231px; }
+.piano-key.black.Asharp { left: 280px; }
 
 .note-label {
   opacity: 0.4;
   margin-bottom: 5px;
+  user-select: none;
+  pointer-events: none; /* evita selección accidental */
 }

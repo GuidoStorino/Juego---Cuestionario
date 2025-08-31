@@ -58,7 +58,9 @@
 
 .pantalla-final {
   text-align: center;
-}
+  font-size: large;
+  color: #bdbdbd;
+  }
 
 
 @keyframes fadeIn {

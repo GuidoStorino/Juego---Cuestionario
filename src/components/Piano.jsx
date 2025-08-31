@@ -92,12 +92,16 @@ export function Piano({ correctSequence = [], onMelodyComplete }) {
     <div className="piano">
       {keys.map((key, index) => (
         <div
-          key={index}
-          className={`piano-key ${key.type}`}
-          onClick={() => handleKeyPress(key.note, key.freq, key.type)}
-        >
-          <span className="note-label">{key.note}</span>
-        </div>
+  key={key.note}
+  className={`piano-key ${key.type} ${key.note.replace("#", "sharp")}`}
+  onMouseDown={() => handleKeyPress(key.note, key.freq, key.type)}
+>
+  <span className="note-label">{key.note}</span>
+</div>
+
+
+        
+        
       ))}
     </div>
   );

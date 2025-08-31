@@ -14,6 +14,7 @@ export const maru = {
       { texto: "Juego del lago", destino: "lago_juego"},
       { texto: "Sala de escape del bar", destino: "sala_prop_bar"},
       { texto: "Juego de las sirenas", destino: "sirenas_melodia"},
-      { texto: "Test de vinos", destino: "test_vino"}
+      { texto: "Test de vinos", destino: "test_vino"},
+      { texto: "Casino", destino: "casino_intro"}
     ]
   }}

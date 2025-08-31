@@ -1,10 +1,27 @@
+import paredon from '../assets/paredon.jpg';
+
 export const espejo_callejon = {
     espejo_callejon: {
-        texto:"La calle es larga y oscura, la pared de gran tamaño. Pero",
+        texto:"La calle es larga y oscura, la pared de gran tamaño.",
     opciones: [
-      { texto: "Mirar el paredón", destino: "paredon", requiere: "Linterna"},
-      { texto: "El segundo espejo del baño, el cual te transporta al tocarlo", destino: "espejo_bar"},
-      { texto: "La puerta de atrás del bar, en donde hace muchos años murió el antiguo dueño y, se dice, nunca pudo salir. Ahora su fantasma vive atrapado allí.", destino: "sala_prop_bar"}
+      { texto: "Mirar el paredón", mensaje: paredon, requiere: "Linterna"},
+      { texto: "Ir a la calle", destino: "calle_callejon"},
     ]
-  }
+  },
+
+  calle_callejon: {
+    texto: "Las calles "
+  },
+
+  ferreteria_callejon:{
+    id: "codigo_ferreteria",
+    texto: "🔒 Ingrese el código para desbloquear.",
+  opciones: [], 
+  requiereCodigo: true,
+  codigoCorrecto: "",
+  desbloquea: [
+    {texto: ""}
+  ]
+},
+  
 }
