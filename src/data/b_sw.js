@@ -69,6 +69,28 @@ escaleras_sw: {
   ]
 },
 
+hablar_terraza: {
+  texto: "La chica resulta ser muy simpática con ambos",
+  leche: 0,
+  opciones: [
+    {texto: "Le sugerís darnos un beso. Primero con vos, después conmigo", destino: "chica_terraza"},
+    {texto: "Después de una pequeña charla, volvemos a bajar", destino: "baile_sw"}
+  ]
+},
+
+chica_terraza: {
+  texto: "Después de besarnos un rato todo se pone un poco más hot...",
+  leche: 1,
+  opciones: [
+    {texto: "¿Por qué no vamos a otro lugar?", destiono: "chica_terraza_dos"},
+    {texto: "Bueno, la verdad que un gusto. Nos estamos viendo", destino: "baile_sw"}
+  ]
+},
+
+chica_terraza_dos: {
+  texto: ""
+},
+
 puerta_uno: {
   texto: "La habitación está oscura. Se oyen algunos gemidos y se llega a ver que hay unos sillones a los costados. Los ojos se nos van acostumbrando un poco y empezamos a ver a las personas un poco más nítidamente. Hay un chabón alto dándole a una rubia contra la pared. Del otro lado, una chica se monta una pija sin haberse quitado la ropa interior. Unos lugares más allá y en el mismo sillón, dos personas se practican sexo oral entre sí.",
   leche: 2,
