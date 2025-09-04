@@ -1,4 +1,9 @@
 import paredon from '../assets/paredon.jpg';
+import dibujo1 from '../assets/dibujo1.jpg';
+import dibujo2 from '../assets/dibujo2.jpg';
+import dibujo3 from '../assets/dibujo3.jpg';
+import dibujo4 from '../assets/dibujo4.jpg';
+import fotoparedon from '../assets/fotoparedon.jpg'
 
 export const espejo_callejon = {
     espejo_callejon: {
@@ -59,7 +64,7 @@ export const espejo_callejon = {
       {imagen: paredon},
       {texto: "Jack Brown", mensaje: "Jack Brown \n \n Ferretero, padre de dos hijos y divorciado. Juega al poker desde que tiene memoria. Tres veces campeón del Torneo 'Los 4 Ases'. Lo comenta cada vez que tiene ocasión."},
       {texto: "Frank Queen", mensaje: "Frank Queen \n \n Desempleado y de pocas pulgas. Nunca dejó de jugar a las cartas, pero no apuesta desde hace un tiempo."},
-      {texto: "Claude Van Damme", mensaje: "Claude Van Damme \n \n Apostador de pura cepa, le gusta alardear durante las partidas. Pasa su tiempo entre poker y blackjack cuando no está en su trabajo de cerrajero. "},
+      {texto: "Claude Van Damme", mensaje: "Claude Van Damme \n \n Apostador de pura cepa, le gusta alardear durante las partidas. No hay nada que desee más que pasar su tiempo jugando poker y black jack, pero su oficio de cerrajero lo ha tenido bastante ocupado durante los últimos meses."},
       {texto: "Roi Richelieu", mensaje: "Roi Richelieu \n \n Jugador introvertido, inmigró hace no muchos años y todavía se percibe el acento de su lengua natal en sus palabras. Dibujante de profesión y jugador en su tiempo libre, si bien le gustaría que fuese al revés."},
       {texto: "Volver", destino: "taberna"}
     ]
@@ -70,7 +75,9 @@ export const espejo_callejon = {
   opciones: [
     {texto: "Volver a la taberna", destino: "taberna"},
     {texto: "Volver al callejón", destino: "calle_callejon"},
-    {texto: "Volver a la pintada", destino: "espejo_callejon"}]
+    {texto: "Volver a la pintada", destino: "espejo_callejon"},
+    {texto: "Preguntarle más al tabernero", destino: "tabernero_2"}
+  ]
   },
 
   casa_jack:{
@@ -94,7 +101,7 @@ casa_damme: {
     texto: "🔒 Ingrese el código para desbloquear.",
   opciones: [], 
   requiereCodigo: true,
-  codigoCorrecto: "1234",
+  codigoCorrecto: "4336",
   desbloquea: [
     {texto: "Tomar llave", objeto: "Llave"},
     {texto: "Volver a la taberna", destino: "taberna"},
@@ -106,13 +113,16 @@ casa_damme: {
 casa_roi: {
     opciones: [
       {texto: "Entrar a la casa", requiere: "Llave", destino: "casa_roi_interior"},
+      {texto: "Volver a la taberna", destino: "taberna"},
+      {texto: "Volver al callejón", destino: "calle_callejon"},
+      {texto: "Volver a la pintada", destino: "espejo_callejon"}
     ]
 },
 
 casa_roi_interior: {
   texto: "Una casa de tamaño moderado. Un living, una cocina, un cuarto con atriles, lienzos y pinceles.",
   opciones: [
-    {texto: "Ver dibujos", mensaje: ""},
+    {texto: "Ver dibujos", destino: "dibujos_roi"},
     {texto: "Ver anotaciones", mensaje: "JB 34AAAA \n VD \n FQ \n"},
     {texto: "Volver a la taberna", destino: "taberna"},
     {texto: "Volver al callejón", destino: "calle_callejon"},
@@ -120,5 +130,92 @@ casa_roi_interior: {
   ]
 },
 
+dibujos_roi: {
+  opciones: [
+    {imagen: dibujo1, mensaje: dibujo1},
+    {imagen: dibujo2, mensaje: dibujo2},
+    {imagen: dibujo3, mensaje: dibujo3},
+    {imagen: dibujo4, mensaje: dibujo4},
+    {texto: "Volver", destino: "casa_roi_interior"}
+  ]
+},
+
+casa_queen: {
+  opciones: [
+    {texto: "Revisar cajón", mensaje: fotoparedon} 
+  ]
+},
+
+tabernero_2: {
+    id: "",
+    texto: "Ja! Curiosa, ¿eh? A mí también me gusta jugar. Dime quién es el dibujante. ¡No! Dime cuál es su obsesión y te cuento más. Solo di la palabra, vamos.",
+  opciones: [], 
+  requiereCodigo: true,
+  codigoCorrecto: ["Tetas", "tetas", "TETAS"],
+
+  desbloquea: [
+    {texto: "¡Excelente! A que quieres saber más, ¿eh? ¿O ya lo sabes?", destino: "ultima_pregunta"},
+    {texto: "Volver a la taberna", destino: "taberna"},
+    {texto: "Volver al callejón", destino: "calle_callejon"},
+    {texto: "Volver a la pintada", destino: "espejo_callejon"}
+  ]
+},
+
+ultima_pregunta: {
+  texto: "Eres muy astuta. Pero, ¿has podido deducir quién hizo desaparecer a Charles King? Dime sólo su nombre, no levantemos la perdiz.",
+  textoLibre: true,
+  validarTexto: (input) => {
+    const respuesta = input.toLowerCase().trim();
+
+    if (respuesta === "claude") {
+      return {
+        destino: "correcto",
+        puntos: 10,
+        guardar: { clave: "cuestionario", valor: input }
+      };
+    } else if (respuesta === "jack") {
+      return {
+        destino: "nocorrecto",
+        puntos: 0
+      };
+    } else if (respuesta === "frank") {
+      return {
+        destino: "nocorrecto2",
+        puntos: 0
+      };
+     } else if (respuesta === "roi") {
+        return {
+          destino: "nocorrecto3"
+        }
+      }
+     else {
+      return {
+        destino: "nocorrecto4",
+        puntos: 0
+      };
+    }
+  }
+},
+
+nocorrecto: {
+  texto: "¿El ferretero? No mataría una mosca.",
+  opciones: [{texto: "Volver", destino: "ultima_pregunta"}]
+},
+
+correcto: {
+  texto: "En serio que eres astuta. Más que la policía, desde ya. Aunque eso no sea un gran halago. Cuando vieron la pintura de Roi, todos apuntaron a Frank. Claro. No contaron con que el dibujante dominaba nuestro idioma aún menos que ahora, y su baraja contiene otros nombres. Él se refería a Damme cuando dibujó esa reina. Aunque no fue del todo insensato. No olvidemos que Roi también dejó otra pista sobre la morada de Claude, lo que lo habría terminado de incriminar, pero esto la policía directamente lo pasó por alto, no como tú.",
+  opciones: [{texto: "Volver a la taberna", destino: "taberna"}],
+  final: true
+},
+
+nocorrecto2: {
+  texto: "El mismo error que cometió la policía. Un error lógico, pobre Frank...",
+  opciones: [{texto: "Volver", destino: "ultima_pregunta"}]
+},
+
+nocorrecto3: {
+  texto: "Ese sería un giro espectacular, ¿no te parece? El dibujante que le avisa a la policía sobre el criminal, pero resulta ser el criminal.",
+  opciones: [{texto: "Volver", destino: "ultima_pregunta"}]
+}
 
 }
